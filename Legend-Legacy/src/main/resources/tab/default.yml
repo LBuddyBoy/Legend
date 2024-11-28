@@ -1,0 +1,55 @@
+enabled: true
+
+header:
+  - ''
+  - '<blend:&6;&4;true>&lLegend HCF Core</>'
+  - ''
+
+footer:
+  - ''
+  - '&7You are currently connected to Legend | Hardcore Factions'
+  - ''
+
+left:
+  stats:
+    text: "<blend:#FDD84D;#FC7652>&lYour Statistics</>"
+    slot: 1
+    ping: -1 # -2 for it to not show -1 for it to be the players ping
+    skin:
+      texture: "%player_texture%" # blank for a blank skin %player% for the players texture
+      signature: "%player_signature%"
+  kills:
+    text: "&fKills: &#FDD84D%player_kills%"
+    slot: 2
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  deaths:
+    text: "&fDeaths: &#FDD84D%player_deaths%"
+    slot: 3
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  playtime:
+    text: "&fPlaytime: &#FDD84D%player_playtime_short%"
+    slot: 4
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  lives:
+    text: "&fLives: &#FDD84D%player_lives%"
+    slot: 5
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+
+middle:
+
+right:
+
+far-right:
+

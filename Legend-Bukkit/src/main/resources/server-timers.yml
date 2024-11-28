@@ -1,0 +1,6 @@
+
+sotw:
+  display-name: "SOTW"
+  primary-color: "&6"
+  secondary-color: "&e"
+  view: "SCOREBOARD" # SCOREBOARD, ACTION_BAR, or NONE

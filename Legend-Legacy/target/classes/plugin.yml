@@ -1,0 +1,4 @@
+name: Legend
+version: '1.0'
+main: dev.lbuddyboy.legend.Legend
+api-version: '1.20'

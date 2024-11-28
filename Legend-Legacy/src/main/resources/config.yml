@@ -1,0 +1,9 @@
+mongo:
+  host: "localhost"
+  port: 27017
+  database: "Legend"
+  auth:
+    enabled: false
+    username: ""
+    password: ""
+    database: ""

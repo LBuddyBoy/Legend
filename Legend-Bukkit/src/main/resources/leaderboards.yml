@@ -1,0 +1,185 @@
+leaderboards:
+  kills:
+    primary-color: "&c"
+    secondary-color: "&4"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTQ1NTI2OGUzZDE1ZWM4ODI2MjExOTU4ODZmODVmMjNhNGViMGUxNjIwYzdjMmI3N2Q1NThjZDNhYmJkYzZmNyJ9fX0="
+      name: '<blend:&c;&4>&lKills Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&c;&4>&lRewards</>'
+        - '&6&l1st Place &e⛁10 per kill'
+        - '&e&l2nd Place &7⛁5 per kill'
+        - '&c&l3rd Place &f⛁1 per kill'
+        - ''
+        - '&7Click to view the top killers on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  deaths:
+    primary-color: "&4"
+    secondary-color: "&c"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTJiZmFmMjQwMWFmODk5MDVlNjVhNWUxNDRjZjYxMWQ5MjViZGFjMjI0NTZkZGQyZmNmYmQ1ODVhMWE5NzAxIn19fQ=="
+      name: '<blend:&4;&c>&lDeaths Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&4;&c>&lRewards</>'
+        - '&6&l1st Place &e⛁1 per death'
+        - '&e&l2nd Place &7⛁0.5 per death'
+        - '&c&l3rd Place &f⛁0.1 per death'
+        - ''
+        - '&7Click to view the WORST players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  money:
+    primary-color: "&2"
+    secondary-color: "&a"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjZlYTk5YzhjNjIxMzZmNDlkOWMyOTQ3YzQ0Y2Y0YjFmYzkzNzI0OWRjMWVlMjAxZjUxMTA5NjA4NGIyMTQwNiJ9fX0="
+      name: '<blend:&2;&a>&lMoney Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&2;&a>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the richest players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  shards:
+    primary-color: "&6"
+    secondary-color: "&e"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGE5MDBlYWRjMDBhZmUwNjY2ZTZkMDhiYTVhOTNjNmZkYjc0OTc4ZjMzNGY0OGM4YjcxZjMwNjhkYTJhZWQ4MiJ9fX0="
+      name: '<blend:&6;&e>&lShards Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&6;&e>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the richest players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  kill_streaks:
+    primary-color: "&6"
+    secondary-color: "&c"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM3MzQyOTZmOWQ3YzczNDEzY2FjZjFmN2M5NjJlNWZmNTY0ZjBlYzNhOGViYzNkNjU0NmNjZTA4ZGRlODk4ZiJ9fX0="
+      name: '<blend:&6;&e>&lKillStreak Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&6;&c>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the most consistent players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  highest_kill_streaks:
+    primary-color: "&6"
+    secondary-color: "&4"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWQ2YmFjNDJiM2QyZDNhZjJmZWEyY2U1NjEzMDU1Y2I4ZDYzYjkyNzQ5ZmY3MjE2ZTA1OTYyMWM0ODEwNmZhMyJ9fX0="
+      name: '<blend:&6;&4>&lHighest KillStreak Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&6;&c>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the most consistent players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  kdr:
+    primary-color: "&c"
+    secondary-color: "&e"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2ExYmU1YzllZWFhZGEyZTVlOGUwMmZiYTcyOTdlZjhlMTMxYWRhNGY4Njk4NDNlYmY5N2FiNGE5ODUwNzY3In19fQ=="
+      name: '<blend:&c;&e>&lKDR Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&c;&e>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the top kdr players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  minigame_wins:
+    primary-color: "&6"
+    secondary-color: "&e"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2MxMmYwMGNkY2JlNjljMmEzNTFlNTc4OTliNzFlNjhiNWU5NWY5MmI3YTE1NmJkNTllMTMwYzk3NTRiMThlNSJ9fX0="
+      name: '<blend:&6;&e>&lMiniGame Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&6;&e>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the top minigame players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3
+  playtime:
+    primary-color: "&5"
+    secondary-color: "&d"
+    menu-item:
+      material: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTQyYTI0MTUyYWExM2FjMzE1YjI3MWQ2OThiODJiNGE3YTE3ZjEwZjE3ZjBlOGM0OTVmYjZmOGNiMzljNTU2NCJ9fX0="
+      name: '<blend:&6;&e>&lPlayTime Leaderboard</>'
+      lore:
+        - ''
+        - '<blend:&5;&d>&lRewards</>'
+        - '&cThere are no rewards for this statistic.'
+        - ''
+        - '&7Click to view the most active players on the server!'
+      item-flags:
+        - HIDE_ENCHANTS
+        - HIDE_ATTRIBUTES
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
+      data: 3

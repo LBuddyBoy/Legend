@@ -1,0 +1,50 @@
+
+combat:
+  display-name: "Combat Tag"
+  primary-color: "&4"
+  secondary-color: "&c"
+  duration: 30
+  view: "ACTION_BAR" # SCOREBOARD, ACTION_BAR, or NONE
+enderpearl:
+  display-name: "Enderpearl"
+  primary-color: "&5"
+  secondary-color: "&d"
+  duration: 16
+  view: "ACTION_BAR"
+crapple:
+  display-name: "Crapple"
+  primary-color: "&6"
+  secondary-color: "&e"
+  duration: 30
+  view: "ACTION_BAR"
+gapple:
+  display-name: "God Apple"
+  primary-color: "&6"
+  secondary-color: "&e"
+  duration: 3600
+  view: "NONE"
+invincibility:
+  display-name: "Invincibility"
+  primary-color: "&2"
+  secondary-color: "&a"
+  duration: 1800
+  view: "SCOREBOARD"
+home:
+  display-name: "Home"
+  primary-color: "&3"
+  secondary-color: "&b"
+  duration: 10
+  duration-enemy: 20
+  view: "SCOREBOARD"
+stuck:
+  display-name: "Stuck"
+  primary-color: "&e"
+  secondary-color: "&c"
+  duration: 60
+  view: "SCOREBOARD"
+archer-tag:
+  display-name: "Archer Mark"
+  primary-color: "&a"
+  secondary-color: "&7"
+  duration: 5
+  view: "SCOREBOARD"

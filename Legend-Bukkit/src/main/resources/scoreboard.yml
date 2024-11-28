@@ -1,0 +1,44 @@
+title: "&6&lLegend &f| &7HCF"
+
+separator:
+  enabled: true
+  text: '&7&m-------------------'
+
+deathban:
+  - '&fTime Left&7: &d%deathban%'
+  - '&fLives&7: &c%player_lives%'
+  - '&fCredits&7: &e%player_credits%/%credits-goal%'
+
+koth:
+  - '&b&l%name% KoTH'
+  - '&fTime Left: &b%time-left%'
+
+dtc:
+  - '&9&lDTC'
+  - '&fBreaks Left: &9%blocks-left%/%default-blocks%'
+
+citadel:
+  - '&d&lCitadel'
+  - '&fTime Left: &d%time-left%'
+
+archer:
+  speed: "&fSpeed: &e%cooldown-mmss%"
+  jump: "&fJump: &a%cooldown-mmss%"
+
+bard:
+  energy: "&fEnergy: &b%energy%"
+  cooldown: "&fEffect: &c%cooldown-mmss%"
+
+footer:
+  enabled: true
+  lines:
+    - ' '
+    - '&7&oplay.example.org'
+
+server-timer-format: '%timer-primary%&l%timer-display%&7: &c%timer-remaining-hhmmss%'
+
+sotw-timer-format:
+  enabled: '&6&l&mSOTW&6&m ends in %timer-remaining-hhmmss%'
+  normal: '&6&lSOTW&6 ends in %timer-remaining-hhmmss%'
+
+timer-format: "&f%timer-display%: %timer-primary%%timer-remaining-mmss%"

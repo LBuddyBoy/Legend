@@ -1,0 +1,180 @@
+playtime: "<blend:&2;&a>&lPLAYTIME</> &7» &e%player% currently has %playtime% of playtime!"
+
+buffer:
+  cant-place: "<blend:&4;&c>You cannot place blocks until past %buffer%!</>"
+  cant-break: "<blend:&4;&c>You cannot break blocks until past %buffer%!</>"
+  cant-interact: "<blend:&4;&c>You cannot interact with blocks until past %buffer%!</>"
+
+action-bar:
+  # %timer-colored% - returns the blended version of the timer display name and it's secondary and primary color
+  # %timer-display% - returns the display name of the timer
+  # %timer-primary% - returns the primary color
+  # %timer-secondary% - returns the secondary color
+  # %timer-id% - returns the id
+  # %timer-remaining-seconds% - returns the remaining seconds
+  # %timer-remaining-mmss% - returns in this format mm:ss
+
+  separator: " "
+  format: "%timer-colored%&f: %timer-secondary%%timer-remaining-mmss%"
+
+enderpearl-cooldown: "<blend:&4;&c>You cannot use your enderpearl for %cooldown% seconds</>"
+combat-tagged: "<blend:&4;&c>You cannot enter spawn whilst combat tagged.</>"
+
+invincibility:
+  damager-on-timer: "<blend:&4;&c>You cannot hit %target% because you have invincibility timer.</>"
+  victim-on-timer: "<blend:&4;&c>You cannot hit %target% because they have invincibility timer.</>"
+  cannot-pickup: "<blend:&4;&c>You cannot pickup this item because it's the death loot of a player.</>"
+  activated:
+    - '<blend:&2;&a>You now have Invincibility Timer for 30 minutes!</>'
+    - '<blend:&7;&f>You will not lose hunger, take pvp damage, or pickup pvp loot.</>'
+    - '<blend:&7;&f>This can be disabled by doing /pvp enable!</>'
+
+team:
+  not-existent: "<blend:&4;&c>[Team Error] A team with that name does not exist.</>"
+  no-team:
+    sender: "<blend:&4;&c>[Team Error] You are not on a team.</>"
+    friendly: "<blend:&4;&c>[Team Error] %target% is not on your team.</>"
+    enemy: "<blend:&4;&c>[Team Error] %target% is not on a team.</>"
+  has-team: "<blend:&4;&c>[Team Error] You must leave your current team before doing this.</>"
+  same-team: "<blend:&4;&c>%victim% is on your team.</>"
+  no-permission: "<blend:&4;&c>[Team Error] You need to be a %role% to execute this command.</>"
+  dtr-freeze: "<blend:&4;&c>[Team Error] You cannot do this while on DTR Freeze.</>"
+  create:
+    already-exists: "<blend:&4;&c>[Team Error] A team under that name already exists.</>"
+    broadcast: "<blend:&3;&b>[Team]</> <blend:&2;&a>%player% has created the %team% team!</>"
+  disband:
+    broadcast: "<blend:&3;&b>[Team]</> <blend:&4;&c>%player% has disbanded the %team% team!</>"
+  invite:
+    announcement: "<blend:&e;&7>%sender% invited %target% to join the team!</>"
+    already-invited: "<blend:&4;&c>[Team Error] %target% already has an invitation.</>"
+    has-team: "<blend:&4;&c>[Team Error] %target% is already on a team.</>"
+    target:
+      message: "<blend:&3;&b>[Team]</> <blend:&e;&7>%sender% invited you to join the %team% team!</> &7(/t join %team%)"
+      hover: "<blend:&2;&a>Click to accept %team%'s invitation!</>"
+  join:
+    not-invited: "<blend:&4;&c>[Team Error] %team% has not invited you to join.</>"
+    no-space: "<blend:&4;&c>[Team Error] %team% is currently full on members.</>"
+    announcement: "<blend:&2;&a>%player% has joined the team!</>"
+  leave:
+    left: "<blend:&2;&a>[Team] You have successfully left the team.</>"
+    announcement: "<blend:&4;&c>%player% has left the team!</>"
+  kick:
+    no-permission: "<blend:&4;&c>[Team Error] You need to be a role higher to kick this player.</>"
+    kicked: "<blend:&4;&c>[Team] You were kicked from %team% by %sender%.</>"
+    announcement: "<blend:&4;&c>%player% was kicked from the team by %sender%!</>"
+  regeneration:
+    regenerated: "<blend:&6;&e>You have just regenerated %dtr% DTR.</>"
+    fully-regenerated: "<blend:&6;&e>Your DTR has been fully regenerated.</>"
+  claim:
+    not-complete:
+      position-one: "<blend:&4;&c>[Claim Error] You need to left click a position to complete this process!</>"
+      position-two: "<blend:&4;&c>[Claim Error] You need to right click a position to complete this process!</>"
+    position-one: "<blend:&6;&e>[Claim]</> &aSuccessfully set the &efirst &aposition at %location%"
+    position-two: "<blend:&6;&e>[Claim]</> &aSuccessfully set the &dsecond &aposition at %location%"
+    complete:
+      - ' '
+      - '<blend:&6;&e>[Claim]</> &aShift + Right Click to confirm the selection!'
+      - '&7» &fSize: &b%size%'
+      - '&7» &fPrice: &a$%price%'
+      - '&7» &fPos 1: &e%position-one%'
+      - '&7» &fPos 2: &d%position-two%'
+      - ' '
+    confirmed: "<blend:&6;&e>[Claim]</> &aSuccessfully purchased your claim for $%price%! It can be viewed as the emerald block pillars."
+    land-change:
+      entering: "&fEntering: &e%team%"
+      leaving: ", &fLeaving: &7%team%"
+      hover: "&aClick to view more info on this team."
+    error:
+      occupied: "<blend:&4;&c>[Claim Error] That spot seems to be inside of another claim.</>"
+      overlapped: "<blend:&4;&c>[Claim Error] Your claim seems to be overlapped another, /t map to double check!</>"
+      too-small: "<blend:&4;&c>[Claim Error] You claim is too small! It needs to be at least a 5x5</>"
+      too-big: "<blend:&4;&c>[Claim Error] You claim is too big! It needs to be no larger than 50x50</>"
+      too-many: "<blend:&4;&c>[Claim Error] Your team already has the maximum amount of claims.</>"
+      touching: "<blend:&4;&c>[Claim Error] Your claim seems to be touching another claim. It must be at least 2 blocks away.</>"
+    edit:
+      cant-place: "&eYou cannot place blocks in %team%&e's land."
+      cant-break: "&eYou cannot break blocks in %team%&e's land."
+      cant-interact: "&eYou cannot interact with blocks in %team%&e's land."
+  map:
+    viewing:
+      header: "<blend:&6;&e>You are now viewing %claims% claims of %teams% teams</>"
+      format: "%team% &7(%material%)"
+  chat:
+    team-format: "<blend:&3;&b>(Team Chat) %player%</>&f: %message%"
+    officer-format: "<blend:&6;&e>(Officer Chat) %player%</>&f: %message%"
+    ally-format: "<blend:&5;&d>(Ally Chat) %player%</>&f: %message%"
+  system:
+    names:
+      spawn: "<blend:&2;&a>Safezone</>"
+      road: "<blend:&6;&e>%team% Road</>"
+      warzone: "<blend:&4;&c>Warzone</>"
+  home:
+    set: "<blend:&3;&b>The team home has been updated by %player%</>"
+    failed: "<blend:&4;&c>[Home Error] Your team home needs to be set in your claim.</>"
+    none: "<blend:&4;&c>[Home Error] Your team doesn't seem to have a home set.</>"
+    warping: "<blend:&3;&b>[Home] Warping to your teams home in %duration% seconds.</>"
+    warp-error:
+      no-team: "<blend:&4;&c>[Home Error] You seem to not have a team, so you were not warped.</>"
+      damaged: "<blend:&4;&c>[Home Error] Your team home warp has been cancelled due to you taking damage.</>"
+      moved: "<blend:&4;&c>[Home Error] Your team home warp has been cancelled due to you moving.</>"
+      combat-tagged: "<blend:&4;&c>[Home Error] You cannot warp to your team home whilst combat tagged.</>"
+      already-warping: "<blend:&4;&c>[Home Error] You already are warping to your home.</>"
+  dtr:
+    raidable-color: "&4"
+    one-dtr-color: "&e"
+    normal-color: "&a"
+  roster:
+    error:
+      leader: "<blend:&4;&c>[Roster Error] You cannot set a roster role to leader.</>"
+      not-rostered: "<blend:&4;&c>[Roster Error] %target% is not on the teams roster.</>"
+      no-replacement: "<blend:&4;&c>[Roster Error] Could not find a member offline & equal to your role.</>"
+
+    added: "<blend:&6;&e>%target% has been added to the teams roster as a %role% by %sender%</>"
+    removed: "<blend:&4;&c>%target% has been removed from the teams roster by %sender%</>"
+    list:
+      header: "<blend:&6;&e>&lTeam Roster</> &7(%roster-size% members)"
+      empty-text: "<blend:&7;&f>Your roster is empty...</>"
+      format: "&7» &f%player% &7- &d%role%"
+  role:
+    error:
+      leader: "<blend:&4;&c>[Roster Error] You cannot promote someone to leader. /t leader <member></>"
+      member: "<blend:&4;&c>[Roster Error] You cannot demoted someone that is the lowest role.</>"
+    promoted: "<blend:&2;&a>%target% has been promoted to %role% by %sender%</>"
+    demoted: "<blend:&4;&c>%target% has been demoted to %role% by %sender%</>"
+  info:
+    # Variables:
+    # %dtr% - returns the formatted deaths until raidable
+    # %dtr-symbol% - returns the formatted deaths until raidable symbol
+    # %team% - returns the colored name of a team
+    # %online% - returns the online member count
+    # %total% - returns the total member count
+    # %online-members% - returns the online members with name formats
+    # %offline-members% - returns the offline members with name formats
+    # %members% - returns all members with name formats
+    # %home% - returns the home formatted in X, Y, Z
+    format:
+      - ' '
+      - '%team% &7[%online%/%total%] &7- <blend:&6;&e>HQ: %home%</>'
+      - '&fDTR: %dtr-color%%dtr-symbol%%dtr%&7%dtr-regeneration%'
+      - '&fOnline Members: &a%online-members%'
+      - '&fOffline Members: &c%offline-members%'
+      - ' '
+  top:
+    amount: 10 # how many teams to show
+    header:
+      - '&7&m-----------------------'
+      - '<blend:&6;&e>&lTop Teams</> &7(%type%)'
+      - '&7&m-----------------------'
+    format: "&e#%place%) %team-name% &7(%value%)"
+    empty-format: "&e#%place%) &cN/A"
+    footer:
+      - '&7&m-----------------------'
+    hover:
+      enabled: true
+      info:
+        - ' '
+        - '%team% &7[%online%/%total%]'
+        - '&fDTR: %dtr-color%%dtr-symbol%%dtr%'
+        - ' '
+  points:
+    set: "<blend:&2;&a>Successfully set %team%'s points to %amount%.</>"

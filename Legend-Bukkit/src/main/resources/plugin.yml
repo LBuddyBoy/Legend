@@ -1,0 +1,6 @@
+name: Legend
+version: '${project.version}'
+main: dev.lbuddyboy.legend.LegendBukkit
+depend:
+  - Commons
+  - DecentHolograms

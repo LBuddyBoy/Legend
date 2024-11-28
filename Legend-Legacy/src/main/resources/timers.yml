@@ -1,0 +1,26 @@
+
+combat:
+  display-name: "Combat Tag"
+  primary-color: "&4"
+  secondary-color: "&c"
+  duration: 30
+  view: "ACTION_BAR" # SCOREBOARD, ACTION_BAR, or NONE
+enderpearl:
+  display-name: "Enderpearl"
+  primary-color: "&5"
+  secondary-color: "&d"
+  duration: 16
+  view: "ACTION_BAR"
+invincibility:
+  display-name: "Invincibility"
+  primary-color: "&2"
+  secondary-color: "&a"
+  duration: 1800
+  view: "SCOREBOARD"
+home:
+  display-name: "Home"
+  primary-color: "&3"
+  secondary-color: "&b"
+  duration: 10
+  duration-enemy: 20
+  view: "SCOREBOARD"

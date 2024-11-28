@@ -1,0 +1,18 @@
+ranks:
+  default: "1h" # anyone with deathban.default permission
+  donator: "5m"
+
+kill-reduction: "5m"
+
+mining:
+  credit-block: "COAL_ORE"
+  needed-credits: 500
+  credit-per-block: 1
+  break-delay: 1 # how fast can people mine?
+
+allowed-commands:
+  - '/msg'
+  - '/r'
+  - '/f c p'
+  - '/deathban tryrevive'
+  - '/deathban applykit'

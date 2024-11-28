@@ -1,0 +1,52 @@
+server:
+  kitmap-mode: false
+  name: "Legend"
+  primary-color: "&6" # Supports gradients
+  secondary-color: "&e" # Supports gradients
+  team-size: 5
+  starting-balance: 250.0
+
+wilderness:
+  overworld: 1000
+buffer:
+  end: 250 # typically gonna be the size of ends worldborder
+  nether: 150
+  overworld: 300
+team:
+  maximum-dtr: 6.0
+  regeneration:
+    speed: 60 # seconds
+    dtr: 0.1 # how much dtr is regened every X seconds
+  claim:
+    buffer-size: 2 # how many blocks in between claims needed
+    maximum-claims: 2 # a player can only extend their claim once from their existing claim
+    price-per-block: 0.15
+    minimum-size:
+      x: 5
+      z: 5
+    maximum-size:
+      x: 50
+      z: 50
+    wand:
+      material: "BRUSH"
+      name: '<blend:&3;&b>Claim Wand</>'
+      lore:
+        - ''
+        - '<blend:#C46B16;#F6C770;false>Left Click a Block</>'
+        - '&f- &bSelects claim corner #1'
+        - ''
+        - '<blend:#C46B16;#F6C770;false>Right Click a Block</>'
+        - '&f- &dSelects claim corner #2'
+        - ' '
+        - '<blend:#C46B16;#F6C770;false>Right Click Air</>'
+        - '&f- &cCancels current claim process'
+        - ''
+        - '<blend:#C46B16;#F6C770;false>Crouch + Left Click</>'
+        - '&f- &aConfirms the claim purchase'
+        - ''
+      item-flags:
+        - 'HIDE_ENCHANTS'
+        - 'HIDE_ATTRIBUTES'
+      enchants:
+        - 'DURABILITY:10'
+      amount: 1
