@@ -1,22 +1,22 @@
-package dev.lbuddyboy.practice.kit.menu;
+package dev.lbuddyboy.legend.features.kitmap.kit.menu;
 
 import dev.lbuddyboy.commons.menu.IButton;
 import dev.lbuddyboy.commons.menu.IMenu;
-import dev.lbuddyboy.commons.menu.button.BackButton;
 import dev.lbuddyboy.commons.menu.button.FillButton;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.commons.util.Tasks;
-import dev.lbuddyboy.practice.kit.Kit;
-import dev.lbuddyboy.practice.kit.editor.EditedKit;
-import dev.lbuddyboy.practice.lPractice;
-import dev.lbuddyboy.practice.user.PracticeUser;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.kitmap.kit.EditedKit;
+import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionType;
 
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public class EditInventoryMenu extends IMenu {
 
 
         int index = -1;
-        for (ItemStack content : kit.getArmorContents()) {
+        for (ItemStack content : kit.getArmor()) {
             index++;
             if (content == null || content.getType() == Material.AIR) continue;
 
@@ -68,9 +68,15 @@ public class EditInventoryMenu extends IMenu {
             buttons.put(slot, new EditorItemButton(item));
         }
 
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false)) {
+            buttons.put(fillInvSlot, new FillInventoryButton());
+        } else {
+            deleteSlot++;
+            resetSlot++;
+        }
+
         buttons.put(deleteSlot, new DeleteButton());
         buttons.put(resetSlot, new LoadDefaultButton());
-        buttons.put(fillInvSlot, new FillInventoryButton());
 
         for (int slot : glassSlots) {
             buttons.put(slot, new FillButton('g', new ItemFactory(Material.BLACK_STAINED_GLASS_PANE).displayName(" ").build()));
@@ -88,6 +94,7 @@ public class EditInventoryMenu extends IMenu {
     public void openMenu(Player player) {
         super.openMenu(player);
 
+        player.setMetadata("previous_editor_inventory", new FixedMetadataValue(LegendBukkit.getInstance(), player.getInventory().getContents().clone()));
         player.getInventory().setStorageContents(editedKit.getInventoryContents());
     }
 
@@ -96,7 +103,8 @@ public class EditInventoryMenu extends IMenu {
         super.onClose(player);
 
         editedKit.setInventoryContents(player.getInventory().getStorageContents().clone());
-        Tasks.run(() -> lPractice.getInstance().getHotbarHandler().findAndApply(player));
+        player.getInventory().setContents((ItemStack[]) player.getMetadata("previous_editor_inventory").get(0).value());
+        player.removeMetadata("previous_editor_inventory", LegendBukkit.getInstance());
     }
 
     @Override
@@ -156,7 +164,7 @@ public class EditInventoryMenu extends IMenu {
 
         @Override
         public void action(Player player, ClickType clickType, int slot) {
-            PracticeUser user = lPractice.getInstance().getUserHandler().getUser(player.getUniqueId());
+            LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
             user.removeEditedKit(editedKit.getKit(), editedKit);
             new EditKitMenu(editedKit.getKit()).openMenu(player);
@@ -175,7 +183,7 @@ public class EditInventoryMenu extends IMenu {
 
         @Override
         public void action(Player player, ClickType clickType, int slot) {
-            player.getInventory().setStorageContents(editedKit.getKit().getInventoryContents());
+            player.getInventory().setStorageContents(editedKit.getKit().getContents());
         }
 
     }

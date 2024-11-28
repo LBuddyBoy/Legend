@@ -1,35 +1,22 @@
 package dev.lbuddyboy.legend.classes.impl;
 
-import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.LegendConstants;
 import dev.lbuddyboy.legend.classes.ClassHandler;
 import dev.lbuddyboy.legend.classes.PvPClass;
 import dev.lbuddyboy.legend.team.model.Team;
-import dev.lbuddyboy.legend.timer.impl.ArcherTagTimer;
-import dev.lbuddyboy.legend.util.BukkitUtil;
 import dev.lbuddyboy.legend.util.Cooldown;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -44,16 +31,22 @@ public class BardClass extends PvPClass {
 
     public BardClass() {
         this.heldEffects.put(Material.SUGAR, new PotionEffect(PotionEffectType.SPEED, 20 * 5, 1));
-        this.heldEffects.put(Material.BLAZE_POWDER, new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 5, 0));
+        this.heldEffects.put(Material.BLAZE_POWDER, new PotionEffect(PotionEffectType.STRENGTH, 20 * 5, 0));
         this.heldEffects.put(Material.GHAST_TEAR, new PotionEffect(PotionEffectType.REGENERATION, 20 * 5, 0));
-        this.heldEffects.put(Material.IRON_INGOT, new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 0));
+        this.heldEffects.put(Material.IRON_INGOT, new PotionEffect(PotionEffectType.RESISTANCE, 20 * 5, 0));
         this.heldEffects.put(Material.MAGMA_CREAM, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 5, 0));
-        this.heldEffects.put(Material.FEATHER, new PotionEffect(PotionEffectType.JUMP, 20 * 5, 1));
+        this.heldEffects.put(Material.FEATHER, new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 5, 1));
+        this.heldEffects.put(Material.INK_SAC, new PotionEffect(PotionEffectType.INVISIBILITY, 20 * 5, 0));
 
+        this.clickableEffects.put(Material.SPIDER_EYE, new ClickableBardEffect(
+                "Wither II",
+                35.0D,
+                new PotionEffect(PotionEffectType.WITHER, 20 * 5, 1)
+        ));
         this.clickableEffects.put(Material.FEATHER, new ClickableBardEffect(
                 "Jump VII",
                 35.0D,
-                new PotionEffect(PotionEffectType.JUMP, 20 * 5, 6)
+                new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 5, 6)
         ));
         this.clickableEffects.put(Material.SUGAR, new ClickableBardEffect(
                 "Speed III",
@@ -63,17 +56,22 @@ public class BardClass extends PvPClass {
         this.clickableEffects.put(Material.BLAZE_POWDER, new ClickableBardEffect(
                 "Strength II",
                 45.0D,
-                new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 5, 1)
+                new PotionEffect(PotionEffectType.STRENGTH, 20 * 5, 1)
         ));
         this.clickableEffects.put(Material.IRON_INGOT, new ClickableBardEffect(
                 "Resistance III",
                 30.0D,
-                new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 5, 2)
+                new PotionEffect(PotionEffectType.RESISTANCE, 20 * 5, 2)
         ));
         this.clickableEffects.put(Material.GHAST_TEAR, new ClickableBardEffect(
                 "Regeneration III",
                 40.0D,
                 new PotionEffect(PotionEffectType.REGENERATION, 20 * 5, 2)
+        ));
+        this.clickableEffects.put(Material.INK_SAC, new ClickableBardEffect(
+                "Invisibility II",
+                40.0D,
+                new PotionEffect(PotionEffectType.INVISIBILITY, 20 * 5, 2)
         ));
     }
 
@@ -89,10 +87,10 @@ public class BardClass extends PvPClass {
 
     @Override
     public boolean hasSetOn(Player player) {
-        return player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType() == Material.GOLD_HELMET &&
-                player.getInventory().getChestplate() != null && player.getInventory().getChestplate().getType() == Material.GOLD_CHESTPLATE &&
-                player.getInventory().getLeggings() != null && player.getInventory().getLeggings().getType() == Material.GOLD_LEGGINGS &&
-                player.getInventory().getBoots() != null && player.getInventory().getBoots().getType() == Material.GOLD_BOOTS;
+        return player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType() == Material.GOLDEN_HELMET &&
+                player.getInventory().getChestplate() != null && player.getInventory().getChestplate().getType() == Material.GOLDEN_CHESTPLATE &&
+                player.getInventory().getLeggings() != null && player.getInventory().getLeggings().getType() == Material.GOLDEN_LEGGINGS &&
+                player.getInventory().getBoots() != null && player.getInventory().getBoots().getType() == Material.GOLDEN_BOOTS;
     }
 
     @Override
@@ -116,11 +114,6 @@ public class BardClass extends PvPClass {
     }
 
     @Override
-    public int getLimit() {
-        return 1;
-    }
-
-    @Override
     public void tick(Player player) {
 
         if (getEnergy(player) < 120) {
@@ -139,17 +132,20 @@ public class BardClass extends PvPClass {
     }
 
     @Override
-    public void apply(Player player) {
+    public boolean apply(Player player) {
+        if (!super.apply(player)) return false;
+
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0));
-        super.apply(player);
+        return true;
     }
 
     @Override
     public void remove(Player player) {
+        this.effectCooldown.remove(player.getUniqueId());
         player.removePotionEffect(PotionEffectType.SPEED);
-        player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+        player.removePotionEffect(PotionEffectType.RESISTANCE);
         player.removePotionEffect(PotionEffectType.REGENERATION);
         super.remove(player);
     }

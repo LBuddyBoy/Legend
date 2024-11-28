@@ -1,4 +1,4 @@
-package dev.lbuddyboy.samurai.map.leaderboard;
+package dev.lbuddyboy.legend.features.leaderboard;
 
 import dev.lbuddyboy.commons.util.CC;
 import lombok.Data;

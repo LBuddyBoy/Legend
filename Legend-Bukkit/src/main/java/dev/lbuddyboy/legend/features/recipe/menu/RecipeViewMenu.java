@@ -5,7 +5,6 @@ import dev.lbuddyboy.commons.menu.IMenu;
 import dev.lbuddyboy.commons.menu.button.FillButton;
 import dev.lbuddyboy.legend.features.recipe.AbstractRecipe;
 import lombok.AllArgsConstructor;
-import net.minecraft.server.v1_8_R3.ShapelessRecipes;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

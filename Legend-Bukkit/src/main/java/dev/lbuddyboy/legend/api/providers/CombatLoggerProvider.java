@@ -1,27 +1,27 @@
-package dev.lbuddyboy.samurai.api.impl;
+package dev.lbuddyboy.legend.api.providers;
 
 import dev.lbuddyboy.arrow.ArrowPlugin;
 import dev.lbuddyboy.combatlogger.CombatLogger;
+import dev.lbuddyboy.combatlogger.CombatLoggerPlugin;
 import dev.lbuddyboy.combatlogger.api.CombatLoggerAPI;
 import dev.lbuddyboy.commons.CommonsPlugin;
+import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.commons.deathmessage.DeathMessageProvider;
-import dev.lbuddyboy.minigames.MiniGames;
+import dev.lbuddyboy.commons.util.CC;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.team.model.Team;
+import dev.lbuddyboy.legend.team.model.TeamType;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamDTRChangeLog;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamPointsChangeLog;
+import dev.lbuddyboy.legend.timer.impl.CombatTimer;
+import dev.lbuddyboy.legend.timer.impl.InvincibilityTimer;
+import dev.lbuddyboy.legend.timer.server.SOTWTimer;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.rollback.Rollback;
-import dev.lbuddyboy.samurai.Samurai;
-import dev.lbuddyboy.samurai.commands.staff.SOTWCommand;
-import dev.lbuddyboy.samurai.server.SpawnTagHandler;
-import dev.lbuddyboy.samurai.team.Team;
-import dev.lbuddyboy.samurai.team.dtr.DTRBitmask;
-import dev.lbuddyboy.samurai.user.SamuraiUser;
-import dev.lbuddyboy.samurai.util.CC;
-import dev.lbuddyboy.samurai.util.InventoryUtils;
-import dev.lbuddyboy.samurai.util.UUIDUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -32,76 +32,83 @@ import java.util.Optional;
  */
 public class CombatLoggerProvider implements CombatLoggerAPI {
 
+    public CombatLoggerProvider() {
+        CombatLoggerPlugin.getInstance().registerAPI(this);
+    }
+
     @Override
     public boolean onCombatLoggerSpawn(Player player) {
         if (player.hasPermission("arrow.staff")) {
-            if (ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isInStaffMode(player) || ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isVanished(player)) return false;
+            if (ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isInStaffMode(player) || ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isVanished(player))
+                return false;
         }
 
-        if (Samurai.getInstance().getArenaHandler().isDeathbanned(player.getUniqueId())) return false;
-        if (Samurai.getInstance().getTeamWarHandler().getPlayers().contains(player)) return false;
-        if (SOTWCommand.isSOTWTimer() && !SOTWCommand.hasSOTWEnabled(player.getUniqueId())) return false;
-        if (Samurai.getInstance().getUserHandler().loadUser(player.getUniqueId()).hasPvPTimer()) return false;
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
+        InvincibilityTimer invincibilityTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
+        SOTWTimer sotwTimer = LegendBukkit.getInstance().getTimerHandler().getServerTimer(SOTWTimer.class);
+        CombatTimer combatTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
+
+        if (user.isDeathBanned()) return false;
+        if (sotwTimer.isActive() && !sotwTimer.getEnabledPlayers().contains(player.getUniqueId())) return false;
+        if (invincibilityTimer.isActive(player.getUniqueId())) return false;
         if (player.getNearbyEntities(20, 20, 20)
                 .stream()
                 .filter(entity -> entity instanceof Player)
                 .map(entity -> ((Player) entity)).noneMatch(p -> {
-                    Team team = Samurai.getInstance().getTeamHandler().getTeam(p);
-                    if (team == null) return false;
+                    Optional<Team> teamOpt = LegendBukkit.getInstance().getTeamHandler().getTeam(p);
+                    return teamOpt.map(team -> team.getOnlinePlayers().contains(player)).orElse(false);
 
-                    return team.getOnlineMembers().contains(player);
-                }) && !SpawnTagHandler.isTagged(player)) return false;
-        if (DTRBitmask.SAFE_ZONE.appliesAt(player.getLocation())) return false;
-        if (player.hasMetadata("loggedout")) return false;
-        if (player.getWorld() == MiniGames.getInstance().getWorld()) return false;
+                }) && !combatTimer.isActive(player.getUniqueId())) return false;
+        if (TeamType.SPAWN.appliesAt(player.getLocation())) return false;
+        if (player.hasMetadata("safe_disconnect")) return false;
 
         return true;
     }
 
     @Override
     public boolean onCombatLoggerDamage(CombatLogger combatLogger, Player attacker) {
-        if (DTRBitmask.SAFE_ZONE.appliesAt(attacker.getLocation()) || DTRBitmask.SAFE_ZONE.appliesAt(combatLogger.getNpc().getEntity().getLocation())) {
+        InvincibilityTimer invincibilityTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
+
+        if (TeamType.SPAWN.appliesAt(attacker.getLocation()) || TeamType.SPAWN.appliesAt(combatLogger.getNpc().getEntity().getLocation())) {
             return false;
         }
 
-        if (Samurai.getInstance().getUserHandler().loadUser(attacker.getUniqueId()).hasPvPTimer()) {
+        if (invincibilityTimer.isActive(attacker.getUniqueId())) {
             return false;
         }
 
-        Team team = Samurai.getInstance().getTeamHandler().getTeam(combatLogger.getOwner());
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(combatLogger.getOwner()).orElse(null);
 
-        if (team != null && team.isMember(attacker.getUniqueId())) {
-            return false;
-        }
-
-        return true;
+        return team == null || !team.isMember(attacker.getUniqueId());
     }
 
     @Override
     public void onCombatLoggerSpawn(Player player, CombatLogger combatLogger) {
-        int seconds = (int) Samurai.getInstance().getServerHandler().getDeathban(player);
-        boolean shouldBypass = player.isOp() || player.hasPermission("foxtrot.staff");
+        long time = LegendBukkit.getInstance().getDeathbanHandler().getDeathbanTime(player);
+        boolean shouldBypass = player.isOp() || player.hasPermission("legend.deathban.bypass");
 
-        combatLogger.getMetadata().put("deathbanSeconds", seconds);
+        combatLogger.getMetadata().put("deathbanTime", time);
         combatLogger.getMetadata().put("bypassDeathban", shouldBypass);
         combatLogger.getMetadata().put("ipAddress", player.getAddress().getAddress().getHostAddress());
     }
 
     @Override
     public void onCombatLoggerDeath(CombatLogger combatLogger, Player killer) {
-        SamuraiUser user = Samurai.getInstance().getUserHandler().loadUser(combatLogger.getOwner());
-        int seconds = (int) combatLogger.getMetadata().get("deathbanSeconds");
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(combatLogger.getOwner());
+        long time = (long) combatLogger.getMetadata().get("deathbanTime");
         String ipAddress = (String) combatLogger.getMetadata().get("ipAddress");
 
         combatLogger.getNpc().getEntity().getWorld().strikeLightning(combatLogger.getNpc().getEntity().getLocation());
+
         if ((Boolean) combatLogger.getMetadata().get("bypassDeathban")) {
-            user.revive();
+            user.setCombatLoggerDied(true);
         } else {
-            user.deathBan(seconds * 1000L);
+            user.applyTimer("deathban", time);
+            user.setDeathBanned(true);
         }
 
         DeathMessageProvider provider = CommonsPlugin.getInstance().getDeathMessageHandler().getProvider();
-        String victimName = combatLogger.getNpc().getName();
+        String victimName = combatLogger.getNpc().getFullName();
         String deathMessage = killer == null ? provider.getDeathMessageFormat("died.") : provider.getDeathMessageFormat("was killed by");
         String deathMessageFormatted = CC.translate(victimName + " " + deathMessage + " " + (provider.getPlayerFormat(killer)));
 
@@ -111,23 +118,23 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
             player.sendMessage(deathMessageFormatted);
         }
 
-        Team team = Samurai.getInstance().getTeamHandler().getTeam(combatLogger.getOwner());
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(combatLogger.getOwner()).orElse(null);
+
         if (team != null) {
-            team.playerDeath(UUIDUtils.name(combatLogger.getOwner()), team.getDTR(), Samurai.getInstance().getServerHandler().getDTRLoss(combatLogger.getNpc().getEntity().getLocation()), killer);
+            double previousDTR = team.getDeathsUntilRaidable();
+
+            team.applyDTRFreeze(new TimeDuration(LegendBukkit.getInstance().getSettings().getString("team.regeneration.cooldown", "30m")).transform());
+            team.setDeathsUntilRaidable(team.getDeathsUntilRaidable() - LegendBukkit.getInstance().getSettings().getDouble("team.regeneration.loss", 1.0D));
+            team.setPoints(team.getPoints() + LegendBukkit.getInstance().getSettings().getInt("points.death"), combatLogger.getOwner(), TeamPointsChangeLog.ChangeCause.DEATH);
+            team.flagSave();
+            team.createTeamLog(new TeamDTRChangeLog(previousDTR, team.getDeathsUntilRaidable(), combatLogger.getOwner(), TeamDTRChangeLog.ChangeCause.LOGGER_DEATH));
         }
 
         if (killer != null) {
-            Team killerTeam = Samurai.getInstance().getTeamHandler().getTeam(killer);
+            Team killerTeam = LegendBukkit.getInstance().getTeamHandler().getTeam(killer).orElse(null);
 
             if (killerTeam != null) {
-                int pointsBefore = Samurai.getInstance().getTopHandler().getTotalPoints(killerTeam);
-
-                if (Arrays.stream(combatLogger.getArmor()).noneMatch(s -> s == null || s.getType() == Material.AIR)) {
-                    killerTeam.createLog(killer.getUniqueId(), "NAKED LOGGER KILL &7(" + pointsBefore + " -> " + Samurai.getInstance().getTopHandler().getTotalPoints(killerTeam) + "&7)", killer.getName() + " killed " + victimName + "'s Logger");
-                } else {
-                    killerTeam.setKills(killerTeam.getKills() + 1);
-                    killerTeam.createLog(killer.getUniqueId(), "LOGGER KILL &7(" + pointsBefore + " -> " + Samurai.getInstance().getTopHandler().getTotalPoints(killerTeam) + "&7)", killer.getName() + " killed " + victimName + "'s Logger");
-                }
+                killerTeam.setPoints(killerTeam.getPoints() + LegendBukkit.getInstance().getSettings().getInt("points.kill"), killer.getUniqueId(), TeamPointsChangeLog.ChangeCause.KILL);
             }
 
         }
@@ -147,6 +154,6 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
 
     @Override
     public Location getSpawnLocation() {
-        return Samurai.getInstance().getArenaHandler().getSpawn();
+        return LegendBukkit.getInstance().getSpawnLocation();
     }
 }

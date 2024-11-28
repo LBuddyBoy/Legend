@@ -1,13 +1,11 @@
-package dev.lbuddyboy.samurai.api.impl;
+package dev.lbuddyboy.legend.api.providers;
 
 import dev.lbuddyboy.commons.deathmessage.DeathMessageProvider;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.EntityUtils;
-import dev.lbuddyboy.minigames.MiniGames;
-import dev.lbuddyboy.samurai.Samurai;
-import dev.lbuddyboy.samurai.settings.Setting;
-import dev.lbuddyboy.samurai.user.SamuraiUser;
-import net.citizensnpcs.api.CitizensAPI;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.settings.Setting;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -18,10 +16,9 @@ public class DeathProvider implements DeathMessageProvider {
 
     @Override
     public boolean shouldSendDeathMessage(Player player, PlayerDeathEvent playerDeathEvent) {
-        return !CitizensAPI.getNPCRegistry().isNPC(player)
-                && !Samurai.getInstance().getTeamWarHandler().getPlayers().contains(player)
-                && !Samurai.getInstance().getArenaHandler().isDeathbanned(player.getUniqueId())
-                && player.getWorld() != MiniGames.getInstance().getWorld();
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
+
+        return !user.isTimerActive("deathban");
     }
 
     @Override
@@ -33,7 +30,7 @@ public class DeathProvider implements DeathMessageProvider {
     public String getPlayerFormat(Player player) {
         if (player == null) return "";
 
-        SamuraiUser user = Samurai.getInstance().getUserHandler().loadUser(player.getUniqueId());
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
         String coloredName = CC.blend(user.getName(), "&6", "&e");
         String coloredKills = CC.blend("[" + user.getKills() + "]", "&4", "&c");
 

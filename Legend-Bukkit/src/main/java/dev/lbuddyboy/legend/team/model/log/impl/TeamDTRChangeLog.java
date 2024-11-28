@@ -1,8 +1,6 @@
 package dev.lbuddyboy.legend.team.model.log.impl;
 
 import dev.lbuddyboy.commons.api.APIConstants;
-import dev.lbuddyboy.legend.LegendConstants;
-import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.log.TeamLog;
 import dev.lbuddyboy.legend.team.model.log.TeamLogType;
 import dev.lbuddyboy.legend.util.UUIDUtils;
@@ -13,15 +11,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class TeamDTRLog extends TeamLog {
+public class TeamDTRChangeLog extends TeamLog {
 
     private final double previousDTR, afterDTR;
-    private final UUID playerUUID;
     private final ChangeCause cause;
+    private UUID playerUUID;
 
-    public TeamDTRLog(double previousDTR, double afterDTR, UUID playerUUID, ChangeCause cause) {
+    public TeamDTRChangeLog(double previousDTR, double afterDTR, UUID playerUUID, ChangeCause cause) {
         super((previousDTR > afterDTR ? "&a" : "&c") + APIConstants.formatNumber(previousDTR) + " -> " + APIConstants.formatNumber(afterDTR) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " )"), TeamLogType.DTR_CHANGED);
-
 
         this.previousDTR = previousDTR;
         this.afterDTR = afterDTR;
@@ -29,12 +26,12 @@ public class TeamDTRLog extends TeamLog {
         this.cause = cause;
     }
 
-    public TeamDTRLog(Document document) {
+    public TeamDTRChangeLog(Document document) {
         super(document);
         this.previousDTR = document.getDouble("previousDTR");
         this.afterDTR = document.getDouble("afterDTR");
-        this.playerUUID = UUID.fromString(document.getString("playerUUID"));
         this.cause = ChangeCause.valueOf(document.getString("cause"));
+        if (document.containsKey("playerUUID")) this.playerUUID = UUID.fromString(document.getString("playerUUID"));
     }
 
     @Override
@@ -43,8 +40,9 @@ public class TeamDTRLog extends TeamLog {
 
         document.put("previousDTR", this.previousDTR);
         document.put("afterDTR", this.afterDTR);
-        document.put("playerUUID", this.playerUUID.toString());
         document.put("cause", this.cause.name());
+
+        if (this.playerUUID != null) document.put("playerUUID", this.playerUUID.toString());
 
         return document;
     }

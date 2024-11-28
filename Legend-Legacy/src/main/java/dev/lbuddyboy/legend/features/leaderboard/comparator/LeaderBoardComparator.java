@@ -1,6 +1,6 @@
-package dev.lbuddyboy.samurai.map.leaderboard.comparator;
+package dev.lbuddyboy.legend.features.leaderboard.comparator;
 
-import dev.lbuddyboy.samurai.map.leaderboard.LeaderBoardUser;
+import dev.lbuddyboy.legend.features.leaderboard.LeaderBoardUser;
 
 import java.util.Comparator;
 

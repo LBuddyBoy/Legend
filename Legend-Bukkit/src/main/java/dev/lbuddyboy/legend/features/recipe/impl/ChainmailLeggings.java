@@ -1,8 +1,10 @@
 package dev.lbuddyboy.legend.features.recipe.impl;
 
 import dev.lbuddyboy.commons.util.ItemFactory;
+import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.recipe.AbstractRecipe;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -34,7 +36,7 @@ public class ChainmailLeggings extends AbstractRecipe {
 
     @Override
     public ShapedRecipe getRecipe() {
-        ShapedRecipe recipe = new ShapedRecipe(getItem());
+        ShapedRecipe recipe = new ShapedRecipe(getKey(), getItem());
 
         recipe.shape(
                 "AAA",

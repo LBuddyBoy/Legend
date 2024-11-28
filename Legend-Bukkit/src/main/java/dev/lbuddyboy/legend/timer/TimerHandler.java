@@ -37,7 +37,10 @@ public class TimerHandler implements IModule {
                 new HomeTimer(),
                 new StuckTimer(),
                 new ArcherTagTimer(),
-                new InvincibilityTimer()
+                new LogoutTimer(),
+                new InvincibilityTimer(),
+                new ClassWarmUpTimer(),
+                new SpawnTimer()
         ));
         this.serverTimers.addAll(Arrays.asList(
                 new SOTWTimer()

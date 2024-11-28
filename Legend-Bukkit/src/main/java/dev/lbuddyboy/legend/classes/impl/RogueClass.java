@@ -61,22 +61,19 @@ public class RogueClass extends PvPClass {
     }
 
     @Override
-    public int getLimit() {
-        return 1;
-    }
+    public boolean apply(Player player) {
+        if (!super.apply(player)) return false;
 
-    @Override
-    public void apply(Player player) {
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 1));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0));
-        super.apply(player);
+        return true;
     }
 
     @Override
     public void remove(Player player) {
         player.removePotionEffect(PotionEffectType.SPEED);
-        player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+        player.removePotionEffect(PotionEffectType.RESISTANCE);
         player.removePotionEffect(PotionEffectType.REGENERATION);
         super.remove(player);
     }
@@ -105,7 +102,7 @@ public class RogueClass extends PvPClass {
 
         if (damager == null) return;
         if (!this.classHandler.isClassApplied(damager, RogueClass.class)) return;
-        if (damager.getItemInHand() == null || damager.getItemInHand().getType() != Material.GOLD_SWORD) return;
+        if (damager.getItemInHand() == null || damager.getItemInHand().getType() != Material.GOLDEN_SWORD) return;
 
         Vector playerVector = damager.getLocation().getDirection();
         Vector entityVector = victim.getLocation().getDirection();
@@ -129,10 +126,10 @@ public class RogueClass extends PvPClass {
             victim.setHealth(damager.getHealth() - backstabDamage);
         }
 
-        damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
+        damager.playSound(damager.getLocation(), Sound.ITEM_SHIELD_BREAK, 1F, 1F);
         damager.getWorld().playEffect(victim.getEyeLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
 
-        damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 2));
+        damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 40, 2));
 
     }
 
@@ -173,7 +170,7 @@ public class RogueClass extends PvPClass {
 
         player.setItemInHand(ItemUtils.takeItem(item));
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("classes.rogue.jump.used")));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 5, 6));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 5, 6));
         jumpCooldown.apply(player.getUniqueId());
         // TODO Add restore effects
     }

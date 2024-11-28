@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
  * @project LifeSteal
- * @file dev.lbuddyboy.samurai.chat.settings
+ * @file dev.lbuddyboy.legend.chat.settings
  * @since 1/18/2024
  */
 public class SettingsMenu extends IMenu {
@@ -58,7 +58,7 @@ public class SettingsMenu extends IMenu {
         @Override
         public ItemStack getItem(Player player) {
             return new ItemFactory(this.setting.getDisplayMaterial())
-                    .displayName(CC.blend(this.setting.getName(), this.setting.getPrimaryColor(), this.setting.getSecondaryColor()))
+                    .displayName(this.setting.getPrimaryColor() + "&l" + this.setting.getName())
                     .lore(this.setting.getDescription())
                     .addToLore(
                             " ",

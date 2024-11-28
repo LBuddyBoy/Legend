@@ -41,6 +41,8 @@ public class GlowstoneHandler implements IModule {
         this.runDebug();
 
         Tasks.runTimer(() -> {
+            if (!isSetup()) return;
+
             if (getNextReset() <= 0) {
                 respawn();
                 return;

@@ -1,10 +1,18 @@
 package dev.lbuddyboy.legend.team.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.UUID;
 
-public record TopEntry(TopType type, UUID teamUUID, int value, int place) {
+@AllArgsConstructor
+@Data
+public class TopEntry {
+
+    private TopType type;
+    private UUID teamUUID;
+    private int value;
+    private int place;
 
 }

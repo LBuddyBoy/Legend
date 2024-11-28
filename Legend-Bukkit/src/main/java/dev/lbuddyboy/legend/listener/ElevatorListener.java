@@ -6,6 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -46,6 +47,9 @@ public class ElevatorListener implements Listener {
 
         Location signLocation = sign.getLocation().clone();
         Location location = findLocation(signLocation, direction.equalsIgnoreCase("Up"));
+
+        event.setUseInteractedBlock(Event.Result.DENY);
+        event.setUseItemInHand(Event.Result.DENY);
 
         if (location != null) {
             location.setYaw(player.getLocation().getYaw());

@@ -2,22 +2,16 @@ package dev.lbuddyboy.legend.command.impl;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import dev.lbuddyboy.commons.api.cache.UUIDCache;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.LocationUtils;
-import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
-import dev.lbuddyboy.legend.features.leaderboard.LeaderBoardHologram;
-import dev.lbuddyboy.legend.features.leaderboard.RotatingHologram;
+import dev.lbuddyboy.legend.features.leaderboard.model.LeaderBoardHologram;
+import dev.lbuddyboy.legend.features.leaderboard.model.RotatingHologram;
 import dev.lbuddyboy.legend.features.leaderboard.menu.LeaderBoardMenu;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 @CommandAlias("leaderboards|leaderboard|lb")
 public class LeaderBoardCommand extends BaseCommand {
@@ -25,14 +19,6 @@ public class LeaderBoardCommand extends BaseCommand {
     @Default
     public void leaderboard(Player sender) {
         new LeaderBoardMenu().openMenu(sender);
-    }
-
-    @Subcommand("update")
-    @CommandPermission("legend.command.leaderboard")
-    public void update(CommandSender sender) {
-        Tasks.runAsync(() -> {
-            LegendBukkit.getInstance().getLeaderBoardHandler().update();
-        });
     }
 
     @Subcommand("set")

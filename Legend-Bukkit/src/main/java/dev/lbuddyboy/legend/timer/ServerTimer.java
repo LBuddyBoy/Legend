@@ -1,6 +1,7 @@
 package dev.lbuddyboy.legend.timer;
 
 import dev.lbuddyboy.commons.api.util.TimeUtils;
+import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.legend.user.model.PersistentTimer;
@@ -19,6 +20,10 @@ public abstract class ServerTimer implements Listener {
 
     public String getView() {
         return LegendBukkit.getInstance().getTimerHandler().getServerTimerConfig().getString(getId() + ".view");
+    }
+
+    public boolean isBoldColoredName() {
+        return LegendBukkit.getInstance().getTimerHandler().getServerTimerConfig().getBoolean(getId() + ".bold-display", true);
     }
 
     public String getDisplayName() {
@@ -68,7 +73,7 @@ public abstract class ServerTimer implements Listener {
     }
 
     public String getColoredName() {
-        return getPrimaryColor() + getDisplayName();
+        return CC.blend(getDisplayName(), getPrimaryColor(), getSecondaryColor(), isBoldColoredName() ? "&l" : "");
     }
 
     public String format(String string) {

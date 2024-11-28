@@ -1,9 +1,11 @@
 package dev.lbuddyboy.legend.team.model;
 
+import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.util.UUIDUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -40,8 +42,17 @@ public class TeamMember {
         return UUIDUtils.name(this.uuid);
     }
 
+    public ChatColor getColor() {
+        ChatColor color = ChatColor.GRAY;
+
+        if (LegendBukkit.getInstance().getUserHandler().getUser(this.uuid).isTimerActive("deathban")) color = ChatColor.RED;
+        else if (isOnline()) color = ChatColor.GREEN;
+
+        return color;
+    }
+
     public String getDisplayName() {
-        return this.role.getAstrix() + getName();
+        return getColor() + this.role.getAstrix() + getName();
     }
 
 }

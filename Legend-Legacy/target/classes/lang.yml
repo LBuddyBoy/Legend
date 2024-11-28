@@ -1,4 +1,125 @@
-playtime: "<blend:&2;&a>&lPLAYTIME</> &7» &e%player% currently has %playtime% of playtime!"
+playtime:
+  check: "<blend:&2;&a>&lPLAYTIME</> &7» &e%player% currently has %playtime% of playtime!"
+  goal:
+    completed:
+      - ' '
+      - '<blend:&2;&a>&lPLAYTIME GOAL</> &7(%goal%&7)'
+      - '&7» &aThe playtime goal was met! Rewarding online players...'
+      - ' '
+    incomplete:
+      - ' '
+      - '<blend:&2;&a>&lPLAYTIME GOAL</> &7(%goal%&7)'
+      - '&7» &cThe playtime goal was not met in time!'
+      - ' '
+
+leaderboards:
+  stats:
+    - '&6&l%player%''s Statistics'
+    - '&7» &fKills: &c%player_kills%'
+    - '&7» &fDeaths: &c%player_deaths%'
+    - '&7» &fKDR: &c%player_kdr_formatted%'
+    - '&7» &fPlaytime: &c%player_playtime%'
+    - '&7» &fBalance: &c%player_balance%'
+    - ' '
+    - '&7All statistics after the map resets will save'
+    - '&7to your global statistics!'
+    - ' '
+
+lives:
+  amount:
+    self: "&eYou have &6%lives%&e lives in your account!"
+    other: "&e%player% has &6%lives%&e lives in their account!"
+  set:
+    sender: "&6%target%'s &elives has been set to &6%amount%"
+    target: "&6%sender%&e has set your lives &6%amount%"
+  add:
+    sender: "&6%amount% lives&e has been added to &6%target%'s &elives."
+    target: "&6%amount% lives&e has been added to your account by &6%sender%&e."
+  subtract:
+    sender: "&6%amount% lives&e has been removed from &6%target%'s &elives."
+    target: "&6%amount% lives&e has been removed from your account by &6%sender%&e."
+  error:
+    insufficient: "<blend:&4;&c>You do not have enough lives to send to send to %target%</>"
+
+sotw:
+  already-enabled: "<blend:&6;&e>&lSOTW</> &7» &cYou are already enabled!"
+  enabled: "<blend:&6;&e>&lSOTW</> &7» &aYou have just removed your SOTW protect! You will now take damage and be able to pvp!"
+  inactive: "<blend:&6;&e>&lSOTW</> &7» &cSOTW is not active!"
+  started:
+    - '&7&m---------------'
+    - '&a&lSOTW'
+    - ' '
+    - '&7&oSOTW has begun, pvp is now'
+    - '&7&odisabled server-wide! /sotw enable'
+    - '&7&oto bypass this.'
+    - ' '
+    - '&7&m---------------'
+  resumed:
+    - '&7&m---------------'
+    - '&a&lSOTW'
+    - ' '
+    - '&7&oSOTW has been resumed! PvP is still disabled!'
+    - ' '
+    - '&7&m---------------'
+  paused:
+    - '&7&m---------------'
+    - '&a&lSOTW'
+    - ' '
+    - '&7&oSOTW has been paused! PvP is still disabled!'
+    - ' '
+    - '&7&m---------------'
+  ended:
+    - '&7&m---------------'
+    - '&a&lSOTW'
+    - ' '
+    - '&7&oSOTW has now concluded, pvp is now'
+    - '&7&oenabled server-wide!'
+    - ' '
+    - '&7&m---------------'
+  extended:
+    - '&7&m---------------'
+    - '&a&lSOTW'
+    - ' '
+    - '&7&oSOTW has been extended!'
+    - '&fExtended by &e%duration%'
+    - ' '
+    - '&7&m---------------'
+
+classes:
+  bard:
+    applied: "<blend:&6;&e>&lBARD</> &aThe bard class is now enabled! Support your team with effects!"
+    removed: "<blend:&6;&e>&lBARD</> &cThe bard class has been disabled!"
+    effect:
+      insufficient: "<blend:&6;&e>&lBARD</> &cYou need %required-energy% bard energy to use %effect%!"
+      used: "<blend:&6;&e>&lBARD</> &aSuccessfully gave %effect% to %players% players! You used %energy% bard energy."
+      cooldown: "<blend:&6;&e>&lBARD</> &cYou cannot use a bard effect for %cooldown-decimal% seconds!"
+
+  miner:
+    applied: "<blend:&7;&f>&lMINER</> &aThe miner class is now enabled!"
+    removed: "<blend:&7;&f>&lMINER</> &cThe miner class has been disabled!"
+  
+  archer:
+    applied: "<blend:&2;&a>&lARCHER</> &aThe archer class is now enabled! Bows will apply a 25% damage multiplier on the enemy!"
+    removed: "<blend:&2;&a>&lARCHER</> &cThe archer class has been disabled!"
+    shot:
+      victim: "<blend:&2;&a>&lARCHER TAG</> &eYou have been archer tagged for 5 seconds by %shooter%! You will now take 25% more damage!"
+      shooter: "<blend:&2;&a>&lARCHER TAG</> &eYou archer tagged %victim% for 5 seconds! They will now take 25% more damage!"
+    speed:
+      used: "<blend:&2;&a>&lARCHER ABILITY</> &aSuccessfully used the Speed IV archer ability!"
+      cooldown: "<blend:&2;&a>&lARCHER ABILITY</> &cYou are on speed cooldown for %cooldown-decimal%s"
+    jump:
+      used: "<blend:&2;&a>&lARCHER ABILITY</> &aSuccessfully used the Jump Boost VII archer ability!"
+      cooldown: "<blend:&2;&a>&lARCHER ABILITY</> &cYou are on jump cooldown for %cooldown-decimal%s"
+  
+  rogue:
+    applied: "<blend:&8;&7>&lROGUE</> &aThe rogue class is now enabled! You can now backstab opponents with gold swords!"
+    removed: "<blend:&8;&7>&lROGUE</> &cThe rogue class has been disabled!"
+    speed:
+      used: "<blend:&8;&7>&lROGUE ABILITY</> &aSuccessfully used the Speed IV archer ability!"
+      cooldown: "<blend:&8;&7>&lROGUE ABILITY</> &cYou are on speed cooldown for %cooldown-decimal%s"
+    jump:
+      used: "<blend:&8;&7>&lROGUE ABILITY</> &aSuccessfully used the Jump Boost VII archer ability!"
+      cooldown: "<blend:&8;&7>&lROGUE ABILITY</> &cYou are on jump cooldown for %cooldown-decimal%s"
 
 buffer:
   cant-place: "<blend:&4;&c>You cannot place blocks until past %buffer%!</>"
@@ -17,8 +138,13 @@ action-bar:
   separator: " "
   format: "%timer-colored%&f: %timer-secondary%%timer-remaining-mmss%"
 
+crapple-cooldown: "<blend:&4;&c>You cannot consume golden apples for %cooldown% seconds</>"
+gapple-cooldown: "<blend:&4;&c>You cannot consume god apples for %cooldown% seconds</>"
 enderpearl-cooldown: "<blend:&4;&c>You cannot use your enderpearl for %cooldown% seconds</>"
-combat-tagged: "<blend:&4;&c>You cannot enter spawn whilst combat tagged.</>"
+combat-tagged:
+  spawn: "<blend:&4;&c>You cannot enter spawn whilst combat tagged.</>"
+  portal: "<blend:&4;&c>You cannot enter use portals whilst combat tagged.</>"
+  cannot-enter: "&cYou cannot enter %team%'s&c land whilst combat tagged."
 
 invincibility:
   damager-on-timer: "<blend:&4;&c>You cannot hit %target% because you have invincibility timer.</>"
@@ -28,6 +154,58 @@ invincibility:
     - '<blend:&2;&a>You now have Invincibility Timer for 30 minutes!</>'
     - '<blend:&7;&f>You will not lose hunger, take pvp damage, or pickup pvp loot.</>'
     - '<blend:&7;&f>This can be disabled by doing /pvp enable!</>'
+  cannot-enter: "&cYou cannot enter %team%'s&c land because of your invincibility timer."
+  enabled: "<blend:&2;&a>Your pvp timer is now enabled. You will take damage and lose hunger!</>"
+  error:
+    inactive: "<blend:&4;&c>Your pvp timer is not active.</>"
+
+glowstone:
+  reset-soon: "<blend:&6;&e>&lGLOWSTONE MOUNTAIN</> &eGlowstone Mountain will be resetting in &6%time%&e!"
+  reset-announcement: "<blend:&6;&e>&lGLOWSTONE MOUNTAIN</> &eGlowstone Mountain has been reset, all glowstone has been respawned&e!"
+
+end-info:
+  - ' '
+  - '&5End Info'
+  - '&fEnd Entrance: &a%end-entrance% &5[The End]'
+  - '&fEnd Exit: &c%end-exit-end% &5[The End]'
+  - '&fCreeper Locations: &5[The End]'
+  - '&7» &a%creeper-locations%'
+  - ' '
+
+economy:
+  insufficient: "<blend:&4;&c>You do not have enough money to send $%amount%!</>"
+  balance:
+    self: "&eYou have &2$%balance%&e in your account!"
+    other: "&6%player% &ehas &2$%balance% &ein their account!"
+  set:
+    sender: "&6%target%'s &ebalance has been set to &2$%amount%"
+    target: "&6%sender%&e has set your balance &2$%amount%"
+  add:
+    sender: "&2$%amount%&e has been added to &6%target%'s &ebalance."
+    target: "&2$%amount%&e has been added to your account by &6%sender%&e."
+  subtract:
+    sender: "&2$%amount%&e has been removed from &6%target%'s &ebalance."
+    target: "&2$%amount%&e has been removed from your account by &6%sender%&e."
+
+deathban:
+  died: "&4&lDEATHBAN &7» &eYou are now deathbanned for &c%duration%&e!"
+  kick-message: "&cYou cannot join HCF as you are deathbanned for %duration%!"
+  credits:
+    reached: "&4&lDEATHBAN ARENA &7» &aYou reached the amount needed, you have been revived!"
+    mined: "&4&lDEATHBAN ARENA &7» &aYou mined a block! Only %goal% more blocks to go!"
+    delay: "&4&lDEATHBAN ARENA &7» &aYou are mining too fast!"
+    same-block: "&4&lDEATHBAN ARENA &7» &aYou need to mine a different block!"
+    same-location: "&4&lDEATHBAN ARENA &7» &aYou need to move a block when mining!"
+  revived:
+    self: "&aYou have used a life to revive yourself!"
+    other: "&6%sender% &eused a life to revive you!"
+    sender: "&aYou have used a life to revive %target%"
+  lives:
+    no-lives: "&4[Lives Error] You do not have enough lives to do this."
+  disallowed-command: "&cYou cannot use this command in the deathban arena."
+  arena-death-message:
+    killer: "&6%victim% &ewas slain by &6%killer% &7[5 minute reduction]"
+    none: "&6%victim% &edied. &7[No reduction]"
 
 team:
   not-existent: "<blend:&4;&c>[Team Error] A team with that name does not exist.</>"
@@ -37,8 +215,11 @@ team:
     enemy: "<blend:&4;&c>[Team Error] %target% is not on a team.</>"
   has-team: "<blend:&4;&c>[Team Error] You must leave your current team before doing this.</>"
   same-team: "<blend:&4;&c>%victim% is on your team.</>"
+  ally: "<blend:&4;&c>%victim% is an ally.</>"
   no-permission: "<blend:&4;&c>[Team Error] You need to be a %role% to execute this command.</>"
   dtr-freeze: "<blend:&4;&c>[Team Error] You cannot do this while on DTR Freeze.</>"
+  connected: "<blend:&2;&a>[Member Join] %player% is now online!</>"
+  disconnected: "<blend:&2;&a>[Member Quit] %player% is now offline!</>"
   create:
     already-exists: "<blend:&4;&c>[Team Error] A team under that name already exists.</>"
     broadcast: "<blend:&3;&b>[Team]</> <blend:&2;&a>%player% has created the %team% team!</>"
@@ -57,6 +238,7 @@ team:
     announcement: "<blend:&2;&a>%player% has joined the team!</>"
   leave:
     left: "<blend:&2;&a>[Team] You have successfully left the team.</>"
+    leader: "<blend:&4;&c>[Team] You cannot leave the team as you are leader.</>"
     announcement: "<blend:&4;&c>%player% has left the team!</>"
   kick:
     no-permission: "<blend:&4;&c>[Team Error] You need to be a role higher to kick this player.</>"
@@ -65,6 +247,9 @@ team:
   regeneration:
     regenerated: "<blend:&6;&e>You have just regenerated %dtr% DTR.</>"
     fully-regenerated: "<blend:&6;&e>Your DTR has been fully regenerated.</>"
+  unclaim:
+    not-in-claim: "<blend:&4;&c>[Claim Error] You need to be in your teams claim to unclaim!</>"
+    success: "<blend:&4;&c>A claim has been unclaimed by %player%</>"
   claim:
     not-complete:
       position-one: "<blend:&4;&c>[Claim Error] You need to left click a position to complete this process!</>"
@@ -91,6 +276,8 @@ team:
       too-big: "<blend:&4;&c>[Claim Error] You claim is too big! It needs to be no larger than 50x50</>"
       too-many: "<blend:&4;&c>[Claim Error] Your team already has the maximum amount of claims.</>"
       touching: "<blend:&4;&c>[Claim Error] Your claim seems to be touching another claim. It must be at least 2 blocks away.</>"
+      broke: "<blend:&4;&c>[Claim Error] You cannot afford this claim.</>"
+      not-enabled-world: "<blend:&4;&c>[Claim Error] Claiming is not enabled in this world.</>"
     edit:
       cant-place: "&eYou cannot place blocks in %team%&e's land."
       cant-break: "&eYou cannot break blocks in %team%&e's land."
@@ -108,6 +295,8 @@ team:
       spawn: "<blend:&2;&a>Safezone</>"
       road: "<blend:&6;&e>%team% Road</>"
       warzone: "<blend:&4;&c>Warzone</>"
+      glowstone: "<blend:&6;&e>Glowstone Mountain</>"
+      deathban-arena: "<blend:&c;&e>Deathban Arena</>"
   home:
     set: "<blend:&3;&b>The team home has been updated by %player%</>"
     failed: "<blend:&4;&c>[Home Error] Your team home needs to be set in your claim.</>"
@@ -119,6 +308,30 @@ team:
       moved: "<blend:&4;&c>[Home Error] Your team home warp has been cancelled due to you moving.</>"
       combat-tagged: "<blend:&4;&c>[Home Error] You cannot warp to your team home whilst combat tagged.</>"
       already-warping: "<blend:&4;&c>[Home Error] You already are warping to your home.</>"
+  stuck:
+    warping: "<blend:&e;&b>[Stuck] Warping to nearest safe spot in %duration% seconds.</>"
+    warp-error:
+      no-claim: "<blend:&4;&c>[Stuck Error] You aren't in a claim to start a stuck warp.</>"
+      damaged: "<blend:&4;&c>[Stuck Error] Your stuck warp has been cancelled due to you taking damage.</>"
+      moved: "<blend:&4;&c>[Stuck Error] Your stuck warp has been cancelled due to you moving more than 5 blocks.</>"
+      already-warping: "<blend:&4;&c>[Stuck Error] You already are warping.</>"
+      failed: "<blend:&4;&c>[Stuck Error] Failed to find a valid teleport location.</>"
+  alliance:
+    request:
+      sent:
+        sender: "<blend:&5;&d>&lALLIANCE REQUEST</> &7» &a%sender% has requested an alliance with %team%!"
+        target: "<blend:&5;&d>&lALLIANCE REQUEST</> &7» &a%team% has requested to ally your team! &7[Click to accept]"
+      removed: "<blend:&5;&d>&lALLIANCE REQUEST</> &7» &a%sender% has removed the alliance request with %team%!"
+    broken:
+      sender: "<blend:&5;&d>&lALLIANCE</> &7» &c%sender% has dropped your alliance with %team%!"
+      target: "<blend:&5;&d>&lALLIANCE</> &7» &c%team% has dropped your alliance!"
+    accepted:
+      sender: "<blend:&5;&d>&lALLIANCE</> &7» &a%sender% has accepted %team%'s alliance request!"
+      target: "<blend:&5;&d>&lALLIANCE</> &7» &a%team% has accepted your alliance!"
+    error:
+      no-alliance: "<blend:&5;&d>&lALLIANCE</> &7» &cYour team and %team% do not have an alliance!"
+      already-requested: "<blend:&5;&d>&lALLIANCE</> &7» &cYou already requested an alliance!"
+      too-many: "<blend:&5;&d>&lALLIANCE</> &7» &cThe maximum amount of allies is %limit%!"
   dtr:
     raidable-color: "&4"
     one-dtr-color: "&e"
@@ -153,12 +366,51 @@ team:
     # %members% - returns all members with name formats
     # %home% - returns the home formatted in X, Y, Z
     format:
-      - ' '
-      - '%team% &7[%online%/%total%] &7- <blend:&6;&e>HQ: %home%</>'
-      - '&fDTR: %dtr-color%%dtr-symbol%%dtr%&7%dtr-regeneration%'
-      - '&fOnline Members: &a%online-members%'
-      - '&fOffline Members: &c%offline-members%'
-      - ' '
+      glowstone:
+        - ' '
+        - '%team%'
+        - '&fLocation: &6%home%'
+        - '&fResets in: &e%glowstone-next-reset%'
+        - '&fGlowstone left: &e%glowstone-blocks-left%'
+        - ' '
+      spawn:
+        - ' '
+        - '%team%'
+        - '&fLocation: &60, 0 [All Worlds]'
+        - ' '
+      player:
+        - ' '
+        - '%team% &7[%online%/%total%] &7- <blend:&6;&e>HQ: %home%</>'
+        - '&fDTR: %dtr-color%%dtr-symbol%%dtr%&7%dtr-regeneration%'
+        - '&fOnline Members: &a%online-members%'
+        - '&fOffline Members: &c%offline-members%'
+        - ' '
+  deposited:
+    announcement: "&a%sender% has deposited $%amount% into the team balance."
+    error:
+      insufficient: "&cYou do not have enough money to deposit that amount."
+  withdrawn:
+    announcement: "&a%sender% has withdrawn $%amount% from the team balance."
+    error:
+      insufficient: "&cYour team does not have sufficient balance for that amount."
+      too-low: "&cYou can only provide positive amounts."
+  list:
+    amount: 10 # how many teams to show per page
+    header:
+      - '&7&m-----------------------'
+      - '<blend:&6;&e>&lOnline Teams</> &7[%amount%] &7- &fPage #%page%/%max-pages%'
+      - '&7&m-----------------------'
+    format: "&e#%number%) %team% &7[%online%/%total%] &f- %dtr-color%%dtr-symbol%%dtr%"
+    footer:
+      - '&7&m-----------------------'
+    hover:
+      enabled: true
+      info:
+        - ' '
+        - '%team% &7[%online%/%total%]'
+        - '&fDTR: %dtr-color%%dtr-symbol%%dtr%'
+        - '&fHQ: %home%'
+        - ' '
   top:
     amount: 10 # how many teams to show
     header:

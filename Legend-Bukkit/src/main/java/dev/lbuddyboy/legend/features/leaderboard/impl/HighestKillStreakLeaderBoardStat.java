@@ -18,7 +18,7 @@ public class HighestKillStreakLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String getId() {
-        return "highest_kill_streaks";
+        return "HighestKillStreak";
     }
 
     @Override

@@ -1,24 +1,32 @@
-package dev.lbuddyboy.events.schedule.thread;
+package dev.lbuddyboy.legend.features.schedule;
 
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.events.Events;
 import dev.lbuddyboy.events.schedule.ScheduledEvent;
+import dev.lbuddyboy.legend.LegendBukkit;
 import org.bukkit.ChatColor;
-
-import java.util.ArrayList;
 
 public class ScheduleThread extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            if (Events.getInstance().getScheduleHandler() != null) {
-                for (ScheduledEvent event : Events.getInstance().getScheduleHandler().getScheduledEvents()) {
-                    if (!event.shouldActivate()) continue;
+        while (LegendBukkit.isENABLED()) {
+            try {
+                for (ScheduleEntry entry : LegendBukkit.getInstance().getScheduleHandler().getScheduleEntries()) {
+                    if (!entry.shouldActivate()) continue;
 
-                    Events.getInstance().getLogger().info(ChatColor.RED + "Attempting to activate " + event.getEventName() + " from event schedule.");
-                    Tasks.run(event::activate);
+                    LegendBukkit.getInstance().getLogger().info(ChatColor.RED + "Attempting to activate " + entry.getId() + " from the schedule.");
+                    Tasks.run(entry::activate);
                 }
+
+                boolean removed = LegendBukkit.getInstance().getScheduleHandler().getScheduleEntries().removeIf(e -> e.isActivated() && e.isRemoveAfterExecute());
+
+                if (removed) {
+                    LegendBukkit.getInstance().getScheduleHandler().saveSchedule();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();;
             }
             try {
                 Thread.sleep(1000L);

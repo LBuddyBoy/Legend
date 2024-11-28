@@ -1,91 +1,58 @@
 package dev.lbuddyboy.legend.timer;
 
-import dev.lbuddyboy.commons.util.CC;
+import dev.lbuddyboy.commons.api.util.TimeUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.model.LegendUser;
+import dev.lbuddyboy.legend.user.model.PersistentTimer;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.UUID;
 
-public abstract class PlayerTimer implements Listener {
+@Getter
+public abstract class ServerTimer implements Listener {
+
+    private PersistentTimer timer = null;
 
     public abstract String getId();
 
     public String getView() {
-        return LegendBukkit.getInstance().getTimerHandler().getConfig().getString(getId() + ".view");
+        return LegendBukkit.getInstance().getTimerHandler().getServerTimerConfig().getString(getId() + ".view");
     }
 
     public String getDisplayName() {
-        return LegendBukkit.getInstance().getTimerHandler().getConfig().getString(getId() + ".display-name");
+        return LegendBukkit.getInstance().getTimerHandler().getServerTimerConfig().getString(getId() + ".display-name");
     }
 
     public String getPrimaryColor() {
-        return LegendBukkit.getInstance().getTimerHandler().getConfig().getString(getId() + ".primary-color");
+        return LegendBukkit.getInstance().getTimerHandler().getServerTimerConfig().getString(getId() + ".primary-color");
     }
 
     public String getSecondaryColor() {
-        return LegendBukkit.getInstance().getTimerHandler().getConfig().getString(getId() + ".secondary-color");
+        return LegendBukkit.getInstance().getTimerHandler().getServerTimerConfig().getString(getId() + ".secondary-color");
     }
 
-    public int getDuration() {
-        return LegendBukkit.getInstance().getTimerHandler().getConfig().getInt(getId() + ".duration");
-    }
-    
-    public String getColoredName() {
-        return getPrimaryColor() + getDisplayName();
+    public boolean isActive() {
+        if (this.timer == null) return false;
+
+        return !this.timer.isExpired();
     }
 
-    public void remove(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-
-        user.removeTimer(getId());
+    public void start(long duration) {
+        this.timer = new PersistentTimer(getId(), duration);
     }
 
-    public void pause(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-
-        user.pauseTimer(getId());
+    public void pause() {
+        this.timer.pause();
     }
 
-    public void resume(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-
-        user.resumeTimer(getId());
+    public void unpause() {
+        this.timer.unpause();
     }
 
-    public void apply(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-
-        user.applyTimer(getId(), getDuration() * 1000L);
-    }
-
-    public void apply(Player player) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
-
-        user.applyTimer(getId(), getDuration(player) * 1000L);
-    }
-
-    public String getRemainingSeconds(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-
-        return user.getRemainingSeconds(getId());
-    }
-    
-    public String getRemaining(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-
-        return user.getRemaining(getId());
-    }
-    
-    public boolean isActive(UUID playerUUID) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
-        
-        return user.isTimerActive(getId());
-    }
-    
-    public int getDuration(Player player) {
-        return getDuration();
+    public void end() {
+        this.timer = null;
     }
 
     public boolean isScoreboard() {
@@ -100,18 +67,19 @@ public abstract class PlayerTimer implements Listener {
         return isScoreboard() || isActionbar();
     }
 
-    public String format(UUID playerUUID, String string) {
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
+    public String getColoredName() {
+        return getPrimaryColor() + getDisplayName();
+    }
 
+    public String format(String string) {
         return string
                 .replaceAll("%timer-colored%", getColoredName())
                 .replaceAll("%timer-display%", getDisplayName())
                 .replaceAll("%timer-primary%", getPrimaryColor())
                 .replaceAll("%timer-secondary%", getSecondaryColor())
                 .replaceAll("%timer-id%", getId())
-                .replaceAll("%timer-remaining-seconds%", getRemainingSeconds(playerUUID))
-                .replaceAll("%timer-remaining-mmss%", getRemaining(playerUUID))
+                .replaceAll("%timer-remaining-hhmmss%", (this.timer == null ? "" : TimeUtils.formatIntoHHMMSS((int) (this.timer.getRemaining() / 1000L))))
                 ;
     }
-    
+
 }

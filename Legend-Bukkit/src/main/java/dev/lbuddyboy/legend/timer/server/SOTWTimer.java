@@ -2,6 +2,7 @@ package dev.lbuddyboy.legend.timer.server;
 
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.timer.ServerTimer;
 import dev.lbuddyboy.legend.util.BukkitUtil;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -55,6 +57,16 @@ public class SOTWTimer extends ServerTimer {
         Player player = (Player) event.getEntity();
         if (!isActive()) return;
         if (this.enabledPlayers.contains(player.getUniqueId())) return;
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+
+        if (!isActive()) return;
+        if (!TeamType.SPAWN.appliesAt(player.getLocation())) return;
 
         event.setCancelled(true);
     }

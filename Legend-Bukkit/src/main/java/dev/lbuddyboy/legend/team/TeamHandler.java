@@ -6,11 +6,12 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.api.util.IModule;
-import dev.lbuddyboy.commons.scoreboard.ScoreboardHandler;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.listener.*;
 import dev.lbuddyboy.legend.team.model.*;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamCreationLog;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamDTRChangeLog;
 import dev.lbuddyboy.legend.team.thread.ClaimBorderThread;
 import dev.lbuddyboy.legend.team.thread.DTRThread;
 import dev.lbuddyboy.legend.team.thread.TeamSaveThread;
@@ -31,9 +32,9 @@ public class TeamHandler implements IModule {
     private final Map<String, Team> teamNames;
     private final Map<UUID, Team> playerTeams;
     @Getter private final Map<TopType, Map<Integer, TopEntry>> topTeams;
+    private final List<Thread> threads;
 
     private MongoCollection<Document> collection;
-    private Thread teamSaveThread, dtrThread, topThread, borderThread;
 
     @Getter private final ClaimHandler claimHandler;
     @Getter private final MovementHandler movementHandler;
@@ -45,6 +46,7 @@ public class TeamHandler implements IModule {
         this.topTeams = new ConcurrentHashMap<>();
         this.claimHandler = new ClaimHandler();
         this.movementHandler = new MovementHandler();
+        this.threads = new ArrayList<>();
     }
 
     @Override
@@ -55,15 +57,22 @@ public class TeamHandler implements IModule {
         this.loadTeams();
         this.claimHandler.load();
 
-        new TeamSaveThread().start();
-        new DTRThread().start();
-        new TeamTopThread().start();
-        new ClaimBorderThread().start();
+        this.threads.addAll(Arrays.asList(
+                new TeamSaveThread(),
+                new DTRThread(),
+                new TeamTopThread(),
+                new ClaimBorderThread()
+        ));
+
+        this.threads.forEach(Thread::start);
+
+        this.updateTopTeams();
     }
 
     @Override
     public void unload() {
         this.teamIds.values().forEach(team -> saveTeam(team, false));
+        this.threads.clear();
     }
 
     private void loadTeams() {
@@ -90,6 +99,7 @@ public class TeamHandler implements IModule {
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamWaypointListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new SubclaimListener(), LegendBukkit.getInstance());
+        LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamLogListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(this.movementHandler, LegendBukkit.getInstance());
     }
 
@@ -110,12 +120,16 @@ public class TeamHandler implements IModule {
     }
 
     public void removePlayerFromTeam(Team team, UUID playerUUID) {
+
+        team.updateNameTags();
         team.removeMember(playerUUID);
         this.playerTeams.remove(playerUUID);
 
-        team.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNametagHandler()::reloadPlayer);
         if (!team.isDTRFrozen()) {
+            double previousDTR = team.getDeathsUntilRaidable();
+
             team.setDeathsUntilRaidable(team.getMaxDTR() - 1);
+            team.createTeamLog(new TeamDTRChangeLog(previousDTR, team.getDeathsUntilRaidable(), playerUUID, TeamDTRChangeLog.ChangeCause.MEMBER_LEFT));
         }
 
         Player player = Bukkit.getPlayer(playerUUID);
@@ -127,26 +141,28 @@ public class TeamHandler implements IModule {
 
         team.getMembers().add(member);
         this.playerTeams.put(playerUUID, team);
-
+        team.updateNameTags();
     }
 
-    public void createTeam(String name, UUID leaderUUID) {
-        createTeam(name, leaderUUID, TeamType.PLAYER);
+    public Team createTeam(String name, UUID leaderUUID) {
+        return createTeam(name, leaderUUID, TeamType.PLAYER);
     }
 
-    public void createTeam(String name, UUID leaderUUID, TeamType type) {
+    public Team createTeam(String name, UUID leaderUUID, TeamType type) {
         Team team = new Team(UUID.randomUUID(), name);
 
         team.setTeamType(type);
 
         if (leaderUUID != null) {
             team.addMember(new TeamMember(leaderUUID, TeamRole.LEADER));
+            team.createTeamLog(new TeamCreationLog(leaderUUID));
         }
 
-        team.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNametagHandler()::reloadPlayer);
+        team.updateNameTags();
 
         this.cacheTeam(team);
         this.saveTeam(team, true);
+        return team;
     }
 
     public void cacheTeam(Team team) {
@@ -167,7 +183,7 @@ public class TeamHandler implements IModule {
 
         Arrays.stream(WaypointType.values()).forEach(team::removeWaypoint);
 
-        team.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNametagHandler()::reloadPlayer);
+        team.updateNameTags();
         updateTopTeams();
     }
 
@@ -219,6 +235,16 @@ public class TeamHandler implements IModule {
             return;
         }
 
+        if (team.getTeamType() == TeamType.KOTH) {
+            LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.koth").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+            return;
+        }
+
+        if (team.getTeamType() == TeamType.CITADEL) {
+            LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.citadel").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+            return;
+        }
+
         LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.player").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
     }
 
@@ -243,6 +269,8 @@ public class TeamHandler implements IModule {
 
             this.topTeams.put(type, topTeams);
         }
+
+        teams.forEach(Team::updateNameTags);
     }
 
 }

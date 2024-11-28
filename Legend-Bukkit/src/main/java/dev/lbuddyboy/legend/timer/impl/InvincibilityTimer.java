@@ -104,7 +104,10 @@ public class InvincibilityTimer extends PlayerTimer {
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
-        if (user.isPlayedBefore()) return;
+        if (user.isPlayedBefore()) {
+
+            return;
+        }
 
         apply(player.getUniqueId());
         LegendBukkit.getInstance().getLanguage().getStringList("invincibility.activated").forEach(s -> player.sendMessage(CC.translate(s)));

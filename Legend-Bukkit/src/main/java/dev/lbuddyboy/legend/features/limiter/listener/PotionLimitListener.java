@@ -47,7 +47,7 @@ public class PotionLimitListener implements Listener {
     }
 
     public List<Integer> getDisallowedPotions() {
-        return LegendBukkit.getInstance().getLimiter().getIntegerList("potion-limits");
+        return LegendBukkit.getInstance().getLimiterHandler().getConfig().getIntegerList("potion-limits");
     }
 
 }

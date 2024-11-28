@@ -8,10 +8,8 @@ import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.commons.util.ItemUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.model.Team;
-import dev.lbuddyboy.legend.team.model.claim.Claim;
-import dev.lbuddyboy.legend.team.model.claim.ClaimMapView;
-import dev.lbuddyboy.legend.team.model.claim.ClaimProcess;
-import dev.lbuddyboy.legend.team.model.claim.GridCoordinate;
+import dev.lbuddyboy.legend.team.model.TeamType;
+import dev.lbuddyboy.legend.team.model.claim.*;
 import dev.lbuddyboy.legend.util.Cuboid;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -21,12 +19,14 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Getter
 public class ClaimHandler implements IModule, Listener {
@@ -34,6 +34,7 @@ public class ClaimHandler implements IModule, Listener {
     private final Map<UUID, ClaimProcess> claimProcesses;
     private final Map<String, Multimap<GridCoordinate, Claim>> claims;
     private final Map<UUID, ClaimMapView> mapViews;
+    private final Map<UUID, ClaimBorderView> borderViews;
 
     private ItemStack claimWand;
     private int minimumSizeX, minimumSizeZ, maximumSizeX, maximumSizeZ, maximumClaims, bufferSize;
@@ -42,6 +43,7 @@ public class ClaimHandler implements IModule, Listener {
         this.claimProcesses = new HashMap<>();
         this.claims = new ConcurrentHashMap<>();
         this.mapViews = new ConcurrentHashMap<>();
+        this.borderViews = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -69,6 +71,26 @@ public class ClaimHandler implements IModule, Listener {
     public void stopClaimProcess(Player player) {
         this.claimProcesses.remove(player.getUniqueId());
         player.getInventory().remove(this.claimWand);
+    }
+
+    public void updateAllMapViews() {
+        this.mapViews.values().forEach(ClaimMapView::updateClaims);
+    }
+
+    public void clearBorderView(Player player) {
+        if (!this.borderViews.containsKey(player.getUniqueId())) return;
+
+        ClaimBorderView wallView = this.borderViews.get(player.getUniqueId());
+
+        wallView.clearBorders();
+    }
+
+    public void sendBorderView(Player player, Claim claim) {
+        ClaimBorderView wallView = this.borderViews.getOrDefault(player.getUniqueId(), new ClaimBorderView(player));
+
+        wallView.showBorder(claim);
+
+        this.borderViews.putIfAbsent(player.getUniqueId(), wallView);
     }
 
     public void updateMapView(Player player) {
@@ -113,7 +135,7 @@ public class ClaimHandler implements IModule, Listener {
             for (int z = min.getBlockZ(); z < max.getBlockZ() + step; z += step) {
                 GridCoordinate coordinateSet = new GridCoordinate(x, z);
 
-                for (Claim claim : this.claims.get(min.getWorld().getName()).get(coordinateSet)) {
+                for (Claim claim : this.claims.get(min.getWorld().getName()).get(coordinateSet).stream().sorted(new TeamType.TeamTypeClaimComparator()).collect(Collectors.toList())) {
                     if (!claims.contains(claim)) {
                         Cuboid bounds = claim.getBounds();
                         if ((max.getBlockX() >= bounds.getX1()) && (min.getBlockX() <= bounds.getX2())
@@ -135,7 +157,7 @@ public class ClaimHandler implements IModule, Listener {
 
     public Claim getClaim(Location location) {
 
-        for (Claim data : this.claims.get(location.getWorld().getName()).get(new GridCoordinate(location.getBlockX(), location.getBlockZ()))) {
+        for (Claim data : this.claims.get(location.getWorld().getName()).get(new GridCoordinate(location.getBlockX(), location.getBlockZ())).stream().sorted(new TeamType.TeamTypeClaimComparator()).collect(Collectors.toList())) {
             if (data.getBounds().contains(location)) {
                 return (data);
             }
@@ -165,7 +187,7 @@ public class ClaimHandler implements IModule, Listener {
             }
         }
 
-        this.mapViews.values().forEach(ClaimMapView::updateClaims);
+        this.updateAllMapViews();
     }
 
     public void removeClaim(Claim claim) {
@@ -189,7 +211,7 @@ public class ClaimHandler implements IModule, Listener {
             }
         }
 
-        this.mapViews.values().forEach(ClaimMapView::updateClaims);
+        this.updateAllMapViews();
     }
 
     public boolean isClaimOverLapping(Claim claim) {
@@ -212,6 +234,13 @@ public class ClaimHandler implements IModule, Listener {
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event) {
         registerWorld(event.getWorld());
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        this.removeMapView(event.getPlayer());
+        this.clearBorderView(event.getPlayer());
+        this.borderViews.remove(event.getPlayer().getUniqueId());
     }
 
     public void registerWorld(World world) {

@@ -1,70 +1,80 @@
 package dev.lbuddyboy.legend.nametag;
 
 import dev.lbuddyboy.arrow.ArrowPlugin;
-import dev.lbuddyboy.commons.nametag.NameTagImpl;
-import dev.lbuddyboy.commons.nametag.model.NameTagInfo;
-import dev.lbuddyboy.commons.nametag.model.NameVisibility;
-import org.bukkit.ChatColor;
+import dev.lbuddyboy.commons.api.APIConstants;
+import dev.lbuddyboy.commons.nametag.NametagProvider;
+import dev.lbuddyboy.commons.nametag.model.NametagInfo;
+import dev.lbuddyboy.commons.util.CC;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.LegendConstants;
+import dev.lbuddyboy.legend.features.leaderboard.LeaderBoardUser;
+import dev.lbuddyboy.legend.features.leaderboard.impl.KillLeaderBoardStat;
+import dev.lbuddyboy.legend.team.model.Team;
+import net.minecraft.server.v1_8_R3.EnumChatFormat;
+import net.minecraft.server.v1_8_R3.ScoreboardTeamBase;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class LegendNametagProvider implements NameTagImpl {
+public class LegendNametagProvider extends NametagProvider {
+
+    public LegendNametagProvider() {
+        super("Legend", 1000);
+    }
 
     @Override
-    public NameTagInfo getTag(Player viewer, Player target) {
-/*        if (Samurai.getInstance().getFeatureHandler().isDisabled(Feature.NORMAL_NAMETAGS)) {
-            return new NameTagInfo("DISABLED", "", "", ChatColor.GRAY, target.hasPotionEffect(PotionEffectType.INVISIBILITY) ? NameVisibility.NEVER : NameVisibility.ALWAYS);
-        }*/
-
+    public NametagInfo fetchNametag(Player target, Player viewer) {
         boolean staffViewing = false;
+        boolean invisible = target.hasPotionEffect(PotionEffectType.INVISIBILITY);
 
         if (viewer.hasPermission("arrow.staff")) {
             staffViewing = ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isVanished(viewer) || ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isInStaffMode(viewer);
         }
 
-        NameTagColorFormat nameTagColorFormat = null;
+        NameTagColorFormat format = null;
+        Map<UUID, LeaderBoardUser> leaderboard = LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoard(KillLeaderBoardStat.class);
+        LeaderBoardUser leaderBoardUser = leaderboard.get(target.getUniqueId());
+        String prefix = leaderBoardUser != null ? leaderBoardUser.getFancyPlace() + " " : "";
 
-        for (NameTagColorFormat colorFormat : NameTagColorFormat.values()) {
-            if (!colorFormat.getPredicate().test(viewer, target)) continue;
-
-            nameTagColorFormat = colorFormat;
-            break;
+        for (NameTagColorFormat nameTagColorFormat : NameTagColorFormat.values()) {
+            if (nameTagColorFormat.getPredicate().test(viewer, target)) {
+                format = nameTagColorFormat;
+                break;
+            }
         }
 
-        boolean friendly = nameTagColorFormat == NameTagColorFormat.TEAMMATE || nameTagColorFormat == NameTagColorFormat.ALLY || staffViewing;
-        ChatColor color = nameTagColorFormat == null ? ChatColor.RED : nameTagColorFormat.getColor();
-        String prefix = "";
-        String suffix = "";
-        NameVisibility visibility = NameVisibility.ALWAYS;
-        String name = nameTagColorFormat == null ? "DEFAULT" : nameTagColorFormat.name();
+        ScoreboardTeamBase.EnumNameTagVisibility visibility = ScoreboardTeamBase.EnumNameTagVisibility.ALWAYS;
 
-        if (target.hasPotionEffect(PotionEffectType.INVISIBILITY) && !friendly && target != viewer) {
-            visibility = NameVisibility.ALWAYS;
-        } else if (target.hasPotionEffect(PotionEffectType.INVISIBILITY) && friendly) {
-            visibility = NameVisibility.FRIENDLY_INVIS;
-            name = "VIEW_INVIS";
+        if (invisible) {
+            visibility = ScoreboardTeamBase.EnumNameTagVisibility.NEVER;
         }
 
-        return getTag(name, prefix, suffix, color, visibility);
+        if (format != null && (format == NameTagColorFormat.TEAMMATE || format == NameTagColorFormat.ALLY || staffViewing)) {
+            visibility = ScoreboardTeamBase.EnumNameTagVisibility.ALWAYS;
+        }
+
+        if (format != null) {
+            return createNametag(prefix + format.getColor().toString(), "", visibility, EnumChatFormat.valueOf(format.getColor().name()));
+        }
+
+        return createNametag(CC.translate(prefix + "&c"), "", visibility, EnumChatFormat.RED);
     }
 
     @Override
-    public List<String> getLunarTag(Player viewer, Player target) {
-
-        NameTagInfo playerInfo = getTag(viewer, target);
+    public List<String> getLunarLines(Player target, Player viewer) {
+        NametagInfo playerInfo = this.fetchNametag(target, viewer);
         List<String> tags = new ArrayList<>();
         boolean vanished = ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isVanished(target);
         boolean staffMode = ArrowPlugin.getInstance().getArrowAPI().getStaffModeHandler().isInStaffMode(target);
         String addition = "";
+        Team targetTeam = LegendBukkit.getInstance().getTeamHandler().getTeam(target.getUniqueId()).orElse(null);
 
-        tags.add(playerInfo.getPrefix() + playerInfo.getColor() + target.getName() + playerInfo.getSuffix());
+        tags.add(playerInfo.getPrefix() + target.getName() + playerInfo.getSuffix());
 
-/*        if (targetTeam != null) {
-            tags.add(targetTeam.getFancyPlace() + " &7[" + targetTeam.getName(viewer) + " &7" + SymbolUtil.STICK + " " + targetTeam.getDTRColor() + targetTeam.getDTR() + targetTeam.getDTRSuffix() + "&7]");
-        }*/
+        if (targetTeam != null) {
+            tags.add(targetTeam.getFancyPlace() + " &7[" + targetTeam.getName(viewer) + " &7| " + targetTeam.getDTRColor() + LegendConstants.KDR_FORMAT.format(targetTeam.getDeathsUntilRaidable()) + targetTeam.getDTRSymbol() + "&7]");
+        }
 
         if (vanished || staffMode) {
             if (vanished) addition += "&a[Hidden]";
@@ -75,10 +85,5 @@ public class LegendNametagProvider implements NameTagImpl {
         }
 
         return tags;
-    }
-
-    @Override
-    public boolean isLunarSupported() {
-        return true;
     }
 }

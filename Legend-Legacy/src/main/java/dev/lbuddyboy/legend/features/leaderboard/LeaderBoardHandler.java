@@ -1,13 +1,16 @@
-package dev.lbuddyboy.samurai.map.leaderboard;
+package dev.lbuddyboy.legend.features.leaderboard;
 
 import dev.lbuddyboy.commons.api.cache.UUIDCache;
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.commons.api.util.MojangUser;
-import dev.lbuddyboy.commons.util.*;
-import dev.lbuddyboy.samurai.Samurai;
-import dev.lbuddyboy.samurai.map.leaderboard.impl.*;
-import dev.lbuddyboy.samurai.map.leaderboard.thread.LeaderBoardUpdateThread;
-import dev.lbuddyboy.samurai.user.SamuraiUser;
+import dev.lbuddyboy.commons.util.CC;
+import dev.lbuddyboy.commons.util.Config;
+import dev.lbuddyboy.commons.util.LocationUtils;
+import dev.lbuddyboy.commons.util.Tasks;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.leaderboard.impl.*;
+import dev.lbuddyboy.legend.features.leaderboard.thread.LeaderBoardUpdateThread;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -36,17 +39,15 @@ public class LeaderBoardHandler implements IModule {
     @Override
     public void load() {
         this.lastUpdated = System.currentTimeMillis();
-        this.config = new Config(Samurai.getInstance(), "leaderboards");
+        this.config = new Config(LegendBukkit.getInstance(), "leaderboards");
 
         this.leaderBoardStats.addAll(Arrays.asList(
                 new KillLeaderBoardStat(),
                 new DeathLeaderBoardStat(),
                 new MoneyLeaderBoardStat(),
-                new ShardsLeaderBoardStat(),
                 new KDRLeaderBoardStat(),
                 new KillStreakLeaderBoardStat(),
                 new HighestKillStreakLeaderBoardStat(),
-                new MiniGameWinsLeaderBoardStat(),
                 new PlayTimeLeaderBoardStat()
         ));
 
@@ -64,8 +65,8 @@ public class LeaderBoardHandler implements IModule {
             for (String key : this.config.getConfigurationSection("holograms").getKeys(false)) {
                 Optional<ILeaderBoardStat> statOpt = getStatById(key);
 
-                if (statOpt.isEmpty()) {
-                    Samurai.getInstance().getLogger().warning("[Leaderboards] Error loading " + key + " hologram. Couldn't find a statistic with that id.");
+                if (!statOpt.isPresent()) {
+                    LegendBukkit.getInstance().getLogger().warning("[Leaderboards] Error loading " + key + " hologram. Couldn't find a statistic with that id.");
                     continue;
                 }
 
@@ -90,7 +91,7 @@ public class LeaderBoardHandler implements IModule {
 
         long start = System.currentTimeMillis();
 
-        Samurai.getInstance().getUserHandler().loadUsersAsync(
+        LegendBukkit.getInstance().getUserHandler().loadUsersAsync(
                 Arrays.stream(Bukkit.getOfflinePlayers())
                         .filter(player -> player.getName() != null && UUIDCache.getUuidToNames().containsKey(player.getUniqueId()))
                         .map(OfflinePlayer::getUniqueId)
@@ -98,7 +99,7 @@ public class LeaderBoardHandler implements IModule {
         ).thenAcceptAsync(users -> {
             Map<ILeaderBoardStat, PriorityQueue<LeaderBoardUser>> leaderboardPriorityQueues = new HashMap<>();
 
-            for (SamuraiUser user : users) {
+            for (LegendUser user : users) {
                 for (ILeaderBoardStat type : this.leaderBoardStats) {
                     leaderboardPriorityQueues.computeIfAbsent(type, k -> new PriorityQueue<>(Comparator.comparingDouble(LeaderBoardUser::getScore).reversed())).offer(new LeaderBoardUser(user.getUuid(), user.getName(), type.getValue(user.getUuid())));
                 }
@@ -135,11 +136,11 @@ public class LeaderBoardHandler implements IModule {
     }
 
     public Map<UUID, LeaderBoardUser> getLeaderBoard(Class<? extends ILeaderBoardStat> clazz) {
-        return getLeaderBoard(getStatByClass(clazz).get());
+        return getLeaderBoard(getStatByClass(clazz));
     }
 
-    public Optional<ILeaderBoardStat> getStatByClass(Class<? extends ILeaderBoardStat> clazz) {
-        return this.leaderBoardStats.stream().filter(stat -> stat.getClass().equals(clazz)).findFirst();
+    public <T extends ILeaderBoardStat> T getStatByClass(Class<T> clazz) {
+        return this.leaderBoardStats.stream().filter(stat -> stat.getClass().equals(clazz)).map(clazz::cast).findFirst().orElse(null);
     }
 
     public Optional<ILeaderBoardStat> getStatById(String id) {

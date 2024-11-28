@@ -18,12 +18,17 @@ public class UserListener implements Listener {
     public void onAsyncPreLogin(AsyncPlayerPreLoginEvent event) {
         UUID uuid = event.getUniqueId();
         String name = event.getName();
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(uuid);
 
-        user.setName(name);
-        user.setJoinedAt(System.currentTimeMillis());
+        try {
+            LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(uuid);
 
-        LegendBukkit.getInstance().getUserHandler().getUserCache().put(uuid, user);
+            user.setName(name);
+            user.setJoinedAt(System.currentTimeMillis());
+
+            LegendBukkit.getInstance().getUserHandler().getUserCache().put(uuid, user);
+        } catch (Exception e) {
+            LegendBukkit.getInstance().getUserHandler().getUserCache().put(uuid, new LegendUser(uuid, name));
+        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

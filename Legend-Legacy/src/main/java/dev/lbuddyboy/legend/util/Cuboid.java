@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.entity.Player;
 
 /**
  * This class is a region/cuboid from one location to another. It can be used for blocks protection and things like WorldEdit.
@@ -393,6 +395,10 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		return this.contains(b.getLocation());
 	}
 
+	public List<Player> getPlayers() {
+		return Bukkit.getOnlinePlayers().stream().filter(p -> contains(p.getLocation())).collect(Collectors.toList());
+	}
+
 	/**
 	 * Check if the given Location is contained within this Cuboid.
 	 * 
@@ -437,6 +443,24 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 */
 	public Cuboid contract() {
 		return this.contract(CuboidDirection.Down).contract(CuboidDirection.South).contract(CuboidDirection.East).contract(CuboidDirection.Up).contract(CuboidDirection.North).contract(CuboidDirection.West);
+	}
+
+	public List<Block> getWalls(int x, int z) {
+		List<Block> blocks = new ArrayList<>();
+		World world = this.getWorld();
+		for (int i = this.x1; i <= this.x2; ++i) {
+			for (int f = x; f <= z; ++f) {
+				blocks.add(world.getBlockAt(i, f, this.z1));
+				blocks.add(world.getBlockAt(i, f, this.z2));
+			}
+		}
+		for (int i = x; i <= z; ++i) {
+			for (int f = this.z1; f <= this.z2; ++f) {
+				blocks.add(world.getBlockAt(this.x1, i, f));
+				blocks.add(world.getBlockAt(this.x2, i, f));
+			}
+		}
+		return blocks;
 	}
 
 	/**

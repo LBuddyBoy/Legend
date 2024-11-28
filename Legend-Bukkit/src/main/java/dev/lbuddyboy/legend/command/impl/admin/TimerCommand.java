@@ -28,6 +28,7 @@ public class TimerCommand extends BaseCommand {
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(target.getUniqueId());
 
         user.removeTimer(id);
+        if (id.equalsIgnoreCase("enderpearl")) return;
         sender.sendMessage(CC.translate("&aRemoved the " + id + " timer from " + target.getName()));
     }
 

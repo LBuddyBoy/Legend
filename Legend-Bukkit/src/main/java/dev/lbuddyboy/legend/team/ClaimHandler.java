@@ -70,7 +70,10 @@ public class ClaimHandler implements IModule, Listener {
 
     public void stopClaimProcess(Player player) {
         this.claimProcesses.remove(player.getUniqueId());
-        player.getInventory().remove(this.claimWand);
+
+        player.getInventory().forEach(i -> {
+            if (i != null && isClaimWand(i)) player.getInventory().removeItem(i);
+        });
     }
 
     public void updateAllMapViews() {
@@ -261,6 +264,12 @@ public class ClaimHandler implements IModule, Listener {
         return new NBTItem(stack).hasTag("legend-claim-wand");
     }
 
+    public boolean isExactClaimWand(ItemStack stack) {
+        if (stack == null || stack.getType() == Material.AIR || stack.getAmount() <= 0) return false;
+
+        return new NBTItem(stack).hasTag("exact");
+    }
+
     public ItemStack createClaimWand() {
         NBTItem nbtItem = new NBTItem(this.claimWand.clone());
 
@@ -273,6 +282,15 @@ public class ClaimHandler implements IModule, Listener {
         NBTItem nbtItem = new NBTItem(new ItemFactory(createClaimWand()).addToLore(" ", "&aClaiming for team: " + team.getName() + " (" + team.getId() + ")").build());
 
         nbtItem.setUUID("claim-for", team.getId());
+
+        return nbtItem.getItem();
+    }
+
+    public ItemStack createClaimForExactWand(Team team) {
+        NBTItem nbtItem = new NBTItem(new ItemFactory(createClaimWand()).displayName("&6&lExact Claim Wand (Y level matters)").addToLore(" ", "&aClaiming for team: " + team.getName() + " (" + team.getId() + ")").build());
+
+        nbtItem.setUUID("claim-for", team.getId());
+        nbtItem.setBoolean("exact", true);
 
         return nbtItem.getItem();
     }

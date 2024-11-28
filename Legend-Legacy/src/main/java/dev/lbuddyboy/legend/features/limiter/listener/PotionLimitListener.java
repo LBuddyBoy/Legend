@@ -1,26 +1,17 @@
-package dev.lbuddyboy.legend.listener;
+package dev.lbuddyboy.legend.features.limiter.listener;
 
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PotionLimitListener implements Listener {
 

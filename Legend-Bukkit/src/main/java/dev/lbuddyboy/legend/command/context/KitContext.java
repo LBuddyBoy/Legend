@@ -1,11 +1,11 @@
-package dev.lbuddyboy.practice.command.context;
+package dev.lbuddyboy.legend.command.context;
 
 import co.aikar.commands.BukkitCommandExecutionContext;
 import co.aikar.commands.InvalidCommandArgument;
 import co.aikar.commands.contexts.ContextResolver;
 import dev.lbuddyboy.commons.util.CC;
-import dev.lbuddyboy.practice.kit.Kit;
-import dev.lbuddyboy.practice.lPractice;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
 
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
@@ -18,7 +18,7 @@ public class KitContext implements ContextResolver<Kit, BukkitCommandExecutionCo
     @Override
     public Kit getContext(BukkitCommandExecutionContext arg) throws InvalidCommandArgument {
         String source = arg.popFirstArg();
-        Kit kit = lPractice.getInstance().getKitHandler().getKits().get(source.toLowerCase());
+        Kit kit = LegendBukkit.getInstance().getKitMapHandler().getKits().get(source.toLowerCase());
 
         if (kit != null) {
             return kit;

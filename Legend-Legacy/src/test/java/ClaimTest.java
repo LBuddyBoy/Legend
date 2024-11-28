@@ -23,7 +23,7 @@ public class ClaimTest {
 
     }
 
-    public static List<Claim> CLAIMS = new ArrayList<>(){{
+    public static List<Claim> CLAIMS = new ArrayList<Claim>(){{
         for (int i = 0; i < 1000; i++) {
             add(new ClaimTest.Claim(UUID.randomUUID(), ThreadLocalRandom.current().nextInt(1000, 1500), ThreadLocalRandom.current().nextInt(1000, 1500), ThreadLocalRandom.current().nextInt(1000, 1500), ThreadLocalRandom.current().nextInt(1000, 1500)));
         }

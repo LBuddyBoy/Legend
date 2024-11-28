@@ -9,7 +9,7 @@ public class DeathbanThread extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (LegendBukkit.isENABLED()) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
                 if (!user.isDeathBanned()) continue;

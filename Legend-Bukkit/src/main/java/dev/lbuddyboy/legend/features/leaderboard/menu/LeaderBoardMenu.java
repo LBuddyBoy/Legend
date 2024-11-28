@@ -1,5 +1,7 @@
 package dev.lbuddyboy.legend.features.leaderboard.menu;
 
+import dev.lbuddyboy.api.leaderboard.model.LeaderboardDataEntry;
+import dev.lbuddyboy.arrow.Arrow;
 import dev.lbuddyboy.commons.menu.IButton;
 import dev.lbuddyboy.commons.menu.button.FillButton;
 import dev.lbuddyboy.commons.menu.paged.IPagedMenu;
@@ -7,19 +9,14 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
-import dev.lbuddyboy.legend.features.leaderboard.LeaderBoardUser;
 import dev.lbuddyboy.legend.features.leaderboard.impl.KillLeaderBoardStat;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LeaderBoardMenu extends IPagedMenu {
@@ -95,20 +92,21 @@ public class LeaderBoardMenu extends IPagedMenu {
         Map<Integer, IButton> buttons = new HashMap<>();
 
         int index = 0;
-        List<LeaderBoardUser> users = new ArrayList<>(LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values());
+        LeaderboardDataEntry leaderboardDataEntry = LegendBukkit.getInstance().getDataEntry(this.type.getId());
+        List<Map.Entry<UUID, Integer>> users = leaderboardDataEntry.getLeaderBoards().entrySet().stream()
+                .sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
+                .limit(10)
+                .toList();
 
         for (int slot : USER_SLOTS) {
             if (users.size() <= index) {
-                buttons.put(slot, new FillButton('f', new ItemFactory(Material.SKULL_ITEM).displayName("&cN/A").build()));
+                buttons.put(slot, new FillButton('f', new ItemFactory(Material.PLAYER_HEAD).displayName("&cN/A").build()));
                 continue;
             }
 
-            buttons.put(slot, new UserButton(users.get(index)));
-            index++;
-        }
+            Map.Entry<UUID, Integer> playerEntry = users.get(index);
 
-        for (LeaderBoardUser user : LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values()) {
-            buttons.put(USER_SLOTS[user.getPlace() - 1], new UserButton(user));
+            buttons.put(slot, new UserButton(playerEntry.getKey(), playerEntry.getValue(), ++index));
         }
 
         return buttons;
@@ -117,16 +115,17 @@ public class LeaderBoardMenu extends IPagedMenu {
     @AllArgsConstructor
     public class UserButton extends IButton {
 
-        private LeaderBoardUser user;
+        private UUID playerUUID;
+        private int value, place;
 
         @Override
         public ItemStack getItem(Player player) {
-            return new ItemFactory(user.getTexture())
-                    .displayName(CC.blend("#" + user.getPlace() + ") " + user.getName(), type.getPrimaryColor(), type.getSecondaryColor()))
+            return new ItemFactory(this.playerUUID)
+                    .displayName(CC.blend("#" + this.place + ") " + Arrow.getInstance().getUUIDCache().getName(this.playerUUID), type.getPrimaryColor(), type.getSecondaryColor()))
                     .lore(
                             " ",
-                            CC.blend("Place: #" + user.getPlace(), type.getPrimaryColor(), type.getSecondaryColor()),
-                            CC.blend(type.getValueName() + ": " + type.format(user.getScore()), type.getPrimaryColor(), type.getSecondaryColor()),
+                            CC.blend("Place: #" + this.place, type.getPrimaryColor(), type.getSecondaryColor()),
+                            CC.blend(type.getValueName() + ": " + type.format((double) this.value), type.getPrimaryColor(), type.getSecondaryColor()),
                             " "
                     )
                     .build();

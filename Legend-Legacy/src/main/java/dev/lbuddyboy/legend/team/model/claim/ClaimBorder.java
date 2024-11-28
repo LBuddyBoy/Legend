@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 
 @AllArgsConstructor
 @Getter
-public enum ClaimWall {
+public enum ClaimBorder {
 
     COMBAT_TAG(new MaterialData(Material.STAINED_GLASS, (byte) 14), (uuid) -> LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class).isActive(uuid)),
     INVINCIBILITY(new MaterialData(Material.STAINED_GLASS, (byte) 5), (uuid) -> LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class).isActive(uuid));

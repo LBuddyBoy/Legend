@@ -1,6 +1,5 @@
 package dev.lbuddyboy.legend.team.model.log.impl;
 
-import de.tr7zw.nbtapi.utils.UUIDUtil;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.team.model.log.TeamLog;
 import dev.lbuddyboy.legend.team.model.log.TeamLogType;
@@ -8,31 +7,30 @@ import dev.lbuddyboy.legend.util.UUIDUtils;
 import lombok.Getter;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class TeamCreationLog extends TeamLog {
+public class TeamMemberDeathLog extends TeamLog {
 
-    private final UUID sender;
+    private final UUID victimUUID;
 
-    public TeamCreationLog(UUID sender) {
-        super("&6" + UUIDUtils.name(sender) + " &acreated &ethe team!", TeamLogType.CREATED);
+    public TeamMemberDeathLog(UUID victimUUID, String action) {
+        super(action, TeamLogType.MEMBER_DEATH);
 
-        this.sender = sender;
+        this.victimUUID = victimUUID;
     }
 
-    public TeamCreationLog(Document document) {
+    public TeamMemberDeathLog(Document document) {
         super(document);
-        this.sender = UUID.fromString(document.getString("sender"));
+        this.victimUUID = UUID.fromString(document.getString("victimUUID"));
     }
 
     @Override
     public Document toDocument() {
         Document document = super.toDocument();
 
-        document.put("sender", this.sender.toString());
+        document.put("victimUUID", this.victimUUID.toString());
 
         return document;
     }
@@ -41,9 +39,9 @@ public class TeamCreationLog extends TeamLog {
     public List<String> getLog() {
         List<String> log = super.getLog();
 
-        log.add(" &dSender&7: &f" + UUIDUtils.name(this.sender));
+        log.add(" &dVictim&7: &f" + UUIDUtils.name(this.victimUUID));
 
-        return CC.translate(log);
+        return log;
     }
 
 }

@@ -12,24 +12,24 @@ import org.bukkit.inventory.ShapedRecipe;
  * @file dev.lbuddyboy.lifesteal.extras.recipe.impl
  * @since 1/7/2024
  */
-public class ChainmailChestplate extends AbstractRecipe {
+public class ChainmailLeggings extends AbstractRecipe {
 
     @Override
     public String getId() {
-        return "Chainmail Chestplate";
+        return "Chainmail Leggings";
     }
 
     @Override
     public ItemStack getDisplayItem() {
-        return new ItemFactory(Material.CHAINMAIL_HELMET)
-                .displayName("&7Rogue Chestplate")
-                .lore("&7Click to view the rogue chestplate recipe!")
+        return new ItemFactory(Material.CHAINMAIL_LEGGINGS)
+                .displayName("&7Rogue Leggings")
+                .lore("&7Click to view the rogue leggings recipe!")
                 .build();
     }
 
     @Override
     public int getMenuSlot() {
-        return 0;
+        return 3;
     }
 
     @Override
@@ -37,9 +37,9 @@ public class ChainmailChestplate extends AbstractRecipe {
         ShapedRecipe recipe = new ShapedRecipe(getItem());
 
         recipe.shape(
-                "A A",
                 "AAA",
-                "AAA"
+                "A A",
+                "A A"
         );
         recipe.setIngredient('A', Material.QUARTZ);
 
@@ -48,6 +48,6 @@ public class ChainmailChestplate extends AbstractRecipe {
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(Material.CHAINMAIL_CHESTPLATE);
+        return new ItemStack(Material.CHAINMAIL_LEGGINGS);
     }
 }

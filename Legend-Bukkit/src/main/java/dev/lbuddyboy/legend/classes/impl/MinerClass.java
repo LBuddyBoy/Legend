@@ -53,23 +53,20 @@ public class MinerClass extends PvPClass {
     }
 
     @Override
-    public int getLimit() {
-        return 1;
-    }
+    public boolean apply(Player player) {
+        if (!super.apply(player)) return false;
 
-    @Override
-    public void apply(Player player) {
         player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 1));
-        super.apply(player);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, Integer.MAX_VALUE, 1));
+        return true;
     }
 
     @Override
     public void remove(Player player) {
         player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
         player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-        player.removePotionEffect(PotionEffectType.FAST_DIGGING);
+        player.removePotionEffect(PotionEffectType.HASTE);
         super.remove(player);
     }
 

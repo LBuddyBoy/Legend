@@ -1,9 +1,9 @@
-package dev.lbuddyboy.samurai.map.leaderboard.impl;
+package dev.lbuddyboy.legend.features.leaderboard.impl;
 
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.ItemUtils;
-import dev.lbuddyboy.samurai.Samurai;
-import dev.lbuddyboy.samurai.map.leaderboard.ILeaderBoardStat;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
  * @project Samurai
- * @file dev.lbuddyboy.samurai.map.leaderboard.impl
+ * @file dev.lbuddyboy.legend.features.leaderboard.impl
  * @since 5/9/2024
  */
 public class DeathLeaderBoardStat implements ILeaderBoardStat {
@@ -28,7 +28,7 @@ public class DeathLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public Double getValue(UUID playerUUID) {
-        return (double) Samurai.getInstance().getUserHandler().getUser(playerUUID).getDeaths();
+        return (double) LegendBukkit.getInstance().getUserHandler().getUser(playerUUID).getDeaths();
     }
 
     @Override

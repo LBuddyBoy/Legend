@@ -26,12 +26,10 @@ public class ClassHandler implements IModule {
         this.activeClasses = new ConcurrentHashMap<>();
         this.classes = new ArrayList<>();
 
-        this.classes.addAll(Arrays.asList(
-                new ArcherClass(),
-                new MinerClass(),
-                new RogueClass(),
-                new BardClass()
-        ));
+        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.miner.enabled")) this.classes.add(new MinerClass());
+        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.bard.enabled")) this.classes.add(new BardClass());
+        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.archer.enabled")) this.classes.add(new ArcherClass());
+        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.rogue.enabled")) this.classes.add(new RogueClass());
 
         this.classes.forEach(c -> LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(c, LegendBukkit.getInstance()));
 
@@ -43,9 +41,9 @@ public class ClassHandler implements IModule {
 
                     for (PvPClass pvpClass : this.classes) {
                         if (!pvpClass.hasSetOn(player)) continue;
+                        if (!pvpClass.shouldApply(player)) continue;
 
                         pvpClass.apply(player);
-                        this.activeClasses.put(player.getUniqueId(), pvpClass);
                     }
 
                     continue;

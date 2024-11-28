@@ -1,14 +1,14 @@
-package dev.lbuddyboy.samurai.map.leaderboard.thread;
+package dev.lbuddyboy.legend.features.leaderboard.thread;
 
-import dev.lbuddyboy.samurai.Samurai;
+import dev.lbuddyboy.legend.LegendBukkit;
 
 public class LeaderBoardUpdateThread extends Thread {
 
     @Override
     public void run() {
-        while (Samurai.getInstance().isEnabled()) {
+        while (LegendBukkit.getInstance().isEnabled()) {
             try {
-                Samurai.getInstance().getLeaderBoardHandler().update();
+                LegendBukkit.getInstance().getLeaderBoardHandler().update();
             } catch (Exception e) {
                 e.printStackTrace();
             }

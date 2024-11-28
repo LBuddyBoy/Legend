@@ -2,14 +2,17 @@ package dev.lbuddyboy.legend.command.impl;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import dev.lbuddyboy.api.user.User;
-import dev.lbuddyboy.api.user.UserMetadata;
+import dev.lbuddyboy.api.user.model.User;
+import dev.lbuddyboy.api.user.model.UserMetadata;
 import dev.lbuddyboy.arrow.Arrow;
+import dev.lbuddyboy.arrow.ArrowLocale;
+import dev.lbuddyboy.arrow.command.context.UUIDContext;
 import dev.lbuddyboy.commons.api.util.TimeUtils;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.model.LegendUser;
+import dev.lbuddyboy.legend.util.UUIDUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -18,6 +21,7 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @CommandAlias("stats")
 public class StatsCommand extends BaseCommand {
@@ -71,6 +75,41 @@ public class StatsCommand extends BaseCommand {
 
 		user.setHighestKillStreak(amount);
 		sender.sendMessage(CC.translate("&aSuccessfully set " + user.getName() + "'s highest killstreak statistic to " + amount + "!"));
+	}
+
+	@Subcommand("admin populate")
+	@CommandPermission("legend.command.stats.populate")
+	@CommandCompletion("@players")
+	public void populate(CommandSender sender) {
+		List<String> names = Arrays.asList(
+				"Test",
+				"Friend",
+				"Dead",
+				"Travis",
+				"LBuddyBoy",
+				"Premieres",
+				"Clickii",
+				"Arrow",
+				"Snowball",
+				"Egg",
+				"Legend",
+				"Land",
+				"Free",
+				"Fat",
+				"Crime"
+		);
+
+        for (String name : names) {
+            UUID uuid = UUIDUtils.fetchUUID(name);
+			LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(uuid);
+
+            setKills(sender, uuid, ThreadLocalRandom.current().nextInt(100));
+            setDeaths(sender, uuid, ThreadLocalRandom.current().nextInt(100));
+            setHigheastKillStreak(sender, uuid, ThreadLocalRandom.current().nextInt(100));
+            setKillStreak(sender, uuid, ThreadLocalRandom.current().nextInt(100));
+			user.setBalance(ThreadLocalRandom.current().nextDouble(1000D, 200_000D));
+			user.setPlayTime(ThreadLocalRandom.current().nextLong(10_000L, 500_000L));
+        }
 	}
 
 	@Subcommand("admin summarize")

@@ -1,17 +1,46 @@
 server:
-  kitmap-mode: false
   name: "Legend"
   primary-color: "&6" # Supports gradients
   secondary-color: "&e" # Supports gradients
   team-size: 5
+  allies: 0
   starting-balance: 250.0
+  auto-pickup: true
+  ally-damage: false # allies can't hit each other
+  deathbans: true
+  take-money-on-death: true
+  fast-brew: true
+  fast-smelt: true
+  kill-rewards:
+    donator:
+      - 'cr give Kill %player% 1'
+    default:
+      - 'cr give Kill %player% 1'
+
+kitmap:
+  enabled: false
+
+
+end:
+  entrance: "world_the_end;0.0;58.0;0.0;0.0;0.0;"
+  exit: "world;0.0;58.0;0.0;0.0;0.0;"
+  exit-end: "world_the_end;5.0;58.0;5.0;0.0;0.0;"
+  creepers:
+    - "world_the_end;0.0;58.0;0.0;0.0;0.0;"
+  players-can-claim: false
+
+nether:
+  portals-spawn-on-road: false
+  players-can-claim: false
 
 wilderness:
   overworld: 1000
+
 buffer:
-  end: 250 # typically gonna be the size of ends worldborder
+  end: 250 # typically gonna be the size of ends worldborder unless you want to enable claiming
   nether: 150
   overworld: 300
+
 team:
   maximum-dtr: 6.0
   regeneration:
@@ -28,20 +57,20 @@ team:
       x: 50
       z: 50
     wand:
-      material: "BRUSH"
+      material: "GOLD_HOE"
       name: '<blend:&3;&b>Claim Wand</>'
       lore:
         - ''
-        - '<blend:#C46B16;#F6C770;false>Left Click a Block</>'
+        - '<blend:&3;&b;false>Left Click a Block</>'
         - '&f- &bSelects claim corner #1'
         - ''
-        - '<blend:#C46B16;#F6C770;false>Right Click a Block</>'
+        - '<blend:&3;&b;false>Right Click a Block</>'
         - '&f- &dSelects claim corner #2'
         - ' '
-        - '<blend:#C46B16;#F6C770;false>Right Click Air</>'
+        - '<blend:&3;&b;false>Right Click Air</>'
         - '&f- &cCancels current claim process'
         - ''
-        - '<blend:#C46B16;#F6C770;false>Crouch + Left Click</>'
+        - '<blend:&3;&b;false>Crouch + Left Click</>'
         - '&f- &aConfirms the claim purchase'
         - ''
       item-flags:

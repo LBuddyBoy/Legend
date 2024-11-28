@@ -13,28 +13,24 @@ import org.bukkit.inventory.ShapedRecipe;
  * @file dev.lbuddyboy.lifesteal.extras.recipe.impl
  * @since 1/7/2024
  */
-public class GoldenHead extends AbstractRecipe {
-
-    private final ItemStack goldenHeadItem = new ItemFactory("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTkyZWFhY2QyOTBlYWQzN2ViMWEyMDJhYzczNjdmMzJiZTc0Y2Y0YWM3NzIzZTA2N2M0NjU4YmY2MmMzZGJkNiJ9fX0=")
-            .displayName("&6Golden Head")
-            .build();
+public class PlayerHead extends AbstractRecipe {
 
     @Override
     public String getId() {
-        return "Golden Head";
+        return "Player Head";
     }
 
     @Override
     public ItemStack getDisplayItem() {
-        return new ItemFactory("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTkyZWFhY2QyOTBlYWQzN2ViMWEyMDJhYzczNjdmMzJiZTc0Y2Y0YWM3NzIzZTA2N2M0NjU4YmY2MmMzZGJkNiJ9fX0=")
-                .displayName("&6Golden Head")
-                .lore("&7Click to view the golden head recipe!")
+        return new ItemFactory(Material.PLAYER_HEAD)
+                .displayName("&ePlayer Head")
+                .lore("&7Click to view the player head recipe!")
                 .build();
     }
 
     @Override
     public int getMenuSlot() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -42,22 +38,19 @@ public class GoldenHead extends AbstractRecipe {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), getItem());
 
         recipe.shape(
-                "AAA",
-                "ABA",
-                "AAA"
+                "ACA",
+                "CBC",
+                "ACA"
         );
-        recipe.setIngredient('A', Material.GOLD_INGOT);
-        recipe.setIngredient('B', Material.PLAYER_HEAD);
+        recipe.setIngredient('A', Material.GOLD_NUGGET);
+        recipe.setIngredient('B', Material.SKELETON_SKULL);
+        recipe.setIngredient('C', Material.GOLD_INGOT);
 
         return recipe;
     }
 
     @Override
     public ItemStack getItem() {
-        NBTItem nbtItem = new NBTItem(this.goldenHeadItem.clone());
-
-        nbtItem.setBoolean("golden-head", true);
-
-        return nbtItem.getItem();
+        return new ItemStack(Material.PLAYER_HEAD);
     }
 }

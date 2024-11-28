@@ -1,18 +1,15 @@
-package dev.lbuddyboy.samurai.map.leaderboard;
+package dev.lbuddyboy.legend.features.leaderboard;
 
-import dev.lbuddyboy.samurai.Samurai;
+import dev.lbuddyboy.legend.LegendBukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
 
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
  * @project Samurai
- * @file dev.lbuddyboy.samurai.map.leaderboard
+ * @file dev.lbuddyboy.legend.features.leaderboard
  * @since 5/9/2024
  */
 public interface ILeaderBoardStat {
@@ -26,7 +23,7 @@ public interface ILeaderBoardStat {
     String getSecondaryColor();
 
     default ConfigurationSection getSection() {
-        return Samurai.getInstance().getLeaderBoardHandler().getConfig().getConfigurationSection("leaderboards." + getId());
+        return LegendBukkit.getInstance().getLeaderBoardHandler().getConfig().getConfigurationSection("leaderboards." + getId());
     }
 
 }

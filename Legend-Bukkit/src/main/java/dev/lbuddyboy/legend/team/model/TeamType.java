@@ -1,8 +1,10 @@
 package dev.lbuddyboy.legend.team.model;
 
+import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.model.claim.Claim;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.bukkit.Location;
 
 import java.util.Comparator;
 
@@ -20,6 +22,13 @@ public enum TeamType {
     GLOWSTONE_MOUNTAIN(500);
 
     private final int weight;
+
+    public boolean appliesAt(Location location) {
+        Team team = LegendBukkit.getInstance().getTeamHandler().getClaimHandler().getTeam(location).orElse(null);
+        if (team == null) return false;
+
+        return team.getTeamType() == this;
+    }
 
     public static class TeamTypeComparator implements Comparator<Team> {
 

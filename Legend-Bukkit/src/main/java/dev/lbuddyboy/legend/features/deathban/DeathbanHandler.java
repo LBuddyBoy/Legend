@@ -32,14 +32,20 @@ public class DeathbanHandler implements IModule {
     @Setter private Cuboid safeZone;
     private List<RespawnBlock> respawnBlocks;
 
+    public DeathbanHandler() {
+        this.respawnBlocks = new ArrayList<>();
+    }
+
     @Override
     public void load() {
         this.config = new Config(LegendBukkit.getInstance(), "deathban");
-        this.respawnBlocks = new ArrayList<>();
 
         new DeathbanThread().start();
 
         Bukkit.getPluginManager().registerEvents(new DeathbanListener(), LegendBukkit.getInstance());
+
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Tasks.run(() -> {
             LegendBukkit.getInstance().getLogger().warning(" ");
             LegendBukkit.getInstance().getLogger().warning(" ======== Deathban Arena ========");
@@ -70,6 +76,7 @@ public class DeathbanHandler implements IModule {
 
             getSafeZone();
         });
+
         Tasks.runTimer(this::respawnBlocks, 20, 20);
     }
 
@@ -147,6 +154,8 @@ public class DeathbanHandler implements IModule {
     }
 
     public void handleRejoin(Player player) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Team team = getTeam();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
@@ -166,6 +175,8 @@ public class DeathbanHandler implements IModule {
     }
 
     public void handleRevive(Player player) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
         player.getInventory().clear();
@@ -181,10 +192,11 @@ public class DeathbanHandler implements IModule {
     }
 
     public void handleDeathban(Player player) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
         if (player.hasPermission("legend.deathban.bypass")) return;
 
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
-        long duration = getDeathbanTimes().entrySet().stream().filter(e -> player.hasPermission(e.getKey())).map(Map.Entry::getValue).findFirst().orElse(60_000L);
+        long duration = this.getDeathbanTime(player);
         duration = Math.min(duration, user.getCurrentPlayTime());
 
         user.applyTimer("deathban", duration);
@@ -193,6 +205,10 @@ public class DeathbanHandler implements IModule {
                 .replaceAll("%duration%", TimeUtils.formatIntoDetailedString(duration))
         ));
         player.setCanPickupItems(false);
+    }
+
+    public long getDeathbanTime(Player player) {
+        return getDeathbanTimes().entrySet().stream().filter(e -> player.hasPermission(e.getKey())).map(Map.Entry::getValue).findFirst().orElse(60_000L);
     }
 
     public List<Player> getPlayers() {
@@ -209,6 +225,8 @@ public class DeathbanHandler implements IModule {
     }
 
     public void handleDeath(Player player) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         if (player.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
             EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) player.getLastDamageCause();
             Player damager = null;

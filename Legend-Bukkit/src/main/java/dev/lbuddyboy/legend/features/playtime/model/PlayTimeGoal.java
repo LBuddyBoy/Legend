@@ -42,7 +42,7 @@ public class PlayTimeGoal {
         this.playTimeGoal = playTimeGoal;
         this.startedAt = System.currentTimeMillis();
         this.config = new Config(LegendBukkit.getInstance(), id.toLowerCase(), LegendBukkit.getInstance().getPlayTimeGoalHandler().getGoalDirectory());
-        this.materialData = new MaterialData(Material.WATCH, (byte) 0);
+        this.materialData = new MaterialData(Material.CLOCK, (byte) 0);
     }
 
     public void save() {

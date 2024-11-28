@@ -10,11 +10,12 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>Legend-Bukkit</artifactId>
+    <artifactId>Legend-Legacy</artifactId>
+    <name>Legend-Legacy</name>
     <version>1.0</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -60,19 +61,35 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>bukkit-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>lunarclient</id>
+            <url>https://repo.lunarclient.dev</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -83,20 +100,65 @@
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy.commons</groupId>
-            <artifactId>Commons-Bukkit</artifactId>
+            <artifactId>Commons-Legacy</artifactId>
             <version>1.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy.arrow</groupId>
-            <artifactId>Arrow-Bukkit</artifactId>
+            <artifactId>Arrow-Legacy</artifactId>
             <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>Events-Legacy</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lunarclient</groupId>
+            <artifactId>apollo-api</artifactId>
+            <version>1.1.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy.rollback</groupId>
+            <artifactId>Rollback-Legacy</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>decentsoftwares.decentholograms</groupId>
+            <artifactId>DecentHolograms</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/libs/DecentHolograms.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>denzin</groupId>
+            <artifactId>Citizens</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/libs/znpcs.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>imanityspigot</groupId>
+            <artifactId>imanityspigot</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/libs/imanityspigot.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy.crates</groupId>
+            <artifactId>lCrates-Legacy</artifactId>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

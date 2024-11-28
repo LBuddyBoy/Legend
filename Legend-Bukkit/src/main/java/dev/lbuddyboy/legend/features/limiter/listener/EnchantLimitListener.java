@@ -30,7 +30,7 @@ public class EnchantLimitListener implements Listener {
     }
 
     public Map<Enchantment, Integer> getEnchantLimits() {
-        ConfigurationSection section = LegendBukkit.getInstance().getLimiter().getConfigurationSection("enchant-limits");
+        ConfigurationSection section = LegendBukkit.getInstance().getLimiterHandler().getConfig().getConfigurationSection("enchant-limits");
         Map<Enchantment, Integer> enchants = new HashMap<>();
 
         for (String key : section.getKeys(false)) {

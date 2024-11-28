@@ -53,7 +53,7 @@ public class MovementHandler implements Listener {
         InvincibilityTimer invincibilityTimer = (InvincibilityTimer) LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
 
         if (invincibilityTimer.isActive(player.getUniqueId())) {
-            if (team.getTeamType() == TeamType.PLAYER) {
+            if (team.getTeamType() != TeamType.SPAWN && team.getTeamType() != TeamType.ROAD) {
                 if (message) {
                     player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("invincibility.cannot-enter")
                             .replaceAll("%team%", team.getName(player))

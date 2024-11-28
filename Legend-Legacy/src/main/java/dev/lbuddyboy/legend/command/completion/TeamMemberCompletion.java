@@ -5,6 +5,7 @@ import co.aikar.commands.CommandCompletions;
 import co.aikar.commands.InvalidCommandArgument;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamMember;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class TeamMemberCompletion implements CommandCompletions.CommandCompletionHandler<BukkitCommandCompletionContext> {
@@ -20,10 +22,13 @@ public class TeamMemberCompletion implements CommandCompletions.CommandCompletio
     public Collection<String> getCompletions(BukkitCommandCompletionContext context) throws InvalidCommandArgument {
         List<String> completions = new ArrayList<>();
         Player player = context.getPlayer();
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player).orElse(null);
 
-        LegendBukkit.getInstance().getTeamHandler().getTeam(player).ifPresentOrElse(team -> {
-            completions.addAll(team.getMembers().stream().map(TeamMember::getName).toList());
-        }, () -> completions.add(CC.translate("&cNo team...")));
+        if (team == null) {
+            completions.add(CC.translate("&cNo team..."));
+        } else {
+            completions.addAll(team.getMembers().stream().map(TeamMember::getName).collect(Collectors.toList()));
+        }
 
         return completions;
     }

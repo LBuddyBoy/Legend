@@ -1,4 +1,4 @@
-package dev.lbuddyboy.practice.kit.menu;
+package dev.lbuddyboy.legend.features.kitmap.kit.menu;
 
 import dev.lbuddyboy.commons.menu.IButton;
 import dev.lbuddyboy.commons.menu.IMenu;
@@ -6,10 +6,10 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ConversationBuilder;
 import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.commons.util.ItemUtils;
-import dev.lbuddyboy.practice.kit.Kit;
-import dev.lbuddyboy.practice.kit.editor.EditedKit;
-import dev.lbuddyboy.practice.lPractice;
-import dev.lbuddyboy.practice.user.PracticeUser;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.kitmap.kit.EditedKit;
+import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.conversations.Conversation;
@@ -52,12 +52,12 @@ public class EditKitMenu extends IMenu {
     @Override
     public Map<Integer, IButton> getButtons(Player player) {
         Map<Integer, IButton> buttons = new HashMap<>();
-        PracticeUser user = lPractice.getInstance().getUserHandler().getUser(player.getUniqueId());
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
         List<EditedKit> editedKits = user.getEditedKits(this.kit);
-        int[] editSlots = new int[] {13, 14, 15};
+        int[] editSlots = new int[] {14};
 
-        for (int i = 0; i < 3; i++) {
-            if (editedKits.isEmpty() || editedKits.size() <= i) {
+        for (int i = 0; i < 1; i++) {
+            if (editedKits.isEmpty()) {
                 buttons.put(editSlots[i], new CreateButton());
                 continue;
             }
@@ -80,7 +80,7 @@ public class EditKitMenu extends IMenu {
 
         @Override
         public void action(Player player, ClickType clickType, int slot) {
-            PracticeUser user = lPractice.getInstance().getUserHandler().getUser(player.getUniqueId());
+            LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
             user.createEditedKit(kit, "Edited Kit #" + (user.getEditedKits(kit).size() + 1));
             updateMenu(player, true);
@@ -90,10 +90,6 @@ public class EditKitMenu extends IMenu {
     @Override
     public void onClose(Player player) {
         super.onClose(player);
-
-        PracticeUser user = lPractice.getInstance().getUserHandler().getUser(player.getUniqueId());
-
-        user.flag();
     }
 
     @AllArgsConstructor

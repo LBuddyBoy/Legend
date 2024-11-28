@@ -6,6 +6,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import dev.lbuddyboy.commons.api.cache.UUIDCache;
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.listener.UserListener;
@@ -100,6 +101,8 @@ public class UserHandler implements IModule {
     }
 
     public LegendUser getUser(UUID uuid) {
+        if (UUIDUtils.name(uuid) == null) return this.npcUser;
+
         try {
             return this.userCache.get(uuid);
         } catch (ExecutionException e) {

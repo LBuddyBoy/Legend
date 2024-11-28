@@ -22,7 +22,7 @@ public class CommandUtil {
         int page = help.getPage();
         List<String> header = CC.translate(Arrays.asList(
                 CHAT_BAR,
-                "&6&lCommand Help &f[%page%/%max-pages%] &7(Hover for more info)"
+                "<blend:&6;&e>&lCommand Help</> &f[%page%/%max-pages%] &7(Hover for more info)"
         ));
 
         List<FancyBuilder> entries = new ArrayList<>();
@@ -32,7 +32,7 @@ public class CommandUtil {
             FancyBuilder builder = new FancyBuilder("&e/" + entry.getCommand() + " " + entry.getParameterSyntax());
 
             if (help.getIssuer().isPlayer()) {
-                builder.hover((entry.getDescription().isEmpty() ? "&7None" : " &7- " + entry.getDescription()));
+                builder.hover("&e/" + entry.getCommand() + " " + entry.getParameterSyntax(), (entry.getDescription().isEmpty() ? "&7No description..." : entry.getDescription()));
             } else {
                 builder.append((entry.getDescription().isEmpty() ? "" : " &7- " + entry.getDescription()));
             }

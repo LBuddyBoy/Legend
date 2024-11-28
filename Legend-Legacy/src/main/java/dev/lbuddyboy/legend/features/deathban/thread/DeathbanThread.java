@@ -1,4 +1,4 @@
-package dev.lbuddyboy.legend.deathban.thread;
+package dev.lbuddyboy.legend.features.deathban.thread;
 
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.model.LegendUser;

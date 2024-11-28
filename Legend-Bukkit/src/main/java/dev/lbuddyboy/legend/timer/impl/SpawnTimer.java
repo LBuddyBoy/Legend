@@ -3,8 +3,6 @@ package dev.lbuddyboy.legend.timer.impl;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.team.model.Team;
-import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.timer.PlayerTimer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -18,17 +16,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LogoutTimer extends PlayerTimer {
+public class SpawnTimer extends PlayerTimer {
 
     private final Map<UUID, BukkitTask> tasks = new ConcurrentHashMap<>();
 
     @Override
     public String getId() {
-        return "logout";
+        return "spawn";
     }
 
     @EventHandler
@@ -40,7 +37,7 @@ public class LogoutTimer extends PlayerTimer {
         if (!isActive(player.getUniqueId())) return;
         if (to.getBlockX() == from.getBlockX() && to.getBlockZ() == from.getBlockZ()) return;
 
-        cancel(player, LegendBukkit.getInstance().getLanguage().getString("logout.warp-error.moved"));
+        cancel(player, LegendBukkit.getInstance().getLanguage().getString("spawn.warp-error.moved"));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -51,7 +48,7 @@ public class LogoutTimer extends PlayerTimer {
 
         if (!isActive(player.getUniqueId())) return;
 
-        cancel(player, LegendBukkit.getInstance().getLanguage().getString("logout.warp-error.damaged"));
+        cancel(player, LegendBukkit.getInstance().getLanguage().getString("spawn.warp-error.damaged"));
     }
 
     @EventHandler
@@ -63,20 +60,20 @@ public class LogoutTimer extends PlayerTimer {
         int duration = this.getDuration(player);
 
         if (this.tasks.containsKey(player.getUniqueId())) {
-            player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("logout.warp-error.already-warping")));
+            player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("spawn.warp-error.already-warping")));
             return;
         }
 
         this.tasks.put(player.getUniqueId(), new BukkitRunnable() {
             @Override
             public void run() {
-                player.setMetadata("safe_disconnect", new FixedMetadataValue(LegendBukkit.getInstance(), true));
-                player.kickPlayer(CC.translate("&cYou have been safely disconnected."));
+                player.teleport(LegendBukkit.getInstance().getSpawnLocation());
                 tasks.remove(player.getUniqueId());
             }
         }.runTaskLater(LegendBukkit.getInstance(), duration * 20L));
+
         apply(player);
-        player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("logout.warping")
+        player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("spawn.warping")
                 .replaceAll("%duration%", APIConstants.formatNumber(duration))
         ));
     }

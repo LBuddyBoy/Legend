@@ -1,55 +1,29 @@
 package dev.lbuddyboy.legend.team.model.claim;
 
-import dev.lbuddyboy.commons.util.CC;
-import dev.lbuddyboy.commons.util.ItemUtils;
-import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.team.ClaimHandler;
-import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.util.Cuboid;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
-public class ClaimWallView {
-
-    private static final List<Material> CLAIM_MATERIALS = Arrays.asList(
-            Material.WOOD,
-            Material.DIAMOND_BLOCK,
-            Material.LAPIS_BLOCK,
-            Material.REDSTONE_BLOCK,
-            Material.EMERALD_BLOCK,
-            Material.EMERALD_ORE,
-            Material.COBBLESTONE,
-            Material.STONE,
-            Material.PRISMARINE,
-            Material.MOSSY_COBBLESTONE,
-            Material.BOOKSHELF,
-            Material.DIRT,
-            Material.DIODE,
-            Material.GOLD_ORE,
-            Material.DIAMOND_ORE,
-            Material.GOLD_BLOCK
-    );
+public class ClaimBorderView {
 
     private final Player player;
     private final List<Location> blockChanges = new ArrayList<>();
 
-    public ClaimWallView(Player player) {
+    public ClaimBorderView(Player player) {
         this.player = player;
     }
 
-    public ClaimWall getClaimWall() {
-        return Arrays.stream(ClaimWall.values()).filter(wall -> wall.getQualifier().test(this.player.getUniqueId())).findFirst().orElse(null);
+    public ClaimBorder getClaimWall() {
+        return Arrays.stream(ClaimBorder.values()).filter(wall -> wall.getQualifier().test(this.player.getUniqueId())).findFirst().orElse(null);
     }
 
-    public void clearWalls() {
+    public void clearBorders() {
         if (this.blockChanges.isEmpty()) return;
 
         Iterator<Location> iterator = this.blockChanges.iterator();
@@ -65,11 +39,11 @@ public class ClaimWallView {
         }
     }
 
-    public void showWall(Claim claim) {
+    public void showBorder(Claim claim) {
         Cuboid cuboid = claim.getBounds();
         Location location = player.getLocation();
-        List<Block> walls = cuboid.getWalls(location.getBlockY() - 5, location.getBlockY() + 5);
-        ClaimWall wall = getClaimWall();
+        List<Block> walls = cuboid.getWalls(location.getBlockY() - 3, location.getBlockY() + 3);
+        ClaimBorder wall = getClaimWall();
         if (wall == null) return;
 
         for (Block block : walls) {

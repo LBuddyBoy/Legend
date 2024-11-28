@@ -1,27 +1,22 @@
-package dev.lbuddyboy.samurai.api.impl;
+package dev.lbuddyboy.legend.api.providers;
 
-import dev.lbuddyboy.abilityitems.AbilityItems;
-import dev.lbuddyboy.abilityitems.IAbilityItem;
 import dev.lbuddyboy.arrow.ArrowPlugin;
+import dev.lbuddyboy.arrow.staffmode.StaffModeConstants;
+import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.events.Capturable;
 import dev.lbuddyboy.events.IEvent;
 import dev.lbuddyboy.events.api.IEventAPI;
-import dev.lbuddyboy.events.citadel.Citadel;
-import dev.lbuddyboy.samurai.Samurai;
-import dev.lbuddyboy.samurai.server.SpawnTagHandler;
-import dev.lbuddyboy.samurai.team.Team;
-import dev.lbuddyboy.samurai.user.SamuraiUser;
-import dev.lbuddyboy.samurai.util.CC;
-import org.bukkit.ChatColor;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.team.model.Team;
+import dev.lbuddyboy.legend.timer.impl.CombatTimer;
+import dev.lbuddyboy.legend.timer.impl.InvincibilityTimer;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
@@ -30,7 +25,7 @@ import java.util.UUID;
  * @since 5/10/2024
  */
 
-public class SamuraiEventProvider implements IEventAPI {
+public class EventProvider implements IEventAPI {
 
     @Override
     public boolean canJoinEvent(Player player, IEvent iEvent) {
@@ -39,18 +34,18 @@ public class SamuraiEventProvider implements IEventAPI {
             return false;
         }
 
-        if (SpawnTagHandler.isTagged(player)) {
+        if (LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class).isActive(player.getUniqueId())) {
             player.sendMessage(iEvent.getEventType().getPrefix() + CC.blend("You cannot join events while spawn tagged.", "&c", "&7"));
             return false;
         }
 
-        if (Samurai.getInstance().getUserHandler().loadUser(player.getUniqueId()).hasPvPTimer()) {
+        if (LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class).isActive(player.getUniqueId())) {
             player.sendMessage(iEvent.getEventType().getPrefix() + CC.blend("You cannot join events while in your pvp timer is active.", "&c", "&7"));
             return false;
         }
 
         boolean inventoryClean = true;
-        for (ItemStack stack : player.getInventory()) {
+/*        for (ItemStack stack : player.getInventory()) {
             if (stack == null || stack.getType() == Material.AIR) continue;
 
             for (IAbilityItem item : AbilityItems.getInstance().getAbilityItems().values()) {
@@ -60,17 +55,17 @@ public class SamuraiEventProvider implements IEventAPI {
                 player.sendMessage(iEvent.getEventType().getPrefix() + CC.blend("You have a disallowed item: ", "&c", "&7") + CC.translate(item.getDisplayName()));
             }
 
-        }
+        }*/
 
         return inventoryClean;
     }
 
     @Override
     public List<Player> getMembers(Player player) {
-        Team team = Samurai.getInstance().getTeamHandler().getTeam(player);
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player).orElse(null);
 
         if (team != null) {
-            return team.getOnlineMembers().stream().filter(p -> !p.equals(player)).toList();
+            return team.getOnlinePlayers().stream().filter(p -> !p.equals(player)).collect(Collectors.toList());
         }
 
         return Collections.emptyList();
@@ -78,10 +73,10 @@ public class SamuraiEventProvider implements IEventAPI {
 
     @Override
     public List<Player> getMembers(UUID playerUUID) {
-        Team team = Samurai.getInstance().getTeamHandler().getTeam(playerUUID);
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(playerUUID).orElse(null);
 
         if (team != null) {
-            return team.getOnlineMembers().stream().filter(p -> !p.getUniqueId().equals(playerUUID)).toList();
+            return team.getOnlinePlayers().stream().filter(p -> !p.getUniqueId().equals(playerUUID)).collect(Collectors.toList());
         }
 
         return Collections.emptyList();
@@ -89,8 +84,8 @@ public class SamuraiEventProvider implements IEventAPI {
 
     @Override
     public boolean canCapture(Player player, Capturable capturable) {
-        SamuraiUser user = Samurai.getInstance().getUserHandler().getUser(player.getUniqueId());
+        InvincibilityTimer invincibilityTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
 
-        return !user.hasPvPTimer() && !user.isVanished() && player.getGameMode() == GameMode.SURVIVAL;
+        return !invincibilityTimer.isActive(player.getUniqueId()) && !player.hasMetadata(StaffModeConstants.VANISH_META_DATA) && player.getGameMode() == GameMode.SURVIVAL;
     }
 }

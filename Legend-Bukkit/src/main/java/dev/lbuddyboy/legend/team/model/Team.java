@@ -4,13 +4,20 @@ import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.common.location.ApolloBlockLocation;
 import com.lunarclient.apollo.module.waypoint.Waypoint;
 import com.lunarclient.apollo.module.waypoint.WaypointModule;
+import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.api.util.StringUtils;
 import dev.lbuddyboy.commons.api.util.TimeUtils;
+import dev.lbuddyboy.commons.component.FancyBuilder;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.model.claim.Claim;
+import dev.lbuddyboy.legend.team.model.log.TeamLog;
+import dev.lbuddyboy.legend.team.model.log.TeamLogType;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamDTRChangeLog;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamPointsChangeLog;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.legend.util.BukkitUtil;
 import dev.lbuddyboy.legend.util.PlaceholderUtil;
 import dev.lbuddyboy.legend.util.TypeTokens;
@@ -38,11 +45,11 @@ public class Team {
     private double deathsUntilRaidable = 1.0D;
     private Location home = null;
     private Map<UUID, TeamRole> roster = new HashMap<>();
-    private int points;
+    private int points, kills, deaths;
     private double balance;
-    private List<UUID> alliances = new ArrayList<>(), allianceRequests = new ArrayList<>();
+    private List<UUID> alliances = new ArrayList<>(), allianceRequests = new ArrayList<>(), invitations = new ArrayList<>();
+    private List<TeamLog> teamLogs = new ArrayList<>();
 
-    private transient List<UUID> invitations = new ArrayList<>();
     private transient boolean edited = false;
     private transient long lastRegenerated = 0L;
     private final transient Map<TopType, Integer> places = new HashMap<>();
@@ -69,10 +76,21 @@ public class Team {
         this.points = document.getInteger("points", 0);
         this.balance = document.get("balance", 0.0D);
         this.createdAt = document.get("createdAt", System.currentTimeMillis());
-        if (document.containsKey("allianceRequests")) this.allianceRequests = document.getList("allianceRequests", UUID.class);
+        if (document.containsKey("allianceRequests"))
+            this.allianceRequests = document.getList("allianceRequests", UUID.class);
         if (document.containsKey("alliances")) this.alliances = document.getList("alliances", UUID.class);
+        if (document.containsKey("invitations")) this.invitations = document.getList("invitations", UUID.class);
         if (document.containsKey("home")) setHome(LocationUtils.deserializeString(document.getString("home")));
-        if (document.containsKey("roster")) Document.parse(document.getString("roster")).forEach((k, v) -> this.roster.put(UUID.fromString(k), TeamRole.valueOf((String) v)));
+        if (document.containsKey("roster"))
+            Document.parse(document.getString("roster")).forEach((k, v) -> this.roster.put(UUID.fromString(k), TeamRole.valueOf((String) v)));
+
+        if (document.containsKey("teamLogs")) {
+            this.teamLogs.addAll(document.getList("teamLogs", String.class)
+                    .stream()
+                    .map(Document::parse)
+                    .map(d -> TeamLogType.valueOf(d.getString("type")).getCreationConsumer().apply(d))
+                    .toList());
+        }
     }
 
     public Document toDocument() {
@@ -90,13 +108,33 @@ public class Team {
         document.put("balance", this.balance);
         document.put("createdAt", this.createdAt);
         document.put("alliances", this.alliances);
+        document.put("invitations", this.invitations);
         document.put("allianceRequests", this.allianceRequests);
         document.put("teamType", this.teamType.name());
         document.put("roster", rosterDocument.toJson());
+        document.put("teamLogs", this.teamLogs.stream().map(TeamLog::toDocument).map(Document::toJson).toList());
 
         if (home != null) document.put("home", LocationUtils.serializeString(this.home));
 
         return document;
+    }
+
+    public List<TeamLog> getSortedLogs() {
+        return this.teamLogs.stream().sorted(Comparator.comparingLong(TeamLog::getLoggedAt).reversed()).toList();
+    }
+
+    public void createTeamLog(TeamLog log) {
+        FancyBuilder builder = new FancyBuilder("<blend:&6;&e>&lTEAM SPY</> &7[" + this.name + "] &7» " + log.getTitle() + " &7&o(( HOVER ))").hover(log.getLog());
+
+        BukkitUtil.getStaffPlayers().forEach(p -> {
+            LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(p.getUniqueId());
+            if (!user.isTeamSpy()) return;
+
+            builder.send(p);
+        });
+
+        this.teamLogs.add(log);
+        this.flagSave();
     }
 
     public Optional<TeamMember> getMember(UUID playerUUID) {
@@ -234,10 +272,13 @@ public class Team {
     }
 
     public void regenDTR(double amount) {
+        double previousDTR = this.deathsUntilRaidable;
+
         this.deathsUntilRaidable += amount;
         this.lastRegenerated = System.currentTimeMillis();
+        this.createTeamLog(new TeamDTRChangeLog(previousDTR, this.deathsUntilRaidable, null, TeamDTRChangeLog.ChangeCause.NATURAL_REGEN));
 
-        playSound(Sound.LEVEL_UP, 1.0f);
+        playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.0f);
 
         if (isFullyRegenerated()) {
             sendMessage(LegendBukkit.getInstance().getLanguage().getString("team.regeneration.fully-regenerated")
@@ -249,6 +290,7 @@ public class Team {
         sendMessage(LegendBukkit.getInstance().getLanguage().getString("team.regeneration.regenerated")
                 .replaceAll("%dtr%", APIConstants.formatNumber(amount))
         );
+        updateNameTags();
     }
 
     public Optional<TeamMember> getRosterReplacement(UUID playerUUID) {
@@ -266,12 +308,23 @@ public class Team {
     public String getFancyPlace() {
         Map<Integer, TopEntry> teams = LegendBukkit.getInstance().getTeamHandler().getTopTeams().get(TopType.POINTS);
 
-        if (!teams.isEmpty() && teams.get(0).getTeamUUID().equals(this.id)) {
-            return CC.translate("&6❶");
-        } else if (teams.size() >= 2 && teams.get(1).getTeamUUID().equals(this.id)) {
-            return CC.translate("&e❷");
-        } else if (teams.size() >= 3 && teams.get(2).getTeamUUID().equals(this.id)) {
-            return CC.translate("&b❸");
+        for (int i = 1; i <= 3; i++) {
+            TopEntry entry = teams.get(i);
+
+            if (entry == null) continue;
+
+            Team team = LegendBukkit.getInstance().getTeamHandler().getTeamById(entry.getTeamUUID()).orElse(null);
+
+            if (team == null) continue;
+            if (!team.getId().equals(this.id)) continue;
+
+            if (i == 1) {
+                return CC.translate("&6❶");
+            } else if (i == 2) {
+                return CC.translate("&e❷");
+            } else {
+                return CC.translate("&b❸");
+            }
         }
 
         return "";
@@ -304,21 +357,18 @@ public class Team {
         flagSave();
     }
 
-    public void setPoints(int amount) {
+    public void setPoints(int amount, UUID causedBy, TeamPointsChangeLog.ChangeCause cause) {
+        this.createTeamLog(new TeamPointsChangeLog(this.points, amount, causedBy, cause));
         this.points = amount;
         flagSave();
     }
 
     public String getName(Player player) {
-        if (teamType == TeamType.SPAWN)
-            return LegendBukkit.getInstance().getLanguage().getString("team.system.names.spawn");
-        if (teamType == TeamType.DEATHBAN_ARENA)
-            return LegendBukkit.getInstance().getLanguage().getString("team.system.names.deathban-arena");
-        if (teamType == TeamType.ROAD)
-            return LegendBukkit.getInstance().getLanguage().getString("team.system.names.road").replaceAll("%team%", this.name);
-        if (teamType == TeamType.GLOWSTONE_MOUNTAIN)
-            return LegendBukkit.getInstance().getLanguage().getString("team.system.names.glowstone").replaceAll("%team%", this.name);
-        if (getMember(player.getUniqueId()).isPresent()) return ChatColor.GREEN + this.name;
+        if (teamType != TeamType.PLAYER)
+            return LegendBukkit.getInstance().getLanguage().getString("team.system.names." + teamType.name().toLowerCase())
+                    .replaceAll("%team%", this.name);
+
+        if (getMember(player.getUniqueId()).isPresent()) return ChatColor.DARK_GREEN + this.name;
 
         return ChatColor.RED + this.name;
     }
@@ -403,6 +453,10 @@ public class Team {
 
     public void flagSave() {
         this.edited = true;
+    }
+
+    public void updateNameTags() {
+        this.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNameTagHandler()::updatePlayer);
     }
 
     public String applyPlaceholders(String s, Player player) {

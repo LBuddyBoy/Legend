@@ -18,7 +18,7 @@ public class KillStreakLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String getId() {
-        return "kill_streaks";
+        return "KillStreak";
     }
 
     @Override

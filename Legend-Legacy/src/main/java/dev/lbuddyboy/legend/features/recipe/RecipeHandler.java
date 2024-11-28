@@ -1,14 +1,15 @@
-package dev.lbuddyboy.lifesteal.extras.recipe;
+package dev.lbuddyboy.legend.features.recipe;
 
-import co.aikar.commands.BaseCommand;
 import dev.lbuddyboy.commons.api.util.IModule;
-import dev.lbuddyboy.lifesteal.timer.PlayerTimer;
-import dev.lbuddyboy.lifesteal.util.ClassUtils;
+import dev.lbuddyboy.legend.features.recipe.impl.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -30,20 +31,31 @@ public class RecipeHandler implements IModule {
     @Override
     public void load() {
 
-        for (Class<?> clazz : ClassUtils.findClasses("dev.lbuddyboy.lifesteal", AbstractRecipe.class)) {
-            try {
-                AbstractRecipe recipe = (AbstractRecipe) clazz.getDeclaredConstructor().newInstance();
+        Iterator<Recipe> recipeIterator = Bukkit.getServer().recipeIterator();
 
-                this.recipes.put(recipe.getId(), recipe);
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+        while (recipeIterator.hasNext()) {
+            Recipe recipe = recipeIterator.next();
+            ItemStack item = recipe.getResult();
+
+            if (item == null) continue;
+            if (item.getType() == Material.SPECKLED_MELON) recipeIterator.remove();
+            if (item.getType() == Material.GOLDEN_APPLE && item.getDurability() == 1) recipeIterator.remove();
+            if (item.getType() == Material.TNT) recipeIterator.remove();
+            if (item.getType() == Material.BOAT) recipeIterator.remove();
+            if (item.getType() == Material.LEASH) recipeIterator.remove();
+
         }
+
+        this.recipes.put("Chainmail Helmet", new ChainmailHelmet());
+        this.recipes.put("Chainmail Chestplate", new ChainmailChestplate());
+        this.recipes.put("Chainmail Leggings", new ChainmailLeggings());
+        this.recipes.put("Chainmail Boots", new ChainmailBoots());
+        this.recipes.put("Glistering Melon", new GlisteringMelon());
 
         this.recipes.values().forEach(recipe -> {
             Bukkit.addRecipe(recipe.getRecipe());
         });
+
     }
 
     @Override

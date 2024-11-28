@@ -4,6 +4,7 @@ import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.api.TeamMemberDeathEvent;
 import dev.lbuddyboy.legend.team.TeamHandler;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamDTRChangeLog;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,8 +25,12 @@ public class TeamDTRListener implements Listener {
 
             if (deathEvent.isCancelled()) return;
 
-            team.applyDTRFreeze(new TimeDuration("30m").transform());
-            team.setDeathsUntilRaidable(team.getDeathsUntilRaidable() - 1);
+            double previousDTR = team.getDeathsUntilRaidable();
+
+            team.applyDTRFreeze(new TimeDuration(LegendBukkit.getInstance().getSettings().getString("team.regeneration.cooldown", "30m")).transform());
+            team.setDeathsUntilRaidable(team.getDeathsUntilRaidable() - LegendBukkit.getInstance().getSettings().getDouble("team.regeneration.loss", 1.0D));
+            team.createTeamLog(new TeamDTRChangeLog(previousDTR, team.getDeathsUntilRaidable(), player.getUniqueId(), TeamDTRChangeLog.ChangeCause.MEMBER_DEATH));
+            team.flagSave();
         });
 
     }

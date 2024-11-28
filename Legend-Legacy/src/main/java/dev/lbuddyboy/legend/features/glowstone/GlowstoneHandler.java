@@ -1,4 +1,4 @@
-package dev.lbuddyboy.legend.glowstone;
+package dev.lbuddyboy.legend.features.glowstone;
 
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.commons.api.util.TimeDuration;
@@ -8,7 +8,7 @@ import dev.lbuddyboy.commons.util.Config;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.glowstone.listener.GlowstoneListener;
+import dev.lbuddyboy.legend.features.glowstone.listener.GlowstoneListener;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.claim.Claim;
 import lombok.Getter;

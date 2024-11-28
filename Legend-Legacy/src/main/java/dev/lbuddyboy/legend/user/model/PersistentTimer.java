@@ -6,7 +6,7 @@ import org.bson.Document;
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
  * @project LifeSteal
- * @file dev.lbuddyboy.samurai.user
+ * @file dev.lbuddyboy.legend.user
  * @since 1/2/2024
  */
 

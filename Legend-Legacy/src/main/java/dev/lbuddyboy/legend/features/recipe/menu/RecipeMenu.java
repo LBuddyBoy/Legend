@@ -1,18 +1,19 @@
-package dev.lbuddyboy.lifesteal.extras.recipe.menu;
+package dev.lbuddyboy.legend.features.recipe.menu;
 
 import dev.lbuddyboy.commons.menu.IButton;
 import dev.lbuddyboy.commons.menu.IMenu;
-import dev.lbuddyboy.lifesteal.LifeSteal;
-import dev.lbuddyboy.lifesteal.extras.adminitems.AdminItem;
-import dev.lbuddyboy.lifesteal.extras.recipe.AbstractRecipe;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.recipe.AbstractRecipe;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
@@ -39,7 +40,7 @@ public class RecipeMenu extends IMenu {
         List<Integer> slots = getCenteredSlots(player);
         int i = 0;
 
-        for (AbstractRecipe recipe : LifeSteal.getInstance().getRecipeHandler().getRecipes().values()) {
+        for (AbstractRecipe recipe : LegendBukkit.getInstance().getRecipeHandler().getRecipes().values().stream().sorted(Comparator.comparingInt(AbstractRecipe::getMenuSlot)).collect(Collectors.toList())) {
             if (slots.size() <= i) continue;
             int slot = slots.get(i++);
 
@@ -47,6 +48,11 @@ public class RecipeMenu extends IMenu {
         }
 
         return buttons;
+    }
+
+    @Override
+    public boolean autoFills(Player player) {
+        return true;
     }
 
     @AllArgsConstructor

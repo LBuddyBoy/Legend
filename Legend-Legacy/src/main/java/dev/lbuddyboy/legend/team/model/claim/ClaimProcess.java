@@ -21,31 +21,31 @@ public class ClaimProcess {
     public void showPillars(Player player) {
         this.clearPillars(player);
 
-        if (this.positionOne != null) showPillar(player, this.positionOne.clone(), Material.YELLOW_WOOL, Material.YELLOW_STAINED_GLASS);
-        if (this.positionTwo != null) showPillar(player, this.positionTwo.clone(), Material.PINK_WOOL, Material.PINK_STAINED_GLASS);
+        if (this.positionOne != null) showPillar(player, this.positionOne.clone(), Material.WOOL, 4, Material.STAINED_GLASS, 4);
+        if (this.positionTwo != null) showPillar(player, this.positionTwo.clone(), Material.WOOL, 6, Material.STAINED_GLASS, 6);
     }
 
-    private void showPillar(Player player, Location location, Material materialOne, Material materialTwo) {
+    private void showPillar(Player player, Location location, Material materialOne, int dataOne, Material materialTwo, int dataTwo) {
         World world = location.getWorld();
         if (world == null) return;
 
-        for (int i = world.getMinHeight() + 1; i < world.getMaxHeight(); i++) {
+        for (int i = 1; i < world.getMaxHeight(); i++) {
             Block block = world.getBlockAt(location.getBlockX(), i, location.getBlockZ());
-            if (!block.getType().isAir()) continue;
+            if (block.getType() != Material.AIR) continue;
 
             this.blockChanges.add(block.getLocation());
 
             if (i % 5 == 0) {
-                player.sendBlockChange(block.getLocation(), materialOne.createBlockData());
+                player.sendBlockChange(block.getLocation(), materialOne, (byte) dataOne);
                 continue;
             }
 
-            player.sendBlockChange(block.getLocation(), materialTwo.createBlockData());
+            player.sendBlockChange(block.getLocation(), materialTwo, (byte) dataTwo);
         }
     }
 
     public void clearPillars(Player player) {
-        this.blockChanges.forEach(l -> player.sendBlockChange(l, Material.AIR.createBlockData()));
+        this.blockChanges.forEach(l -> player.sendBlockChange(l, Material.AIR, (byte) 0));
         this.blockChanges.clear();
     }
 
@@ -55,7 +55,7 @@ public class ClaimProcess {
 
     public void setPositionOne(Location positionOne) {
         this.positionOne = positionOne;
-        this.positionOne.setY(this.positionOne.getWorld().getMinHeight());
+        this.positionOne.setY(0);
     }
 
     public void setPositionTwo(Location positionTwo) {
@@ -64,7 +64,7 @@ public class ClaimProcess {
     }
 
     public double getPrice() {
-        return LegendBukkit.getInstance().getSettings().getDouble("team.claim.price-per-block") * (getSelection().getSizeX() + getSelection().getSizeZ());
+        return LegendBukkit.getInstance().getSettings().getDouble("team.claim.price-per-block") * (getSelection().getSizeX() * getSelection().getSizeZ());
     }
 
 }

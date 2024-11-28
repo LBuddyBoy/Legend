@@ -1,6 +1,7 @@
 package dev.lbuddyboy.legend.features.recipe;
 
 import dev.lbuddyboy.commons.api.util.IModule;
+import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.recipe.impl.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -37,34 +38,40 @@ public class RecipeHandler implements IModule {
             Recipe recipe = recipeIterator.next();
             ItemStack item = recipe.getResult();
 
-            if (item == null) continue;
-            if (item.getType() == Material.SPECKLED_MELON) recipeIterator.remove();
-            if (item.getType() == Material.GOLDEN_APPLE && item.getDurability() == 1) recipeIterator.remove();
+            if (item == null || item.getType() == Material.AIR) continue;
+
+            if (!LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false)) {
+                if (item.getType() == Material.GLISTERING_MELON_SLICE) recipeIterator.remove();
+            }
+
+            if (item.getType() == Material.ENCHANTED_GOLDEN_APPLE) recipeIterator.remove();
             if (item.getType() == Material.TNT) recipeIterator.remove();
-            if (item.getType() == Material.BOAT) recipeIterator.remove();
-            if (item.getType() == Material.LEASH) recipeIterator.remove();
+            if (item.getType().name().endsWith("_BOAT")) recipeIterator.remove();
+            if (item.getType() == Material.LEAD) recipeIterator.remove();
 
         }
 
-        this.recipes.put("Chainmail Helmet", new ChainmailHelmet());
-        this.recipes.put("Chainmail Chestplate", new ChainmailChestplate());
-        this.recipes.put("Chainmail Leggings", new ChainmailLeggings());
-        this.recipes.put("Chainmail Boots", new ChainmailBoots());
-        this.recipes.put("Glistering Melon", new GlisteringMelon());
+        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.rogue.enabled", true)) {
+            this.recipes.put("chainmail_helmet", new ChainmailHelmet());
+            this.recipes.put("chainmail_chestplate", new ChainmailChestplate());
+            this.recipes.put("chainmail_leggings", new ChainmailLeggings());
+            this.recipes.put("chainmail_boots", new ChainmailBoots());
+        }
 
-        this.recipes.values().forEach(recipe -> {
-            Bukkit.addRecipe(recipe.getRecipe());
-        });
+        if (LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false)) {
+            this.recipes.put("golden_head", new GoldenHead());
+            this.recipes.put("player_head", new PlayerHead());
+        } else {
+            this.recipes.put("glistering_melon", new GlisteringMelon());
+        }
+
+        this.recipes.values().forEach(recipe -> Bukkit.addRecipe(recipe.getRecipe()));
 
     }
 
     @Override
     public void unload() {
-
-    }
-
-    public AbstractRecipe getRecipe(Class<? extends AbstractRecipe> clazz) {
-        return this.recipes.values().stream().filter(clazz::isInstance).findFirst().get();
+        this.recipes.values().forEach(recipe -> Bukkit.removeRecipe(recipe.getKey()));
     }
 
 }

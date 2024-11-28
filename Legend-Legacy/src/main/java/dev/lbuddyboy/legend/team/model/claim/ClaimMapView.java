@@ -11,7 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -21,19 +20,19 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ClaimMapView {
 
     private static final List<Material> CLAIM_MATERIALS = Arrays.asList(
-            Material.OAK_WOOD,
-            Material.BIRCH_WOOD,
-            Material.ACACIA_WOOD,
+            Material.WOOD,
+            Material.DIAMOND_BLOCK,
+            Material.LAPIS_BLOCK,
             Material.REDSTONE_BLOCK,
             Material.EMERALD_BLOCK,
             Material.EMERALD_ORE,
             Material.COBBLESTONE,
             Material.STONE,
             Material.PRISMARINE,
-            Material.ANDESITE,
-            Material.GRANITE,
-            Material.DARK_PRISMARINE,
-            Material.TERRACOTTA,
+            Material.MOSSY_COBBLESTONE,
+            Material.BOOKSHELF,
+            Material.DIRT,
+            Material.DIODE,
             Material.GOLD_ORE,
             Material.DIAMOND_ORE,
             Material.GOLD_BLOCK
@@ -47,7 +46,7 @@ public class ClaimMapView {
     }
 
     public void clearClaims() {
-        this.blockChanges.forEach(l -> player.sendBlockChange(l, Material.AIR.createBlockData()));
+        this.blockChanges.forEach(l -> player.sendBlockChange(l, Material.AIR, (byte) 0));
         this.blockChanges.clear();
     }
 
@@ -86,14 +85,13 @@ public class ClaimMapView {
 
     public void showClaim(Claim claim, Material material) {
         Cuboid cuboid = claim.getBounds();
-        BlockData glassData = Material.GLASS.createBlockData();
-        BlockData materialData = material.createBlockData();
+        Material glassData = Material.GLASS;
 
         for (Block corner : cuboid.fourCorners()) {
             List<Location> pillar = createPillar(corner.getLocation());
 
             for (Location location : pillar) {
-                player.sendBlockChange(location, location.getBlockY() % 5 == 0 ? materialData : glassData);
+                player.sendBlockChange(location, location.getBlockY() % 5 == 0 ? material : glassData, (byte) 0);
                 this.blockChanges.add(location);
             }
         }
@@ -105,9 +103,9 @@ public class ClaimMapView {
 
         if (world == null) return new ArrayList<>();
 
-        for (int i = world.getMinHeight() + 1; i < world.getMaxHeight(); i++) {
+        for (int i = 1; i < world.getMaxHeight(); i++) {
             Block block = world.getBlockAt(location.getBlockX(), i, location.getBlockZ());
-            if (!block.getType().isAir()) continue;
+            if (block.getType() != Material.AIR) continue;
 
             locations.add(block.getLocation());
         }

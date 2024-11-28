@@ -6,6 +6,7 @@ import co.aikar.commands.contexts.ContextResolver;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
+import dev.lbuddyboy.legend.features.schedule.ScheduleEntry;
 
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
@@ -13,17 +14,18 @@ import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
  * @file dev.lbuddyboy.practice.command.context
  * @since 5/3/2024
  */
-public class KitContext implements ContextResolver<Kit, BukkitCommandExecutionContext> {
+public class ScheduleEntryContext implements ContextResolver<ScheduleEntry, BukkitCommandExecutionContext> {
 
     @Override
-    public Kit getContext(BukkitCommandExecutionContext arg) throws InvalidCommandArgument {
+    public ScheduleEntry getContext(BukkitCommandExecutionContext arg) throws InvalidCommandArgument {
         String source = arg.popFirstArg();
-        Kit kit = LegendBukkit.getInstance().getKitMapHandler().getKits().get(source.toLowerCase());
+        ScheduleEntry entry = LegendBukkit.getInstance().getScheduleHandler().getScheduleEntry(source);
 
-        if (kit != null) {
-            return kit;
+        if (entry != null) {
+            return entry;
         }
 
-        throw new InvalidCommandArgument(CC.translate("&cThat kit does not exist."));
+        throw new InvalidCommandArgument(CC.translate("&cThat schedule entry does not exist."));
     }
+
 }

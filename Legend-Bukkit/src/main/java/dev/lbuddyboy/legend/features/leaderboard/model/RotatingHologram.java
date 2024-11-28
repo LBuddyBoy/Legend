@@ -1,6 +1,7 @@
-package dev.lbuddyboy.legend.features.leaderboard;
+package dev.lbuddyboy.legend.features.leaderboard.model;
 
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
 import dev.lbuddyboy.legend.features.leaderboard.impl.KillLeaderBoardStat;
 import lombok.Data;
 import org.bukkit.Location;

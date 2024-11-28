@@ -12,6 +12,10 @@ public abstract class PlayerTimer implements Listener {
 
     public abstract String getId();
 
+    public boolean isBoldColoredName() {
+        return LegendBukkit.getInstance().getTimerHandler().getConfig().getBoolean(getId() + ".bold-display", true);
+    }
+
     public String getView() {
         return LegendBukkit.getInstance().getTimerHandler().getConfig().getString(getId() + ".view");
     }
@@ -33,7 +37,7 @@ public abstract class PlayerTimer implements Listener {
     }
     
     public String getColoredName() {
-        return getPrimaryColor() + getDisplayName();
+        return CC.blend(getDisplayName(), getPrimaryColor(), getSecondaryColor(), isBoldColoredName() ? "&l" : "");
     }
 
     public void remove(UUID playerUUID) {
@@ -54,10 +58,14 @@ public abstract class PlayerTimer implements Listener {
         user.resumeTimer(getId());
     }
 
-    public void apply(UUID playerUUID) {
+    public void apply(UUID playerUUID, int seconds) {
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
 
-        user.applyTimer(getId(), getDuration() * 1000L);
+        user.applyTimer(getId(), seconds * 1000L);
+    }
+
+    public void apply(UUID playerUUID) {
+        apply(playerUUID, getDuration());
     }
 
     public void apply(Player player) {
@@ -82,6 +90,12 @@ public abstract class PlayerTimer implements Listener {
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
         
         return user.isTimerActive(getId());
+    }
+
+    public boolean wasActive(UUID playerUUID) {
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
+
+        return user.getTimer(getId()) != null;
     }
     
     public int getDuration(Player player) {

@@ -1,9 +1,9 @@
-package dev.lbuddyboy.legend.features.recipe.command;
+package dev.lbuddyboy.legend.command.impl;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
-import dev.lbuddyboy.lifesteal.extras.recipe.menu.RecipeMenu;
+import dev.lbuddyboy.legend.features.recipe.menu.RecipeMenu;
 import org.bukkit.entity.Player;
 
 /**

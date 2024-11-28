@@ -4,16 +4,17 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import dev.lbuddyboy.commons.api.APIConstants;
+import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.commons.component.FancyBuilder;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.FancyPagedItem;
-import dev.lbuddyboy.commons.util.ShortPrice;
-import dev.lbuddyboy.events.util.PlayerUtil;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.TeamHandler;
 import dev.lbuddyboy.legend.team.model.*;
 import dev.lbuddyboy.legend.team.model.claim.Claim;
 import dev.lbuddyboy.legend.team.model.claim.ClaimMapView;
+import dev.lbuddyboy.legend.team.model.log.TeamLog;
+import dev.lbuddyboy.legend.team.model.log.impl.*;
 import dev.lbuddyboy.legend.timer.impl.HomeTimer;
 import dev.lbuddyboy.legend.timer.impl.StuckTimer;
 import dev.lbuddyboy.legend.user.model.ChatMode;
@@ -24,6 +25,7 @@ import dev.lbuddyboy.legend.util.PlaceholderUtil;
 import dev.lbuddyboy.legend.util.UUIDUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -79,7 +81,7 @@ public class TeamCommand extends BaseCommand {
         }
 
         if (team.isDTRFrozen()) {
-            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze")));
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze.active")));
             return;
         }
 
@@ -226,7 +228,7 @@ public class TeamCommand extends BaseCommand {
         }
 
         if (team.isDTRFrozen()) {
-            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze")));
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze.active")));
             return;
         }
 
@@ -235,6 +237,11 @@ public class TeamCommand extends BaseCommand {
         team.sendMessage(LegendBukkit.getInstance().getLanguage().getString("team.leave.announcement")
                 .replaceAll("%player%", sender.getName())
         );
+        team.createTeamLog(new TeamMemberRemovedLog(
+                sender.getUniqueId(),
+                "&6" + sender.getName() + " &cleft &ethe team.",
+                TeamMemberRemovedLog.LeftCause.LEFT
+        ));
     }
 
     @Subcommand("unrally")
@@ -403,7 +410,7 @@ public class TeamCommand extends BaseCommand {
         }
 
         if (team.isDTRFrozen()) {
-            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze")));
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze.active")));
             return;
         }
 
@@ -419,7 +426,11 @@ public class TeamCommand extends BaseCommand {
                 .replaceAll("%player%", member.getName())
                 .replaceAll("%sender%", sender.getName())
         );
-
+        team.createTeamLog(new TeamMemberRemovedLog(
+                sender.getUniqueId(),
+                "&6" + sender.getName() + " &ckicked &6" + member.getName() + " &efrom the team.",
+                TeamMemberRemovedLog.LeftCause.KICKED
+        ));
     }
 
     @Subcommand("info|i|who|f")
@@ -481,6 +492,7 @@ public class TeamCommand extends BaseCommand {
             return;
         }
 
+        team.createTeamLog(new TeamInvitationLog(sender.getUniqueId(), target.getUniqueId()));
         team.getInvitations().add(target.getUniqueId());
         team.sendMessage(LegendBukkit.getInstance().getLanguage().getString("team.invite.announcement")
                 .replaceAll("%sender%", sender.getName())
@@ -496,6 +508,50 @@ public class TeamCommand extends BaseCommand {
                     .replaceAll("%target%", target.getName())
             ).click(ClickEvent.Action.RUN_COMMAND, "/t accept " + team.getName()).send(target.getPlayer());
         }
+
+    }
+
+    @Subcommand("uninvite")
+    @CommandCompletion("@teamInvitations")
+    @Description("Revokes an invite for a player to join your team.")
+    public void uninvite(Player sender, @Name("player") OfflinePlayer target) {
+        Team team = this.teamHandler.getTeam(sender.getUniqueId()).orElse(null);
+
+        if (team == null) {
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.no-team.sender")));
+            return;
+        }
+
+        Optional<TeamMember> memberOpt = team.getMember(sender.getUniqueId());
+
+        if (!memberOpt.isPresent()) {
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.no-team.sender")));
+            return;
+        }
+
+        TeamMember member = memberOpt.get();
+
+        if (!member.isAtLeast(TeamRole.CAPTAIN)) {
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.no-permission")
+                    .replaceAll("%role%", "Captain")
+            ));
+            return;
+        }
+
+        if (!team.getInvitations().contains(target.getUniqueId())) {
+            sender.sendMessage(CC.translate(PlaceholderUtil.applyTeamPlaceholders(LegendBukkit.getInstance().getLanguage().getString("team.invite.not-invited"), team)
+                    .replaceAll("%sender%", sender.getName())
+                    .replaceAll("%target%", target.getName())
+            ));
+            return;
+        }
+
+        team.createTeamLog(new TeamInvitationRevokedLog(sender.getUniqueId(), target.getUniqueId()));
+        team.getInvitations().remove(target.getUniqueId());
+        team.sendMessage(LegendBukkit.getInstance().getLanguage().getString("team.invite.revoked-announcement")
+                .replaceAll("%sender%", sender.getName())
+                .replaceAll("%target%", target.getName())
+        );
 
     }
 
@@ -627,7 +683,7 @@ public class TeamCommand extends BaseCommand {
         }
 
         if (team.isDTRFrozen()) {
-            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze")));
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze.active")));
             return;
         }
 
@@ -778,6 +834,8 @@ public class TeamCommand extends BaseCommand {
                 builder.hover(LegendBukkit.getInstance().getLanguage().getStringList("team.top.hover.info").stream().map(s -> team.applyPlaceholders(s, sender)).collect(Collectors.toList()));
             }
 
+            builder.click(ClickEvent.Action.RUN_COMMAND, "/t i " + team.getName());
+
             builder.send(sender);
         }
 
@@ -788,6 +846,11 @@ public class TeamCommand extends BaseCommand {
     @Subcommand("c|chat")
     @CommandCompletion("@chatModes")
     public void chat(Player sender, @Name("mode") ChatMode mode) {
+
+        if (mode == null) {
+            sender.sendMessage(CC.translate("<blend:&4;&c>That chat mode does not exist.</>"));
+            return;
+        }
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(sender.getUniqueId());
 
         user.setChatMode(mode);
@@ -812,6 +875,8 @@ public class TeamCommand extends BaseCommand {
             if (LegendBukkit.getInstance().getLanguage().getBoolean("team.list.hover.enabled")) {
                 builder.hover(LegendBukkit.getInstance().getLanguage().getStringList("team.list.hover.info").stream().map(s -> team.applyPlaceholders(s, sender)).collect(Collectors.toList()));
             }
+
+            builder.click(ClickEvent.Action.RUN_COMMAND, "/t i " + team.getName());
 
             builders.add(builder);
         }
@@ -913,21 +978,137 @@ public class TeamCommand extends BaseCommand {
     @Subcommand("top update")
     @CommandPermission("legend.command.team.points.set")
     @CommandCompletion("@playerTeams")
-    @Private
     public void topUpdate(CommandSender sender) {
         this.teamHandler.updateTopTeams();
         sender.sendMessage(CC.translate("&aUpdated all team placements."));
     }
 
+    @Subcommand("forceleader")
+    @CommandPermission("legend.command.team.points.set")
+    @CommandCompletion("@players")
+    public void forceleader(CommandSender sender, @Name("member") UUID playerUUID) {
+        Team team = this.teamHandler.getTeam(playerUUID).orElse(null);
+
+        if (team == null) {
+            sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.no-team.sender")));
+            return;
+        }
+
+        team.getMember(playerUUID).ifPresentOrElse(member -> {
+            UUID oldLeader = team.getLeader().map(leader -> {
+                leader.setRole(TeamRole.CO_LEADER);
+                return leader.getUuid();
+            }).orElse(null);
+
+            member.setRole(TeamRole.LEADER);
+            sender.sendMessage(CC.translate(PlaceholderUtil.applyTeamPlaceholders(LegendBukkit.getInstance().getLanguage().getString("team.leader.forced"), team)
+                    .replaceAll("%old-leader%", oldLeader == null ? "None" : UUIDUtils.name(oldLeader))
+                    .replaceAll("%new-leader%", UUIDUtils.name(playerUUID))
+            ));
+        }, () -> {
+
+        });
+    }
+
     @Subcommand("points set")
     @CommandPermission("legend.command.team.points.set")
     @CommandCompletion("@playerTeams")
-    @Private
     public void pointsSet(CommandSender sender, @Name("team") Team team, @Name("amount") int amount) {
-        team.setPoints(amount);
+        team.setPoints(amount, (sender instanceof Player player ? player.getUniqueId() : null), TeamPointsChangeLog.ChangeCause.FORCED);
+        team.updateNameTags();
         sender.sendMessage(CC.translate(PlaceholderUtil.applyTeamPlaceholders(LegendBukkit.getInstance().getLanguage().getString("team.points.set"), team)
                 .replaceAll("%amount%", APIConstants.formatNumber(amount))
         ));
+    }
+
+    @Subcommand("dtrfreeze set")
+    @CommandPermission("legend.command.team.dtrfreeze")
+    @CommandCompletion("@playerTeams")
+    public void setFreeze(CommandSender sender, @Name("team") Team team, @Name("duration") TimeDuration duration) {
+        team.applyDTRFreeze(duration.transform());
+        team.updateNameTags();
+        sender.sendMessage(CC.translate(PlaceholderUtil.applyTeamPlaceholders(LegendBukkit.getInstance().getLanguage().getString("team.dtr-freeze.set"), team)
+                .replaceAll("%time%", duration.fancy())
+        ));
+    }
+
+    @Subcommand("dtrfreeze stop")
+    @CommandPermission("legend.command.team.dtrfreeze")
+    @CommandCompletion("@playerTeams")
+    public void stopFreeze(CommandSender sender, @Name("team") Team team) {
+        setFreeze(sender, team, new TimeDuration("0s"));
+    }
+
+    @Subcommand("dtr set")
+    @CommandPermission("legend.command.team.dtr")
+    @CommandCompletion("@playerTeams")
+    public void dtrSet(CommandSender sender, @Name("team") Team team, @Name("amount") double dtr) {
+        team.createTeamLog(new TeamDTRChangeLog(
+                team.getDeathsUntilRaidable(),
+                dtr,
+                (sender instanceof Player player ? player.getUniqueId() : null),
+                TeamDTRChangeLog.ChangeCause.FORCED
+        ));
+
+        team.setDeathsUntilRaidable(dtr);
+        team.updateNameTags();
+        sender.sendMessage(CC.translate(PlaceholderUtil.applyTeamPlaceholders(LegendBukkit.getInstance().getLanguage().getString("team.dtr.set"), team)
+                .replaceAll("%dtr%", APIConstants.formatNumber(dtr))
+        ));
+    }
+
+    @Subcommand("teleport|tp")
+    @CommandPermission("legend.command.team.dtr")
+    @CommandCompletion("@playerTeams")
+    public void tp(Player sender, @Name("team") Team team) {
+        Location location = team.getHome();
+
+        if (location == null) {
+            if (team.getClaims().isEmpty()) {
+                sender.sendMessage(CC.translate("&cThat team doesn't have any claims or home."));
+                return;
+            }
+
+            location = team.getClaims().getFirst().getBounds().getUpperSW();
+        }
+
+        sender.teleport(location);
+    }
+
+    @Subcommand("spy")
+    @CommandPermission("legend.command.team.spy")
+    public void spy(Player sender) {
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(sender.getUniqueId());
+
+        user.setTeamSpy(!user.isTeamSpy());
+        sender.sendMessage(CC.translate("&eYou are " + (user.isTeamSpy() ? "&anow" : "&cno longer") + " &espying on teams."));
+    }
+
+    @Subcommand("logs")
+    @CommandPermission("legend.command.team.points.set")
+    @CommandCompletion("@teams")
+    public void pointsSet(CommandSender sender, @Name("team") Team team, @Name("page") @co.aikar.commands.annotation.Optional Integer page) {
+        if (page == null) page = 1;
+
+        List<String> header = CC.translate(Arrays.asList(
+                CommandUtil.CHAT_BAR,
+                "<blend:&6;&e>&lTeam Logs</> &7(" + team.getName() + ") &f[%page%/%max-pages%] &7(Hover for more info)"
+        ));
+
+        List<FancyBuilder> builders = new ArrayList<>();
+        int index = 1;
+
+        for (TeamLog log : team.getSortedLogs()) {
+            builders.add(new FancyBuilder("&d" + (index++) + ") " + log.getTitle()).hover(CC.translate(log.getLog())));
+        }
+
+        FancyPagedItem pagedItem = new FancyPagedItem(builders, header, 10);
+
+        pagedItem.send(sender, page);
+
+        sender.sendMessage(" ");
+        sender.sendMessage(CC.translate("&7You can do /f logs " + team.getName() + " <page>"));
+        sender.sendMessage(CommandUtil.CHAT_BAR);
     }
 
 }

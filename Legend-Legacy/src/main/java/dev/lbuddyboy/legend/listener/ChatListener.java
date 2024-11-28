@@ -22,6 +22,13 @@ public class ChatListener implements Listener {
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
         ChatMode chatMode = user.getChatMode();
 
+        if (chatMode == ChatMode.TEAM || chatMode == ChatMode.ALLY) {
+            if (!LegendBukkit.getInstance().getTeamHandler().getTeam(player).isPresent()) {
+                user.setChatMode(ChatMode.PUBLIC);
+                chatMode = ChatMode.PUBLIC;
+            }
+        }
+
         event.setCancelled(true);
 
         for (ChatMode mode : ChatMode.values()) {

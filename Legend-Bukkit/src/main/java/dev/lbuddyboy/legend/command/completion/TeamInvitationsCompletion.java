@@ -7,6 +7,7 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamMember;
+import dev.lbuddyboy.legend.util.UUIDUtils;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class TeamMemberCompletion implements CommandCompletions.CommandCompletionHandler<BukkitCommandCompletionContext> {
+public class TeamInvitationsCompletion implements CommandCompletions.CommandCompletionHandler<BukkitCommandCompletionContext> {
 
     @Override
     public Collection<String> getCompletions(BukkitCommandCompletionContext context) throws InvalidCommandArgument {
@@ -25,9 +26,9 @@ public class TeamMemberCompletion implements CommandCompletions.CommandCompletio
         Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player).orElse(null);
 
         if (team == null) {
-            completions.add(CC.translate("&cNo team..."));
+            completions.add(CC.translate("&cNo invitations..."));
         } else {
-            completions.addAll(team.getMembers().stream().map(TeamMember::getName).collect(Collectors.toList()));
+            completions.addAll(team.getInvitations().stream().map(UUIDUtils::name).toList());
         }
 
         return completions;

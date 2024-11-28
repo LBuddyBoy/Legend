@@ -13,9 +13,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.imanity.imanityspigot.event.PlayerPearlRefundEvent;
 
 public class EnderPearlTimer extends PlayerTimer {
 
@@ -30,25 +30,18 @@ public class EnderPearlTimer extends PlayerTimer {
         ItemStack item = event.getItem();
 
         if (item == null) return;
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         if (item.getType() != Material.ENDER_PEARL) return;
+
+
         if (!isActive(player.getUniqueId())) {
-            event.setUseItemInHand(Event.Result.DENY);
-            player.getInventory().setItemInHand(ItemUtils.takeItem(item));
-            player.launchProjectile(EnderPearl.class);
             apply(player.getUniqueId());
             return;
         }
 
-        event.setUseItemInHand(Event.Result.DENY);
+        event.setCancelled(true);
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("enderpearl-cooldown")
                 .replaceAll("%cooldown%", getRemainingSeconds(player.getUniqueId()))
         ));
-    }
-
-    @EventHandler
-    public void onRefund(PlayerPearlRefundEvent event) {
-        remove(event.getPlayer().getUniqueId());
     }
 
 }

@@ -13,14 +13,17 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class InvincibilityTimer extends PlayerTimer {
 
@@ -31,11 +34,12 @@ public class InvincibilityTimer extends PlayerTimer {
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player victim)) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player victim = (Player) event.getEntity();
 
         Player damager = null;
-        if (event.getDamager() instanceof Player player) damager = player;
-        if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player player) damager = player;
+        if (event.getDamager() instanceof Player) damager = (Player) event.getDamager();
+        if (event.getDamager() instanceof Projectile && ((Projectile)event.getDamager()).getShooter() instanceof Player) damager = (Player) ((Projectile) event.getDamager()).getShooter();
         if (damager == null) return;
 
         if (isActive(damager.getUniqueId())) {
@@ -55,16 +59,29 @@ public class InvincibilityTimer extends PlayerTimer {
     }
 
     @EventHandler
-    public void onPickup(EntityPickupItemEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
+    public void onFoodLoss(FoodLevelChangeEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
         if (!isActive(player.getUniqueId())) return;
 
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPickup(PlayerPickupItemEvent event) {
+        Player player = event.getPlayer();
         Item item = event.getItem();
         ItemStack itemStack = item.getItemStack();
         if (itemStack.getAmount() <= 0) return;
 
         NBTItem nbtItem = new NBTItem(itemStack);
         if (!nbtItem.hasTag("pvp-loot")) return;
+
+        if (!isActive(player.getUniqueId())) {
+            nbtItem.removeKey("pvp-loot");
+            item.setItemStack(nbtItem.getItem());
+            return;
+        }
 
         event.setCancelled(true);
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("invincibility.cannot-pickup")));
@@ -76,7 +93,7 @@ public class InvincibilityTimer extends PlayerTimer {
             NBTItem item = new NBTItem(i);
             item.setBoolean("pvp-loot", true);
             return item.getItem();
-        }).toList();
+        }).collect(Collectors.toList());
 
         event.getDrops().clear();
         event.getDrops().addAll(items);
@@ -93,7 +110,7 @@ public class InvincibilityTimer extends PlayerTimer {
         LegendBukkit.getInstance().getLanguage().getStringList("invincibility.activated").forEach(s -> player.sendMessage(CC.translate(s)));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onClaimChange(PlayerClaimChangeEvent event) {
         Player player = event.getPlayer();
         if (!isActive(player.getUniqueId())) return;

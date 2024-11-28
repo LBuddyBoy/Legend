@@ -9,7 +9,7 @@ public class DTRThread extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (LegendBukkit.isENABLED()) {
             try {
                 List<Team> teams = LegendBukkit.getInstance().getTeamHandler().getPlayerTeams();
 

@@ -18,12 +18,12 @@ public class PlayTimeLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String getId() {
-        return "playtime";
+        return "PlayTime";
     }
 
     @Override
     public String getValueName() {
-        return "Time";
+        return "Play Time";
     }
 
     @Override
@@ -33,7 +33,7 @@ public class PlayTimeLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String format(Double value) {
-        return TimeUtils.formatIntoDetailedString((int) (value / 1000L));
+        return TimeUtils.formatIntoDetailedString(value.intValue());
     }
 
     @Override

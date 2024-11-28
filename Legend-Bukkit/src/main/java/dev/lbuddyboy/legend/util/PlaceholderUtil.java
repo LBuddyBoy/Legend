@@ -67,7 +67,7 @@ public class PlaceholderUtil {
         } else {
             ScheduledEvent event = Events.getInstance().getScheduleHandler().getNextEvent();
 
-            if (event != null) {
+            if (event != null && event.getEvent() != null) {
                 s = event.getEvent().applyPlaceHolders(s)
                         .replaceAll("%event-name%", event.getEventName())
                         .replaceAll("%event-starts-in%", "&7(" + TimeUtils.formatIntoDetailedStringShorter((int) ((event.getDate().getTime() - System.currentTimeMillis()) / 1000L)) + ")")

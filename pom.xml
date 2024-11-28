@@ -4,16 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dev.lbuddyboy.commons</groupId>
-    <artifactId>Commons</artifactId>
+    <groupId>dev.lbuddyboy.legend</groupId>
+    <artifactId>Legend</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>Commons-API</module>
-        <module>Commons-Velocity</module>
-        <module>Commons-Bukkit</module>
-        <module>Commons-Legacy</module>
+        <module>Legend-Bukkit</module>
+        <module>Legend-Legacy</module>
     </modules>
 
     <properties>
@@ -49,12 +47,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>Commons-Bukkit/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
     <dependencies>

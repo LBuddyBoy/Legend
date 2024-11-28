@@ -10,22 +10,22 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class TeamRemoveLog extends TeamLog {
+public class TeamMemberRemovedLog extends TeamLog {
 
     private final UUID playerUUID;
-    private final LeftFrom leftFrom;
+    private final LeftCause cause;
 
-    public TeamRemoveLog(UUID playerUUID, String title, LeftFrom leftFrom) {
-        super(title, TeamLogType.INVITATION);
+    public TeamMemberRemovedLog(UUID playerUUID, String title, LeftCause cause) {
+        super(title, TeamLogType.MEMBER_REMOVED);
 
         this.playerUUID = playerUUID;
-        this.leftFrom = leftFrom;
+        this.cause = cause;
     }
 
-    public TeamRemoveLog(Document document) {
+    public TeamMemberRemovedLog(Document document) {
         super(document);
         this.playerUUID = UUID.fromString(document.getString("playerUUID"));
-        this.leftFrom = LeftFrom.valueOf(document.getString("leftFrom"));
+        this.cause = LeftCause.valueOf(document.getString("leftFrom"));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class TeamRemoveLog extends TeamLog {
         Document document = super.toDocument();
 
         document.put("playerUUID", this.playerUUID.toString());
-        document.put("leftFrom", this.leftFrom.name());
+        document.put("leftFrom", this.cause.name());
 
         return document;
     }
@@ -43,12 +43,12 @@ public class TeamRemoveLog extends TeamLog {
         List<String> log = super.getLog();
 
         log.add(" &dPlayer&7: &f" + UUIDUtils.name(this.playerUUID));
-        log.add(" &dFrom&7: &f" + this.leftFrom.name());
+        log.add(" &dCause&7: &f" + this.cause.name());
 
         return log;
     }
 
-    public enum LeftFrom {
+    public enum LeftCause {
 
         KICKED, LEFT, FORCE_LEFT
 

@@ -1,5 +1,9 @@
 package dev.lbuddyboy.legend.team.model.claim;
 
+import dev.lbuddyboy.commons.util.LocationUtils;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.team.thread.ClaimBorderThread;
+import dev.lbuddyboy.legend.util.Coordinate;
 import dev.lbuddyboy.legend.util.Cuboid;
 import lombok.Getter;
 import org.bukkit.Location;
@@ -30,30 +34,45 @@ public class ClaimBorderView {
         while (iterator.hasNext()) {
             Location location = iterator.next();
             if (getClaimWall() != null) {
-                if (location.distance(player.getLocation()) <= 7.0) {
+                if (location.distanceSquared(player.getLocation()) <= ClaimBorderThread.REGION_DISTANCE_SQUARED) {
                     continue;
                 }
             }
-            player.sendBlockChange(location, location.getBlock().getType(), location.getBlock().getData());
+            player.sendBlockChange(location, location.getBlock().getType().createBlockData());
             iterator.remove();
         }
     }
 
     public void showBorder(Claim claim) {
         Cuboid cuboid = claim.getBounds();
-        Location location = player.getLocation();
-        List<Block> walls = cuboid.getWalls(location.getBlockY() - 3, location.getBlockY() + 3);
         ClaimBorder wall = getClaimWall();
+
         if (wall == null) return;
 
-        for (Block block : walls) {
-            if (block.getLocation().distance(location) > 7) continue;
-            if (!block.getChunk().isLoaded()) continue;
-            if (block.getType() != Material.AIR) continue;
+        LegendBukkit.getInstance().getLogger().info(" ");
 
-            this.blockChanges.add(block.getLocation());
-            player.sendBlockChange(block.getLocation(), wall.getMaterialData().getItemType(), wall.getMaterialData().getData());
+        Cuboid.BorderIterator iterator = cuboid.borderIterator();
+
+        while (iterator.hasNext()) {
+            Coordinate coordinate = iterator.next();
+
+            Location onPlayerY = new Location(player.getWorld(), coordinate.getX(), player.getLocation().getY(), coordinate.getZ());
+
+            if (onPlayerY.distanceSquared(player.getLocation()) > ClaimBorderThread.REGION_DISTANCE_SQUARED) {
+                continue;
+            }
+
+            for (int i = -4; i < 5; i++) {
+                Location check = onPlayerY.clone().add(0, i, 0);
+                if (!check.getWorld().isChunkLoaded(check.getBlockX() >> 4, check.getBlockZ() >> 4)) continue;
+                if (check.getBlock().getType().isSolid()) continue;
+                if (check.distanceSquared(onPlayerY) > ClaimBorderThread.REGION_DISTANCE_SQUARED) continue;
+
+                this.blockChanges.add(check);
+                player.sendBlockChange(check, Material.RED_STAINED_GLASS.createBlockData());
+            }
         }
+
     }
 
 }

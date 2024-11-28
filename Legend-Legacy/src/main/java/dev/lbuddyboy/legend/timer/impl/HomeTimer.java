@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -61,7 +62,9 @@ public class HomeTimer extends PlayerTimer {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDamage(EntityDamageEvent event) {
         if (event.isCancelled()) return;
-        if (!(event.getEntity() instanceof Player player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
+
         if (!isActive(player.getUniqueId())) return;
 
         cancel(player, LegendBukkit.getInstance().getLanguage().getString("team.home.warp-error.damaged"));
@@ -82,7 +85,7 @@ public class HomeTimer extends PlayerTimer {
             return;
         }
 
-        if (LegendBukkit.getInstance().getTeamHandler().getTeam(player).isEmpty()) {
+        if (!LegendBukkit.getInstance().getTeamHandler().getTeam(player).isPresent()) {
             player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.no-team.sender")));
             return;
         }
@@ -100,10 +103,15 @@ public class HomeTimer extends PlayerTimer {
         this.tasks.put(player.getUniqueId(), new BukkitRunnable() {
             @Override
             public void run() {
-                LegendBukkit.getInstance().getTeamHandler().getTeam(player).ifPresentOrElse(team -> {
-                    player.teleport(team.getHome());
+                Optional<Team> teamOpt = LegendBukkit.getInstance().getTeamHandler().getTeam(player);
+
+                if (teamOpt.isPresent()) {
+                    player.teleport(teamOpt.get().getHome());
                     tasks.remove(player.getUniqueId());
-                }, () -> player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.home.warp-error.no-team"))));
+                    return;
+                }
+
+                player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.home.warp-error.no-team")));
             }
         }.runTaskLater(LegendBukkit.getInstance(), duration * 20L));
         apply(player);

@@ -1,6 +1,13 @@
 name: Legend
 version: '${project.version}'
 main: dev.lbuddyboy.legend.LegendBukkit
+api-version: 1.20
 depend:
   - Commons
   - DecentHolograms
+softdepend:
+  - AuctionHouse
+  - Events
+  - Crates
+  - Rollback
+  - CombatLogger

@@ -38,6 +38,11 @@ public class LegendScoreboard implements ScoreboardImpl {
     }
 
     @Override
+    public String getLegacyTitle(Player player) {
+        return "";
+    }
+
+    @Override
     public List<String> getLines(Player player) {
         List<String> lines = new ArrayList<>(), toReturn = new ArrayList<>();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
@@ -106,6 +111,8 @@ public class LegendScoreboard implements ScoreboardImpl {
         if (!lines.isEmpty()) {
             if (LegendBukkit.getInstance().getScoreboard().getBoolean("separator.enabled")) {
                 toReturn.add(LegendBukkit.getInstance().getScoreboard().getString("separator.text"));
+            } else {
+                toReturn.add(" ");
             }
 
             toReturn.addAll(lines);
@@ -120,5 +127,10 @@ public class LegendScoreboard implements ScoreboardImpl {
         }
 
         return CC.translate(toReturn.stream().map(s -> PlaceholderUtil.applyAllPlaceholders(s, player)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public List<String> getLegacyLines(Player player) {
+        return List.of();
     }
 }

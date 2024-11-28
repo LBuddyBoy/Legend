@@ -60,22 +60,19 @@ public class ArcherClass extends PvPClass {
     }
 
     @Override
-    public int getLimit() {
-        return 1;
-    }
+    public boolean apply(Player player) {
+        if (!super.apply(player)) return false;
 
-    @Override
-    public void apply(Player player) {
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 1));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0));
-        super.apply(player);
+        return true;
     }
 
     @Override
     public void remove(Player player) {
         player.removePotionEffect(PotionEffectType.SPEED);
-        player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+        player.removePotionEffect(PotionEffectType.RESISTANCE);
         player.removePotionEffect(PotionEffectType.REGENERATION);
         super.remove(player);
     }
@@ -139,7 +136,7 @@ public class ArcherClass extends PvPClass {
 
         victim.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("classes.archer.shot.victim").replaceAll("%shooter%", shooter.getName())));
         shooter.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("classes.archer.shot.shooter").replaceAll("%victim%", victim.getName())));
-        CommonsPlugin.getInstance().getNametagHandler().reloadPlayer(victim);
+        CommonsPlugin.getInstance().getNameTagHandler().updatePlayer(victim);
     }
 
     @EventHandler
@@ -189,7 +186,7 @@ public class ArcherClass extends PvPClass {
 
         player.setItemInHand(ItemUtils.takeItem(item));
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("classes.archer.jump.used")));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 5, 6));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 5, 6));
         jumpCooldown.apply(player.getUniqueId());
         // TODO Add restore effects
     }

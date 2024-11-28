@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class TeamJoinLog extends TeamLog {
+public class TeamMemberAddedLog extends TeamLog {
 
     private final UUID playerUUID;
     private final JoinedFrom joinedFrom;
 
-    public TeamJoinLog(UUID playerUUID, String title, JoinedFrom joinedFrom) {
-        super(title, TeamLogType.INVITATION);
+    public TeamMemberAddedLog(UUID playerUUID, String title, JoinedFrom joinedFrom) {
+        super(title, TeamLogType.MEMBER_ADDED);
 
         this.playerUUID = playerUUID;
         this.joinedFrom = joinedFrom;
     }
 
-    public TeamJoinLog(Document document) {
+    public TeamMemberAddedLog(Document document) {
         super(document);
         this.playerUUID = UUID.fromString(document.getString("playerUUID"));
         this.joinedFrom = JoinedFrom.valueOf(document.getString("joinedFrom"));

@@ -6,23 +6,24 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.api.util.IModule;
+import dev.lbuddyboy.commons.scoreboard.ScoreboardHandler;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.team.listener.ClaimWandListener;
-import dev.lbuddyboy.legend.team.listener.TeamClaimListener;
-import dev.lbuddyboy.legend.team.listener.TeamDTRListener;
-import dev.lbuddyboy.legend.team.listener.TeamListener;
+import dev.lbuddyboy.legend.team.listener.*;
 import dev.lbuddyboy.legend.team.model.*;
+import dev.lbuddyboy.legend.team.thread.ClaimBorderThread;
 import dev.lbuddyboy.legend.team.thread.DTRThread;
 import dev.lbuddyboy.legend.team.thread.TeamSaveThread;
 import dev.lbuddyboy.legend.team.thread.TeamTopThread;
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class TeamHandler implements IModule {
 
@@ -32,9 +33,10 @@ public class TeamHandler implements IModule {
     @Getter private final Map<TopType, Map<Integer, TopEntry>> topTeams;
 
     private MongoCollection<Document> collection;
-    private Thread teamSaveThread, dtrThread, topThread;
+    private Thread teamSaveThread, dtrThread, topThread, borderThread;
 
     @Getter private final ClaimHandler claimHandler;
+    @Getter private final MovementHandler movementHandler;
 
     public TeamHandler() {
         this.teamIds = new ConcurrentHashMap<>();
@@ -42,6 +44,7 @@ public class TeamHandler implements IModule {
         this.playerTeams = new ConcurrentHashMap<>();
         this.topTeams = new ConcurrentHashMap<>();
         this.claimHandler = new ClaimHandler();
+        this.movementHandler = new MovementHandler();
     }
 
     @Override
@@ -52,21 +55,15 @@ public class TeamHandler implements IModule {
         this.loadTeams();
         this.claimHandler.load();
 
-        this.teamSaveThread = new TeamSaveThread();
-        this.dtrThread = new DTRThread();
-        this.topThread = new TeamTopThread();
-
-        this.dtrThread.start();
-        this.teamSaveThread.start();
-        this.topThread.start();
+        new TeamSaveThread().start();
+        new DTRThread().start();
+        new TeamTopThread().start();
+        new ClaimBorderThread().start();
     }
 
     @Override
     public void unload() {
         this.teamIds.values().forEach(team -> saveTeam(team, false));
-        this.teamSaveThread.interrupt();
-        this.dtrThread.interrupt();
-        this.topThread.interrupt();
     }
 
     private void loadTeams() {
@@ -91,6 +88,9 @@ public class TeamHandler implements IModule {
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamClaimListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamDTRListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamListener(), LegendBukkit.getInstance());
+        LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamWaypointListener(), LegendBukkit.getInstance());
+        LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new SubclaimListener(), LegendBukkit.getInstance());
+        LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(this.movementHandler, LegendBukkit.getInstance());
     }
 
     public Optional<Team> getTeam(String name) {
@@ -113,9 +113,13 @@ public class TeamHandler implements IModule {
         team.removeMember(playerUUID);
         this.playerTeams.remove(playerUUID);
 
-        for (Player player : team.getOnlinePlayers()) {
-            CommonsPlugin.getInstance().getNameTagHandler().updatePlayer(player);
+        team.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNametagHandler()::reloadPlayer);
+        if (!team.isDTRFrozen()) {
+            team.setDeathsUntilRaidable(team.getMaxDTR() - 1);
         }
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        if (player != null) Arrays.stream(WaypointType.values()).forEach(type -> team.removeWaypoint(type.getWaypointName(), player));
     }
 
     public void addPlayerToTeam(Team team, UUID playerUUID, TeamRole role) {
@@ -124,9 +128,6 @@ public class TeamHandler implements IModule {
         team.getMembers().add(member);
         this.playerTeams.put(playerUUID, team);
 
-        for (Player player : team.getOnlinePlayers()) {
-            CommonsPlugin.getInstance().getNameTagHandler().updatePlayer(player);
-        }
     }
 
     public void createTeam(String name, UUID leaderUUID) {
@@ -142,9 +143,7 @@ public class TeamHandler implements IModule {
             team.addMember(new TeamMember(leaderUUID, TeamRole.LEADER));
         }
 
-        for (Player player : team.getOnlinePlayers()) {
-            CommonsPlugin.getInstance().getNameTagHandler().updatePlayer(player);
-        }
+        team.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNametagHandler()::reloadPlayer);
 
         this.cacheTeam(team);
         this.saveTeam(team, true);
@@ -162,10 +161,13 @@ public class TeamHandler implements IModule {
         team.getMembersByUUID().forEach(this.playerTeams::remove);
         team.getClaims().forEach(claimHandler::removeClaim);
 
-        for (Player player : team.getOnlinePlayers()) {
-            CommonsPlugin.getInstance().getNameTagHandler().updatePlayer(player);
+        for (Team ally : team.getAllies()) {
+            ally.removeAlliance(team);
         }
 
+        Arrays.stream(WaypointType.values()).forEach(team::removeWaypoint);
+
+        team.getOnlinePlayers().forEach(CommonsPlugin.getInstance().getNametagHandler()::reloadPlayer);
         updateTopTeams();
     }
 
@@ -189,19 +191,35 @@ public class TeamHandler implements IModule {
     }
 
     public List<Team> getTeams() {
-        return this.teamIds.values().stream().toList();
+        return new ArrayList<>(this.teamIds.values());
+    }
+
+    public List<Team> getOnlineTeams() {
+        return getPlayerTeams().stream().filter(team -> !team.getOnlineMembers().isEmpty()).collect(Collectors.toList());
     }
 
     public List<Team> getPlayerTeams() {
-        return getTeams().stream().filter(team -> team.getTeamType() == TeamType.PLAYER).toList();
+        return getTeams().stream().filter(team -> team.getTeamType() == TeamType.PLAYER).collect(Collectors.toList());
     }
 
     public List<Team> getSystemTeams() {
-        return getTeams().stream().filter(team -> team.getTeamType() != TeamType.PLAYER).toList();
+        return getTeams().stream().filter(team -> team.getTeamType() != TeamType.PLAYER).collect(Collectors.toList());
     }
 
     public void sendTeamInfo(Player sender, Team team) {
-        LegendBukkit.getInstance().getLanguage().getStringList("team.info.format").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+        if (team.getTeamType() == TeamType.DEATHBAN_ARENA || team.getTeamType() == TeamType.ROAD) return;
+
+        if (team.getTeamType() == TeamType.GLOWSTONE_MOUNTAIN) {
+            LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.glowstone").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+            return;
+        }
+
+        if (team.getTeamType() == TeamType.SPAWN) {
+            LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.spawn").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+            return;
+        }
+
+        LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.player").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
     }
 
     public void updateTopTeams() {
@@ -210,7 +228,7 @@ public class TeamHandler implements IModule {
         int amount = LegendBukkit.getInstance().getLanguage().getInt("team.top.amount");
 
         for (TopType type : TopType.values()) {
-            List<Team> sorted = teams.stream().sorted(Comparator.comparingInt(t -> type.getGetter().apply((Team) t)).reversed()).toList();
+            List<Team> sorted = teams.stream().sorted(Comparator.comparingInt(t -> type.getGetter().apply((Team) t)).reversed()).collect(Collectors.toList());
             Map<Integer, TopEntry> topTeams = new HashMap<>();
 
             sorted.forEach(t -> {

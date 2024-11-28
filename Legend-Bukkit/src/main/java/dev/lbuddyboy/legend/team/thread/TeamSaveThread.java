@@ -9,7 +9,7 @@ public class TeamSaveThread extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (LegendBukkit.isENABLED()) {
             try {
                 List<Team> teams = LegendBukkit.getInstance().getTeamHandler().getTeams();
 

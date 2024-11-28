@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import dev.lbuddyboy.legend.LegendBukkit;
 import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -445,21 +446,26 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		return this.contract(CuboidDirection.Down).contract(CuboidDirection.South).contract(CuboidDirection.East).contract(CuboidDirection.Up).contract(CuboidDirection.North).contract(CuboidDirection.West);
 	}
 
-	public List<Block> getWalls(int x, int z) {
+	public List<Block> getWalls(int minY, int maxY) {
 		List<Block> blocks = new ArrayList<>();
 		World world = this.getWorld();
-		for (int i = this.x1; i <= this.x2; ++i) {
-			for (int f = x; f <= z; ++f) {
-				blocks.add(world.getBlockAt(i, f, this.z1));
-				blocks.add(world.getBlockAt(i, f, this.z2));
+
+		// Iterate over X coordinates for the wall
+		for (int x = this.x1; x <= this.x2; ++x) {
+			for (int y = minY; y <= maxY; ++y) {
+				blocks.add(world.getBlockAt(x, y, this.z1)); // Front wall
+				blocks.add(world.getBlockAt(x, y, this.z2)); // Back wall
 			}
 		}
-		for (int i = x; i <= z; ++i) {
-			for (int f = this.z1; f <= this.z2; ++f) {
-				blocks.add(world.getBlockAt(this.x1, i, f));
-				blocks.add(world.getBlockAt(this.x2, i, f));
+
+		// Iterate over Z coordinates for the wall
+		for (int z = this.z1; z <= this.z2; ++z) {
+			for (int y = minY; y <= maxY; ++y) {
+				blocks.add(world.getBlockAt(this.x1, y, z)); // Left wall
+				blocks.add(world.getBlockAt(this.x2, y, z)); // Right wall
 			}
 		}
+
 		return blocks;
 	}
 
@@ -626,6 +632,76 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	@Override
 	public String toString() {
 		return new String("Cuboid: " + this.worldName + "," + this.x1 + "," + this.y1 + "," + this.z1 + "=>" + this.x2 + "," + this.y2 + "," + this.z2);
+	}
+
+	public Location[] getCornerLocations() {
+		World world = LegendBukkit.getInstance().getServer().getWorld(this.worldName);
+
+		return new Location[] {
+				new Location(world, x1, y1, z1),
+				new Location(world, x2, y1, z2),
+				new Location(world, x1, y1, z2),
+				new Location(world, x2, y1, z1) };
+	}
+
+	public BorderIterator borderIterator() {
+		return new BorderIterator(x1, z1, x2, z2);
+	}
+
+	public class BorderIterator implements Iterator<Coordinate> {
+		private int x, z;
+		private boolean next = true;
+		private BorderDirection dir = BorderDirection.POS_Z;
+
+		int maxX = getUpperSW().getBlockX(),
+				maxZ = getUpperSW().getBlockZ();
+		int minX = getLowerNE().getBlockX(),
+				minZ = getLowerNE().getBlockZ();
+
+		public BorderIterator(int x1, int z1, int x2, int z2) {
+			x = Math.min(x1, x2);
+			z = Math.min(z1, z2);
+		}
+
+		@Override
+		public boolean hasNext() {
+			return next;
+		}
+
+		public static enum BorderDirection {
+			POS_X,
+			POS_Z,
+			NEG_X,
+			NEG_Z
+
+		}
+
+		@Override
+		public Coordinate next() {
+			if (dir == BorderDirection.POS_Z) {
+				if (++z == maxZ) {
+					dir = BorderDirection.POS_X;
+				}
+			} else if (dir == BorderDirection.POS_X) {
+				if (++x == maxX) {
+					dir = BorderDirection.NEG_Z;
+				}
+			} else if (dir == BorderDirection.NEG_Z) {
+				if (--z == minZ) {
+					dir = BorderDirection.NEG_X;
+				}
+			} else if (dir == BorderDirection.NEG_X) {
+				if (--x == minX) {
+					next = false;
+				}
+			}
+
+			return new Coordinate(x, z);
+		}
+
+		@Override
+		public void remove() {}
+
 	}
 
 	public class CuboidIterator implements Iterator<Block> {

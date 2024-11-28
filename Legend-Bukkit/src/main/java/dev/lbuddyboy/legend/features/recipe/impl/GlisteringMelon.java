@@ -1,9 +1,10 @@
 package dev.lbuddyboy.legend.features.recipe.impl;
 
 import dev.lbuddyboy.commons.util.ItemFactory;
+import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.recipe.AbstractRecipe;
-import net.minecraft.server.v1_8_R3.ShapelessRecipes;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
@@ -23,7 +24,7 @@ public class GlisteringMelon extends AbstractRecipe {
 
     @Override
     public ItemStack getDisplayItem() {
-        return new ItemFactory(Material.SPECKLED_MELON)
+        return new ItemFactory(Material.GLISTERING_MELON_SLICE)
                 .displayName("&cGlistering Melon")
                 .lore("&7Click to view the glistering melon recipe!")
                 .build();
@@ -36,7 +37,7 @@ public class GlisteringMelon extends AbstractRecipe {
 
     @Override
     public ShapelessRecipe getRecipe() {
-        ShapelessRecipe recipe = new ShapelessRecipe(getItem());
+        ShapelessRecipe recipe = new ShapelessRecipe(getKey(), getItem());
 
         recipe.addIngredient(Material.GOLD_NUGGET).addIngredient(Material.MELON);
 
@@ -45,6 +46,6 @@ public class GlisteringMelon extends AbstractRecipe {
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(Material.SPECKLED_MELON);
+        return new ItemStack(Material.GLISTERING_MELON_SLICE);
     }
 }

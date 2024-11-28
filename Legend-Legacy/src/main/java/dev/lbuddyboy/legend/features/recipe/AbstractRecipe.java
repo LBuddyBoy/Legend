@@ -1,6 +1,7 @@
-package dev.lbuddyboy.lifesteal.extras.recipe;
+package dev.lbuddyboy.legend.features.recipe;
 
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 /**
@@ -14,7 +15,7 @@ public abstract class AbstractRecipe {
     public abstract String getId();
     public abstract ItemStack getDisplayItem();
     public abstract int getMenuSlot();
-    public abstract ShapedRecipe getRecipe();
+    public abstract Recipe getRecipe();
     public abstract ItemStack getItem();
 
 }

@@ -1,4 +1,4 @@
-package dev.lbuddyboy.legend.features.leaderboard;
+package dev.lbuddyboy.legend.features.leaderboard.model;
 
 import dev.lbuddyboy.arrow.Arrow;
 import dev.lbuddyboy.commons.util.CC;
@@ -6,6 +6,7 @@ import dev.lbuddyboy.commons.util.Config;
 import dev.lbuddyboy.commons.util.ItemUtils;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
 import eu.decentsoftware.holograms.api.DHAPI;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
 import eu.decentsoftware.holograms.api.holograms.HologramLine;

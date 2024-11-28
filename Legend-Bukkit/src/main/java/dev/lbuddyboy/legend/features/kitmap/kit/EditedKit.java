@@ -1,11 +1,10 @@
-package dev.lbuddyboy.practice.kit.editor;
+package dev.lbuddyboy.legend.features.kitmap.kit;
 
 import de.tr7zw.nbtapi.NBTItem;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.commons.util.ItemUtils;
-import dev.lbuddyboy.practice.kit.Kit;
-import dev.lbuddyboy.practice.lPractice;
+import dev.lbuddyboy.legend.LegendBukkit;
 import lombok.Data;
 import org.bson.Document;
 import org.bukkit.Material;
@@ -33,7 +32,7 @@ public class EditedKit {
     }
 
     public EditedKit(Kit kit, String name) {
-        this(kit, name, kit.getInventoryContents());
+        this(kit, name, kit.getContents());
     }
 
     public EditedKit(Document document) {
@@ -44,22 +43,11 @@ public class EditedKit {
     }
 
     public Kit getKit() {
-        return lPractice.getInstance().getKitHandler().getKits().get(this.kitName);
+        return LegendBukkit.getInstance().getKitMapHandler().getKits().get(this.kitName);
     }
 
     public void save(Player player) {
         this.inventoryContents = player.getInventory().getStorageContents().clone();
-    }
-
-    public ItemStack createKitItem() {
-        NBTItem item = new NBTItem(new ItemFactory(Material.ENCHANTED_BOOK)
-                .displayName(CC.blend("Edited Kit: " + this.name, "&6", "&e") + " &7(Click to Apply)")
-                .build());
-
-        item.setString("edited-kit", this.name);
-        item.setString("kitName", this.kitName);
-
-        return item.getItem();
     }
 
     public Document toDocument() {

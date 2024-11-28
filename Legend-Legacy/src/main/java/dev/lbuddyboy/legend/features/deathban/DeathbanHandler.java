@@ -1,17 +1,16 @@
-package dev.lbuddyboy.legend.deathban;
+package dev.lbuddyboy.legend.features.deathban;
 
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.commons.api.util.TimeUtils;
 import dev.lbuddyboy.commons.util.*;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.deathban.listener.DeathbanListener;
-import dev.lbuddyboy.legend.deathban.model.RespawnBlock;
-import dev.lbuddyboy.legend.deathban.thread.DeathbanThread;
+import dev.lbuddyboy.legend.features.deathban.listener.DeathbanListener;
+import dev.lbuddyboy.legend.features.deathban.model.RespawnBlock;
+import dev.lbuddyboy.legend.features.deathban.thread.DeathbanThread;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.legend.util.Cuboid;
-import dev.lbuddyboy.legend.util.UUIDUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -24,7 +23,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter

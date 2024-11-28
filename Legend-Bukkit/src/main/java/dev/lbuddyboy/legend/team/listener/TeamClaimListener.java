@@ -5,6 +5,7 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.LegendConstants;
 import dev.lbuddyboy.legend.api.PlayerClaimChangeEvent;
+import dev.lbuddyboy.legend.features.kitmap.model.ResetBlock;
 import dev.lbuddyboy.legend.settings.Setting;
 import dev.lbuddyboy.legend.team.ClaimHandler;
 import dev.lbuddyboy.legend.team.model.Team;
@@ -29,34 +30,6 @@ import java.util.Optional;
 public class TeamClaimListener implements Listener {
 
     private final ClaimHandler claimHandler = LegendBukkit.getInstance().getTeamHandler().getClaimHandler();
-
-    public static final List<Material> INTERACTABLES = new ArrayList<Material>() {{
-        for (Material material : Material.values()) {
-            if (material.name().contains("FENCE_GATE")) {
-                add(material);
-            }
-            if (material.name().contains("DOOR")) {
-                add(material);
-            }
-        }
-
-        add(Material.LEVER);
-        add(Material.STONE_BUTTON);
-        add(Material.WOOD_BUTTON);
-        add(Material.FURNACE);
-        add(Material.CAKE);
-        add(Material.BURNING_FURNACE);
-        add(Material.ANVIL);
-        add(Material.BED);
-        add(Material.BED_BLOCK);
-        add(Material.BREWING_STAND);
-        add(Material.DISPENSER);
-        add(Material.HOPPER);
-        add(Material.CHEST);
-        add(Material.ENDER_CHEST);
-        add(Material.TRAPPED_CHEST);
-        add(Material.WORKBENCH);
-    }};
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event) {
@@ -163,7 +136,7 @@ public class TeamClaimListener implements Listener {
             if (LegendConstants.isAdminBypass(player)) return;
 
             event.setCancelled(true);
-            player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.edit.cant-break")
+            player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.edit.cant-place")
                     .replaceAll("%team%", team.getName(player))
             ));
         });
@@ -210,7 +183,9 @@ public class TeamClaimListener implements Listener {
 
         if (clicked == null) return;
         if (!event.getAction().name().contains("RIGHT_CLICK_")) return;
-        if (!INTERACTABLES.contains(clicked.getType())) return;
+        if (!clicked.getType().isInteractable()) return;
+        if (event.useInteractedBlock() == Event.Result.DENY) return;
+        if (clicked.getType() == Material.AIR) return;
 
         Optional<Team> teamOpt = this.claimHandler.getTeam(clicked.getLocation());
 
@@ -225,6 +200,31 @@ public class TeamClaimListener implements Listener {
         });
 
     }
+
+/*    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onInteract(PlayerInteractAtEntityEvent event) {
+        Block clicked = event.getClickedBlock();
+        Player player = event.getPlayer();
+
+        if (clicked == null) return;
+        if (!event.getAction().name().contains("RIGHT_CLICK_")) return;
+        if (!clicked.getType().isInteractable()) return;
+        if (event.useInteractedBlock() == Event.Result.DENY) return;
+        if (clicked.getType() == Material.AIR) return;
+
+        Optional<Team> teamOpt = this.claimHandler.getTeam(clicked.getLocation());
+
+        teamOpt.ifPresent(team -> {
+            if (team.isMember(player.getUniqueId()) || team.isRaidable()) return;
+            if (LegendConstants.isAdminBypass(player)) return;
+
+            event.setUseInteractedBlock(Event.Result.DENY);
+            player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.edit.cant-interact")
+                    .replaceAll("%team%", team.getName(player))
+            ));
+        });
+
+    }*/
 
     @EventHandler
     public void onLeaveDecay(LeavesDecayEvent event) {
@@ -287,10 +287,10 @@ public class TeamClaimListener implements Listener {
         FancyBuilder builder = new FancyBuilder("")
                 .append(LegendBukkit.getInstance().getLanguage().getString("team.claim.land-change.entering").replaceAll("%team%", to))
                 .hover(LegendBukkit.getInstance().getLanguage().getString("team.claim.land-change.hover").replaceAll("%team%", to))
-                .click(ClickEvent.Action.RUN_COMMAND, "/t i " + to)
+                .click(ClickEvent.Action.RUN_COMMAND, "/t i " + CC.stripColor(CC.translate(to)))
                 .append(LegendBukkit.getInstance().getLanguage().getString("team.claim.land-change.leaving").replaceAll("%team%", from))
                 .hover(LegendBukkit.getInstance().getLanguage().getString("team.claim.land-change.hover").replaceAll("%team%", from))
-                .click(ClickEvent.Action.RUN_COMMAND, "/t i " + from);
+                .click(ClickEvent.Action.RUN_COMMAND, "/t i " + CC.stripColor(CC.translate(from)));
 
         builder.send(player);
     }

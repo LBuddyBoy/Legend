@@ -18,15 +18,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Getter
 public class UserHandler implements IModule {
 
     private MongoCollection<Document> collection;
+    private LegendUser npcUser;
 
     private final LoadingCache<UUID, LegendUser> userCache = CacheBuilder.newBuilder()
             .expireAfterWrite(10, TimeUnit.MINUTES) // Entries expire after 10 minutes
@@ -48,7 +51,7 @@ public class UserHandler implements IModule {
                     }
                 }
             })
-            .build(new CacheLoader<>() {
+            .build(new CacheLoader<UUID, LegendUser>() {
                 public @NotNull LegendUser load(@NotNull UUID uuid) {
                     Bson bson = Filters.eq("uuid", uuid.toString());
                     Document document = getCollection().find(bson).first();
@@ -56,7 +59,7 @@ public class UserHandler implements IModule {
                     if (document == null) {
                         String userName = UUIDUtils.name(uuid);
 
-                        if (userName.equalsIgnoreCase("null")) {
+                        if (userName == null || userName.equalsIgnoreCase("null")) {
                             throw new IllegalStateException("Username not found for UUID: " + uuid);
                         }
 
@@ -73,6 +76,7 @@ public class UserHandler implements IModule {
     @Override
     public void load() {
         this.collection = LegendBukkit.getInstance().getMongoHandler().getDatabase().getCollection("Users");
+        this.npcUser = new LegendUser(UUID.randomUUID(), "NPCProfile123456789");
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             LegendUser user = getUser(player.getUniqueId());
@@ -107,6 +111,18 @@ public class UserHandler implements IModule {
 
     public CompletableFuture<LegendUser> loadAsync(UUID uuid) {
         return CompletableFuture.supplyAsync(() -> getUser(uuid));
+    }
+
+    public Set<LegendUser> loadUsersSync(Set<UUID> uuids) {
+        return uuids.stream().map(this::getUser).collect(Collectors.toSet());
+    }
+
+    public CompletableFuture<LegendUser> loadUserAsync(UUID uuid) {
+        return CompletableFuture.supplyAsync(() -> getUser(uuid));
+    }
+
+    public CompletableFuture<Set<LegendUser>> loadUsersAsync(Set<UUID> uuids) {
+        return CompletableFuture.supplyAsync(() -> loadUsersSync(uuids));
     }
 
 }

@@ -15,8 +15,8 @@ import java.util.function.Predicate;
 @Getter
 public enum ClaimBorder {
 
-    COMBAT_TAG(new MaterialData(Material.STAINED_GLASS, (byte) 14), (uuid) -> LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class).isActive(uuid)),
-    INVINCIBILITY(new MaterialData(Material.STAINED_GLASS, (byte) 5), (uuid) -> LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class).isActive(uuid));
+    COMBAT_TAG(new MaterialData(Material.RED_STAINED_GLASS, (byte) 14), (uuid) -> LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class).isActive(uuid)),
+    INVINCIBILITY(new MaterialData(Material.LIME_STAINED_GLASS, (byte) 4), (uuid) -> LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class).isActive(uuid));
 
     private final MaterialData materialData;
     private final Predicate<UUID> qualifier;

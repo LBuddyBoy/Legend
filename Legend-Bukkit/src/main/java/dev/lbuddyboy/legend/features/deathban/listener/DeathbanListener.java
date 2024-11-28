@@ -27,6 +27,7 @@ public class DeathbanListener implements Listener {
 
         if (!user.isTimerActive("deathban")) return;
         if (this.deathbanHandler.isArenaSetup()) return;
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
 
         event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
         event.setKickMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("deathban.kick-message")
@@ -36,8 +37,16 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
+
+        if (user.isCombatLoggerDied()) {
+            this.deathbanHandler.handleRevive(player);
+            player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("combat-logger.died-rejoin")));
+            return;
+        }
 
         if (!user.isTimerActive("deathban")) {
             if (!user.isDeathBanned()) return;
@@ -51,6 +60,8 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onCommandProcess(PlayerCommandPreprocessEvent event) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Player player = event.getPlayer();
         String command = event.getMessage().toLowerCase();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
@@ -69,6 +80,8 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
@@ -86,6 +99,8 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
@@ -97,6 +112,8 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
@@ -119,6 +136,8 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
+        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+
         Player player = event.getPlayer();
         Block block = event.getBlock();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());

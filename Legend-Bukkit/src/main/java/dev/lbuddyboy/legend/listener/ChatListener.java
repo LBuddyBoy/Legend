@@ -1,8 +1,12 @@
 package dev.lbuddyboy.legend.listener;
 
+import dev.lbuddyboy.commons.component.FancyBuilder;
+import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.user.model.ChatMode;
 import dev.lbuddyboy.legend.user.model.LegendUser;
+import dev.lbuddyboy.legend.util.BukkitUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -40,6 +44,23 @@ public class ChatListener implements Listener {
         for (Player recipient : recipients) {
             recipient.sendMessage(chatMode.getFormatFunction().apply(event, recipient));
         }
+
+        if (chatMode != ChatMode.PUBLIC) {
+            Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player).orElse(null);
+            if (team == null) return;
+
+            String msg = "<blend:&6;&e>&lTEAM SPY</> &7[" + team.getName() + "] &e" + player.getName() + " &7» &f" + message;
+
+            BukkitUtil.getStaffPlayers().forEach(p -> {
+                LegendUser staffUser = LegendBukkit.getInstance().getUserHandler().getUser(p.getUniqueId());
+                if (!staffUser.isTeamSpy()) return;
+
+                p.sendMessage(CC.translate(msg
+                ));
+            });
+        }
+
+
     }
 
 }

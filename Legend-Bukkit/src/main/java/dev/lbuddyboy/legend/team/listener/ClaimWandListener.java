@@ -4,6 +4,7 @@ import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.LegendConstants;
 import dev.lbuddyboy.legend.team.ClaimHandler;
 import dev.lbuddyboy.legend.team.TeamHandler;
 import dev.lbuddyboy.legend.team.model.Team;
@@ -97,7 +98,7 @@ public class ClaimWandListener implements Listener {
             Cuboid bounds = claim.getBounds();
 
             if (!systemClaim) {
-                if (user.getBalance() < process.getPrice()) {
+                if (team.getBalance() < process.getPrice()) {
                     player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.broke")));
                     return;
                 }
@@ -108,6 +109,7 @@ public class ClaimWandListener implements Listener {
                 }
             }
 
+            team.setBalance(team.getBalance() - process.getPrice());
             team.getClaims().add(claim);
             team.flagSave();
             this.claimHandler.setClaim(team, claim);
@@ -121,7 +123,8 @@ public class ClaimWandListener implements Listener {
             player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.confirmed")
                     .replaceAll("%price%", APIConstants.formatNumber(user.getBalance()))
             ));
-            player.setItemInHand(null);
+
+            player.getInventory().setItem(event.getHand(), null);
             return;
         }
 
@@ -140,6 +143,13 @@ public class ClaimWandListener implements Listener {
 
             if (!touchingClaims.isEmpty()) {
                 player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.touching")));
+                return;
+            }
+
+            if (LegendConstants.isUnclaimable(clicked.getLocation())) {
+                player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.not-far-enough")
+                        .replaceAll("%amount%", APIConstants.formatNumber(LegendConstants.getWilderness(clicked.getWorld())))
+                ));
                 return;
             }
         }
@@ -169,6 +179,8 @@ public class ClaimWandListener implements Listener {
             });
         }
 
+        process.setExact(this.claimHandler.isExactClaimWand(event.getItem()));
+
         if (!rightClick) {
             process.setPositionOne(clicked.getLocation());
             player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.position-one")
@@ -195,7 +207,7 @@ public class ClaimWandListener implements Listener {
         Item item = event.getItemDrop();
         ItemStack itemStack = item.getItemStack();
 
-        if (!itemStack.isSimilar(this.claimHandler.getClaimWand())) return;
+        if (!this.claimHandler.isClaimWand(itemStack)) return;
 
         item.remove();
     }

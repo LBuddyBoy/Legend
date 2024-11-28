@@ -1,18 +1,17 @@
 package dev.lbuddyboy.legend.tab;
 
-import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.api.util.IModule;
-import dev.lbuddyboy.commons.tab.model.TabColumn;
-import dev.lbuddyboy.commons.tab.model.TabElement;
 import dev.lbuddyboy.commons.util.Config;
-import dev.lbuddyboy.commons.util.skin.Skin;
 import dev.lbuddyboy.legend.LegendBukkit;
+import io.github.nosequel.tab.shared.TabHandler;
+import io.github.nosequel.tab.shared.entry.TabEntry;
 import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LBuddyBoy (dev.lbuddyboy)
@@ -24,18 +23,21 @@ import java.util.List;
 @Getter
 public class LegendTabHandler implements IModule {
 
-    private final List<TabElement> elements;
-    private Config defaultConfig;
+    private final Map<Integer, TabEntry> defaultElements, teamElements;
+    private Config defaultConfig, teamConfig;
     private List<String> header, footer;
     private File tabDirectory;
 
     public LegendTabHandler() {
-        this.elements = new ArrayList<>();
+        this.defaultElements = new HashMap<>();
+        this.teamElements = new HashMap<>();
     }
 
     @Override
     public void load() {
         reload();
+
+        new TabHandler(new LegendTabProvider(), LegendBukkit.getInstance(), 20L);
     }
 
     @Override
@@ -48,27 +50,30 @@ public class LegendTabHandler implements IModule {
         this.tabDirectory = new File(LegendBukkit.getInstance().getDataFolder(), "tab");
         if (!this.tabDirectory.exists()) this.tabDirectory.mkdir();
 
-        this.elements.clear();
+        this.defaultElements.clear();
         this.defaultConfig = new Config(LegendBukkit.getInstance(), "default", this.tabDirectory);
+        this.teamConfig = new Config(LegendBukkit.getInstance(), "team", this.tabDirectory);
 
         if (!this.defaultConfig.getBoolean("enabled")) {
-            CommonsPlugin.getInstance().getTabHandler().registerProvider(null);
             return;
         }
 
         this.header = this.defaultConfig.getStringList("header");
         this.footer = this.defaultConfig.getStringList("footer");
 
-        createElements(TabColumn.LEFT, "left");
-        createElements(TabColumn.MIDDLE, "middle");
-        createElements(TabColumn.RIGHT, "right");
-        createElements(TabColumn.EXTRA, "far-right");
+        createElements(this.defaultElements, TabColumn.LEFT, "left", defaultConfig);
+        createElements(this.defaultElements, TabColumn.MIDDLE, "middle", defaultConfig);
+        createElements(this.defaultElements, TabColumn.RIGHT, "right", defaultConfig);
+        createElements(this.defaultElements, TabColumn.EXTRA, "far-right", defaultConfig);
 
-        CommonsPlugin.getInstance().getTabHandler().registerProvider(new LegendTabProvider());
+        createElements(this.teamElements, TabColumn.LEFT, "left", teamConfig);
+        createElements(this.teamElements, TabColumn.MIDDLE, "middle", teamConfig);
+        createElements(this.teamElements, TabColumn.RIGHT, "right", teamConfig);
+        createElements(this.teamElements, TabColumn.EXTRA, "far-right", teamConfig);
     }
 
-    private void createElements(TabColumn column, String sectionKey) {
-        ConfigurationSection section = this.defaultConfig.getConfigurationSection(sectionKey);
+    private void createElements(Map<Integer, TabEntry> entries, TabColumn column, String sectionKey, Config config) {
+        ConfigurationSection section = config.getConfigurationSection(sectionKey);
         if (section == null) return;
 
         for (String key : section.getKeys(false)) {
@@ -78,8 +83,11 @@ public class LegendTabHandler implements IModule {
             String skinTexture = section.getString(key + ".skin.texture");
             String skinSignature = section.getString(key + ".skin.signature");
             boolean skin = skinSignature != null && skinTexture != null && (!skinTexture.isEmpty() && !skinSignature.isEmpty());
+            TabEntry entry = new TabEntry(column == TabColumn.LEFT ? 0 : column.getStart() / 20, slot - 1, text, ping);
 
-            this.elements.add(new TabElement(text, slot, column, ping, skin ? new Skin(skinSignature, skinTexture) : Skin.DEFAULT_SKIN));
+            if (skin) entry.setSkinData(new String[]{skinTexture, skinSignature});
+
+            entries.put(column.getStart() + slot, entry);
         }
     }
 

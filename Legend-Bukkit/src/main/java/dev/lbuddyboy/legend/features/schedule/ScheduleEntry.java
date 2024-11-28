@@ -1,10 +1,13 @@
-package dev.lbuddyboy.events.schedule;
+package dev.lbuddyboy.legend.features.schedule;
 
 import dev.lbuddyboy.commons.api.APIConstants;
+import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.events.Events;
 import dev.lbuddyboy.events.IEvent;
+import dev.lbuddyboy.legend.LegendBukkit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.util.Calendar;
@@ -12,11 +15,11 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-public class ScheduledEvent {
+public class ScheduleEntry {
 
     private int dayOfWeek, hourOfDay, minute;
-    private String eventName;
-    private boolean activated = false;
+    private String id, command, displayName;
+    private boolean activated = false, adminOnly, removeAfterExecute, broadcast;
 
     public boolean shouldActivate() {
         int currentDayOfWeek = APIConstants.getCalendar().get(Calendar.DAY_OF_WEEK);
@@ -27,7 +30,7 @@ public class ScheduledEvent {
     }
 
     public Date getDate() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(APIConstants.TIME_ZONE, APIConstants.LOCALE);
 
         // Set the calendar to the nearest upcoming dayOfWeek, hourOfDay, and minute
         calendar.set(Calendar.DAY_OF_WEEK, this.dayOfWeek);
@@ -44,23 +47,24 @@ public class ScheduledEvent {
         return calendar.getTime();
     }
 
+    public long getTimeLeft() {
+        return getDate().getTime() - APIConstants.getCalendar().getTime().getTime();
+    }
+
     public void activate() {
-        if (getEvent() == null) {
-            Events.getInstance().getLogger().info(ChatColor.RED + "Tried to activate event " + this.eventName + " but it doesn't exist.");
-            return;
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), this.command);
+        if (this.broadcast) {
+            LegendBukkit.getInstance().getScheduleHandler().getConfig().getStringList("broadcast-format").forEach(s -> {
+                LegendBukkit.getInstance().getServer().broadcastMessage(CC.translate(s
+                        .replaceAll("%entry-display%", this.displayName)
+                ));
+            });
         }
-
-        if (getEvent().isActive()) {
-            Events.getInstance().getLogger().info(ChatColor.RED + "Tried to activate event " + this.eventName + " but it was already active.");
-            return;
-        }
-
-        getEvent().start();
         activated = true;
     }
 
-    public IEvent getEvent() {
-        return Events.getInstance().getEvents().get(this.eventName);
+    public String serialize() {
+        return this.id + ";;" + this.dayOfWeek + ";;" + this.hourOfDay + ";;" + this.minute + ";;" + this.command + ";;" + this.displayName + ";;" + this.adminOnly + ";;" + this.removeAfterExecute + ";;" + this.broadcast;
     }
 
 }

@@ -18,7 +18,7 @@ public class KDRLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String getId() {
-        return "kdr";
+        return "KDR";
     }
 
     @Override

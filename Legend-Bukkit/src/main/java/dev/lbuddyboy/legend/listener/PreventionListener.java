@@ -2,12 +2,7 @@ package dev.lbuddyboy.legend.listener;
 
 import com.google.common.collect.Sets;
 import dev.lbuddyboy.commons.CommonsPlugin;
-import dev.lbuddyboy.commons.nametag.ScoreboardTeamPacketMod;
-import dev.lbuddyboy.commons.util.ReflectionUtil;
 import dev.lbuddyboy.commons.util.Tasks;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.PacketPlayOutScoreboardTeam;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,6 +33,7 @@ public class PreventionListener implements Listener {
 
     }
 
+/*
     @EventHandler
     public void onEffect(PotionEffectAddEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
@@ -67,5 +63,6 @@ public class PreventionListener implements Listener {
             Tasks.runAsync(() -> CommonsPlugin.getInstance().getNametagHandler().reloadPlayer(player));
         }
     }
+*/
 
 }

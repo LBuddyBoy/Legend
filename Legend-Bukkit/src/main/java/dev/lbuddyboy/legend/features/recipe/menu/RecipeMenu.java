@@ -2,6 +2,7 @@ package dev.lbuddyboy.legend.features.recipe.menu;
 
 import dev.lbuddyboy.commons.menu.IButton;
 import dev.lbuddyboy.commons.menu.IMenu;
+import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.recipe.AbstractRecipe;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class RecipeMenu extends IMenu {
         List<Integer> slots = getCenteredSlots(player);
         int i = 0;
 
-        for (AbstractRecipe recipe : LegendBukkit.getInstance().getRecipeHandler().getRecipes().values().stream().sorted(Comparator.comparingInt(AbstractRecipe::getMenuSlot)).collect(Collectors.toList())) {
+        for (AbstractRecipe recipe : LegendBukkit.getInstance().getRecipeHandler().getRecipes().values().stream().sorted(Comparator.comparingInt(AbstractRecipe::getMenuSlot)).toList()) {
             if (slots.size() <= i) continue;
             int slot = slots.get(i++);
 
@@ -62,11 +63,22 @@ public class RecipeMenu extends IMenu {
 
         @Override
         public ItemStack getItem(Player player) {
-            return this.recipe.getDisplayItem();
+            ItemFactory factory = new ItemFactory(this.recipe.getDisplayItem());
+
+            if (player.hasPermission("legend.command.recipe.admin")) {
+                factory.addToLore("<blend:&4;&c>[Admin Only] Right Click to obtain this item.</>");
+            }
+
+            return factory.build();
         }
 
         @Override
         public void action(Player player, ClickType clickType, int slot) {
+            if (clickType == ClickType.RIGHT) {
+                player.getInventory().addItem(this.recipe.getItem().clone());
+                return;
+            }
+
             new RecipeViewMenu(recipe).openMenu(player);
         }
     }

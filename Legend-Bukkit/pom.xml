@@ -10,12 +10,12 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>Legend-Legacy</artifactId>
-    <name>Legend-Legacy</name>
+    <artifactId>Legend-Bukkit</artifactId>
+    <name>Legend-Bukkit</name>
     <version>1.0</version>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -83,13 +83,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.21.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.21.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -100,19 +100,25 @@
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy.commons</groupId>
-            <artifactId>Commons-Legacy</artifactId>
+            <artifactId>Commons-Bukkit</artifactId>
             <version>1.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy.arrow</groupId>
-            <artifactId>Arrow-Legacy</artifactId>
+            <artifactId>Arrow-Bukkit</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy</groupId>
-            <artifactId>Events-Legacy</artifactId>
+            <artifactId>Events</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy.auctionhouse</groupId>
+            <artifactId>AuctionHouse</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
@@ -130,7 +136,7 @@
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy.rollback</groupId>
-            <artifactId>Rollback-Legacy</artifactId>
+            <artifactId>Rollback</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
@@ -142,6 +148,13 @@
             <systemPath>${pom.basedir}/libs/DecentHolograms.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>citizens</groupId>
+            <artifactId>Citizens</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/libs/Citizens.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>denzin</groupId>
             <artifactId>Citizens</artifactId>
             <version>LATEST</version>
@@ -149,15 +162,14 @@
             <systemPath>${pom.basedir}/libs/znpcs.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>imanityspigot</groupId>
-            <artifactId>imanityspigot</artifactId>
-            <version>LATEST</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/libs/imanityspigot.jar</systemPath>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>Crates</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>dev.lbuddyboy.crates</groupId>
-            <artifactId>lCrates-Legacy</artifactId>
+            <groupId>dev.lbuddyboy.combatlogger</groupId>
+            <artifactId>CombatLogger</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>

@@ -19,17 +19,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ClaimBorderThread extends Thread {
-    
+
+    public static final int REGION_DISTANCE = 8;
+    public static final int REGION_DISTANCE_SQUARED = REGION_DISTANCE * REGION_DISTANCE;
+
     private final TeamHandler teamHandler = LegendBukkit.getInstance().getTeamHandler();
     private final ClaimHandler claimHandler = this.teamHandler.getClaimHandler();
     private final MovementHandler movementHandler = LegendBukkit.getInstance().getTeamHandler().getMovementHandler();
-    
+
     @Override
     public void run() {
-        while (true) {
+        while (LegendBukkit.isENABLED()) {
             try {
-                CombatTimer combatTimer = (CombatTimer) LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
-                InvincibilityTimer invincibilityTimer = (InvincibilityTimer) LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
+                CombatTimer combatTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
+                InvincibilityTimer invincibilityTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
 
                 for (Player player : BukkitUtil.getOnlinePlayers()) {
                     if (!player.getWorld().isChunkLoaded(player.getLocation().getBlockX() >> 4, player.getLocation().getBlockZ() >> 4)) continue;
@@ -37,7 +40,7 @@ public class ClaimBorderThread extends Thread {
                     this.claimHandler.clearBorderView(player);
 
                     if (invincibilityTimer.isActive(player.getUniqueId()) || combatTimer.isActive(player.getUniqueId())) {
-                        Set<Claim> claims = this.claimHandler.getClaims(player.getLocation(), 5);
+                        Set<Claim> claims = this.claimHandler.getClaims(player.getLocation(), REGION_DISTANCE);
                         Map<Claim, Team> teams = claims.stream().filter(c -> c.getTeam().isPresent()).collect(Collectors.toMap(
                                 c -> c,
                                 c -> c.getTeam().get()
@@ -45,7 +48,7 @@ public class ClaimBorderThread extends Thread {
 
                         for (Map.Entry<Claim, Team> entry : teams.entrySet()) {
                             if (this.movementHandler.checkMovement(player, entry.getValue(), false)) continue;
-                            
+
                             this.claimHandler.sendBorderView(player, entry.getKey());
                         }
                     }
@@ -55,7 +58,7 @@ public class ClaimBorderThread extends Thread {
             }
 
             try {
-                Thread.sleep(150L);
+                Thread.sleep(250L);
             } catch (Exception e) {
 
             }

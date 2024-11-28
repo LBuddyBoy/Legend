@@ -18,7 +18,7 @@ public class MoneyLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String getId() {
-        return "money";
+        return "Money";
     }
 
     @Override

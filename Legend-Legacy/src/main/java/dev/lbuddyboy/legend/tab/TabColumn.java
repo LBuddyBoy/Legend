@@ -1,4 +1,4 @@
-package dev.lbuddyboy.hub.tab;
+package dev.lbuddyboy.legend.tab;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

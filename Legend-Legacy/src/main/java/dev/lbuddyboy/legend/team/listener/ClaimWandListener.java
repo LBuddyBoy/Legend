@@ -10,8 +10,10 @@ import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.claim.Claim;
 import dev.lbuddyboy.legend.team.model.claim.ClaimMapView;
 import dev.lbuddyboy.legend.team.model.claim.ClaimProcess;
+import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.legend.util.Cuboid;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -38,7 +40,6 @@ public class ClaimWandListener implements Listener {
         Block clicked = event.getClickedBlock();
         boolean rightClick = event.getAction() == Action.RIGHT_CLICK_BLOCK;
         Player player = event.getPlayer();
-        EquipmentSlot slot = event.getHand();
         boolean confirming = event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK;
         Optional<Team> teamOpt = this.teamHandler.getTeam(player);
         boolean systemClaim = false;
@@ -53,13 +54,22 @@ public class ClaimWandListener implements Listener {
             systemClaim = true;
         }
 
-        if (teamOpt.isEmpty()) {
+        if (!teamOpt.isPresent()) {
             player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.no-team.sender")));
             return;
         }
 
+        if (!systemClaim) {
+            if (player.getWorld().getEnvironment() == World.Environment.NETHER && !LegendBukkit.getInstance().getSettings().getBoolean("nether.players-can-claim")
+                    || player.getWorld().getEnvironment() == World.Environment.THE_END && !LegendBukkit.getInstance().getSettings().getBoolean("end.players-can-claim")) {
+                player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.not-enabled-world")));
+                return;
+            }
+        }
+
         Team team = teamOpt.get();
         ClaimProcess process = this.claimHandler.getClaimProcesses().getOrDefault(player.getUniqueId(), new ClaimProcess());
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
         /*
         Confirming Claim Selection
@@ -87,6 +97,11 @@ public class ClaimWandListener implements Listener {
             Cuboid bounds = claim.getBounds();
 
             if (!systemClaim) {
+                if (user.getBalance() < process.getPrice()) {
+                    player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.broke")));
+                    return;
+                }
+
                 if (this.claimHandler.isClaimOverLapping(claim)) {
                     player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.overlapped")));
                     return;
@@ -104,8 +119,9 @@ public class ClaimWandListener implements Listener {
             this.claimHandler.getMapViews().put(player.getUniqueId(), mapView);
 
             player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.confirmed")
-                    .replaceAll("%price%", "1,000")
+                    .replaceAll("%price%", APIConstants.formatNumber(user.getBalance()))
             ));
+            player.setItemInHand(null);
             return;
         }
 

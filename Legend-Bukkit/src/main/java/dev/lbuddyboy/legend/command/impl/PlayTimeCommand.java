@@ -54,6 +54,7 @@ public class PlayTimeCommand extends BaseCommand {
 
     @Subcommand("admin goal create")
     @Description("Creates a new playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void startGoal(CommandSender sender, @Name("id") @Single String id, @Name("duration") TimeDuration duration, @Name("goal") TimeDuration goal, @Name("reward") String reward) {
         PlayTimeGoal playTimeGoal = new PlayTimeGoal(id, reward, duration.transform(), goal.transform());
 
@@ -78,6 +79,7 @@ public class PlayTimeCommand extends BaseCommand {
     @Subcommand("admin goal delete")
     @CommandCompletion("@playTimeGoals")
     @Description("Deletes an existing playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void deleteGoal(CommandSender sender, @Name("id") PlayTimeGoal playTimeGoal) {
 
         this.playTimeGoalHandler.deletePlayTimeGoal(playTimeGoal);
@@ -87,6 +89,7 @@ public class PlayTimeCommand extends BaseCommand {
     @Subcommand("admin goal setmaterial")
     @CommandCompletion("@playTimeGoals")
     @Description("Adds a command to a playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void setmaterial(Player sender, @Name("id") PlayTimeGoal playTimeGoal) {
         if (sender.getItemInHand() == null) {
             sender.sendMessage(CC.translate("&cPlease have an item in your hand."));
@@ -100,6 +103,7 @@ public class PlayTimeCommand extends BaseCommand {
     @Subcommand("admin goal command add")
     @CommandCompletion("@playTimeGoals")
     @Description("Adds a command to a playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void commandAdd(CommandSender sender, @Name("id") PlayTimeGoal playTimeGoal, @Name("command") String command) {
         playTimeGoal.getCommands().add(command);
         sender.sendMessage(CC.translate("&aSuccessfully added a command to the " + playTimeGoal.getId() + " playtime goal!"));
@@ -108,6 +112,7 @@ public class PlayTimeCommand extends BaseCommand {
     @Subcommand("admin goal command remove")
     @CommandCompletion("@playTimeGoals @playTimeGoalCommands")
     @Description("Removes a command from a playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void commandRemove(CommandSender sender, @Name("id") PlayTimeGoal playTimeGoal, @Name("command") String command) {
         playTimeGoal.getCommands().remove(command);
         sender.sendMessage(CC.translate("&aSuccessfully removed a command from the " + playTimeGoal.getId() + " playtime goal!"));
@@ -116,6 +121,7 @@ public class PlayTimeCommand extends BaseCommand {
     @Subcommand("admin goal command list")
     @CommandCompletion("@playTimeGoals")
     @Description("Lists commands of a playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void commandList(CommandSender sender, @Name("id") PlayTimeGoal playTimeGoal) {
         sender.sendMessage(" ");
         sender.sendMessage(CC.translate("&2&l" + playTimeGoal.getId() + "'s Commands"));
@@ -128,6 +134,7 @@ public class PlayTimeCommand extends BaseCommand {
     @Subcommand("admin goal info")
     @CommandCompletion("@playTimeGoals")
     @Description("Shows all info of a playtime goal")
+    @CommandPermission("legend.command.playtime.admin")
     public void commandInfo(CommandSender sender, @Name("id") PlayTimeGoal playTimeGoal) {
         sender.sendMessage(" ");
         sender.sendMessage(CC.translate("&2&l" + playTimeGoal.getId() + "'s Info"));

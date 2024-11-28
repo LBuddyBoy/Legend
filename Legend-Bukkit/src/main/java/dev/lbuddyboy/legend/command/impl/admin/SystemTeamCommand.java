@@ -9,6 +9,7 @@ import dev.lbuddyboy.legend.team.TeamHandler;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.team.model.claim.Claim;
+import dev.lbuddyboy.legend.team.model.log.impl.TeamCreationLog;
 import dev.lbuddyboy.legend.util.CommandUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public class SystemTeamCommand extends BaseCommand {
             return;
         }
 
-        this.teamHandler.createTeam(name, null, type);
+        this.teamHandler.createTeam(name, null, type).createTeamLog(new TeamCreationLog(sender.getUniqueId()));
         sender.sendMessage(CC.translate("<blend:&6;&e>&lSYSTEM TEAM</> &7» &aSuccessfully created '" + name + "' with the team type of " + type.name() + "!"));
     }
 
@@ -53,6 +54,12 @@ public class SystemTeamCommand extends BaseCommand {
     public void disband(Player sender, @Name("team") Team team) {
         this.teamHandler.disbandTeam(team, true);
         sender.sendMessage(CC.translate("<blend:&6;&e>&lSYSTEM TEAM</> &7» &cSuccessfully deleted the '" + team.getName() + "' with the team type of " + team.getTeamType().name() + "!"));
+    }
+
+    @Subcommand("exactclaimfor")
+    @CommandCompletion("@systemTeams")
+    public void exactclaimfor(Player sender, @Name("team") Team team) {
+        sender.getInventory().addItem(this.teamHandler.getClaimHandler().createClaimForExactWand(team));
     }
 
     @Subcommand("claimfor|claim")

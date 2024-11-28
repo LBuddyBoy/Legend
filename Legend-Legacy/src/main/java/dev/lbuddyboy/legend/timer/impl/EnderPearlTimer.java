@@ -15,25 +15,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.imanity.imanityspigot.event.PlayerPearlRefundEvent;
 
 public class EnderPearlTimer extends PlayerTimer {
 
     @Override
     public String getId() {
         return "enderpearl";
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player victim)) return;
-
-        Player damager = null;
-        if (event.getDamager() instanceof Player player) damager = player;
-        if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player player) damager = player;
-        if (damager == null) return;
-
-        apply(damager.getUniqueId());
-        apply(victim.getUniqueId());
     }
 
     @EventHandler
@@ -46,8 +34,7 @@ public class EnderPearlTimer extends PlayerTimer {
         if (item.getType() != Material.ENDER_PEARL) return;
         if (!isActive(player.getUniqueId())) {
             event.setUseItemInHand(Event.Result.DENY);
-            player.getInventory().setItem(event.getHand(), ItemUtils.takeItem(item));
-            player.launchProjectile(EnderPearl.class);
+            player.getInventory().setItemInHand(ItemUtils.takeItem(item));
             apply(player.getUniqueId());
             return;
         }
@@ -56,7 +43,11 @@ public class EnderPearlTimer extends PlayerTimer {
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("enderpearl-cooldown")
                 .replaceAll("%cooldown%", getRemainingSeconds(player.getUniqueId()))
         ));
-        player.setCooldown(Material.ENDER_PEARL, 0);
+    }
+
+    @EventHandler
+    public void onRefund(PlayerPearlRefundEvent event) {
+        remove(event.getPlayer().getUniqueId());
     }
 
 }

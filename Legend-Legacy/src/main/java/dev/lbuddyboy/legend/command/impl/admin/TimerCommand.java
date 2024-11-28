@@ -1,4 +1,4 @@
-package dev.lbuddyboy.legend.command.impl;
+package dev.lbuddyboy.legend.command.impl.admin;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;

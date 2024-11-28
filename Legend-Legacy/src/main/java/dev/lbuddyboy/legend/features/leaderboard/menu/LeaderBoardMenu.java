@@ -1,16 +1,17 @@
-package dev.lbuddyboy.samurai.map.leaderboard.menu;
+package dev.lbuddyboy.legend.features.leaderboard.menu;
 
 import dev.lbuddyboy.commons.menu.IButton;
 import dev.lbuddyboy.commons.menu.button.FillButton;
 import dev.lbuddyboy.commons.menu.paged.IPagedMenu;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemFactory;
-import dev.lbuddyboy.samurai.Samurai;
-import dev.lbuddyboy.samurai.map.leaderboard.ILeaderBoardStat;
-import dev.lbuddyboy.samurai.map.leaderboard.LeaderBoardUser;
-import dev.lbuddyboy.samurai.map.leaderboard.impl.KillLeaderBoardStat;
+import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
+import dev.lbuddyboy.legend.features.leaderboard.LeaderBoardUser;
+import dev.lbuddyboy.legend.features.leaderboard.impl.KillLeaderBoardStat;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LeaderBoardMenu extends IPagedMenu {
 
@@ -31,7 +33,7 @@ public class LeaderBoardMenu extends IPagedMenu {
             11, 12, 13, 14, 15, 16, 17
     };
 
-    private ILeaderBoardStat type = Samurai.getInstance().getLeaderBoardHandler().getStatByClass(KillLeaderBoardStat.class).get();
+    private ILeaderBoardStat type = LegendBukkit.getInstance().getLeaderBoardHandler().getStatByClass(KillLeaderBoardStat.class);
 
     @Override
     public String getPageTitle(Player player) {
@@ -72,7 +74,7 @@ public class LeaderBoardMenu extends IPagedMenu {
     public List<IButton> getPageButtons(Player player) {
         List<IButton> buttons = new ArrayList<>();
 
-        for (ILeaderBoardStat stat : Samurai.getInstance().getLeaderBoardHandler().getLeaderBoardStats()) {
+        for (ILeaderBoardStat stat : LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoardStats()) {
             if (stat == this.type) {
                 buttons.add(new DefaultButton());
             } else {
@@ -93,11 +95,11 @@ public class LeaderBoardMenu extends IPagedMenu {
         Map<Integer, IButton> buttons = new HashMap<>();
 
         int index = 0;
-        List<LeaderBoardUser> users = Samurai.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values().stream().toList();
+        List<LeaderBoardUser> users = new ArrayList<>(LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values());
 
         for (int slot : USER_SLOTS) {
             if (users.size() <= index) {
-                buttons.put(slot, new FillButton('f', new ItemFactory(Material.SKELETON_SKULL).displayName("&cN/A").build()));
+                buttons.put(slot, new FillButton('f', new ItemFactory(Material.SKULL_ITEM).displayName("&cN/A").build()));
                 continue;
             }
 
@@ -105,7 +107,7 @@ public class LeaderBoardMenu extends IPagedMenu {
             index++;
         }
 
-        for (LeaderBoardUser user : Samurai.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values()) {
+        for (LeaderBoardUser user : LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values()) {
             buttons.put(USER_SLOTS[user.getPlace() - 1], new UserButton(user));
         }
 
@@ -152,7 +154,7 @@ public class LeaderBoardMenu extends IPagedMenu {
         @Override
         public void action(Player player, ClickType clickType, int slot) {
             LeaderBoardMenu.this.type = type;
-            updateMenu(player, true);
+            openMenu(player);
         }
     }
 

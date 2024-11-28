@@ -1,8 +1,6 @@
 package dev.lbuddyboy.legend.team.model.log.impl;
 
 import dev.lbuddyboy.commons.api.APIConstants;
-import dev.lbuddyboy.legend.LegendConstants;
-import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.log.TeamLog;
 import dev.lbuddyboy.legend.team.model.log.TeamLogType;
 import dev.lbuddyboy.legend.util.UUIDUtils;
@@ -13,38 +11,37 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class TeamDTRLog extends TeamLog {
+public class TeamPointsChangeLog extends TeamLog {
 
-    private final double previousDTR, afterDTR;
-    private final UUID playerUUID;
+    private final int previousPoints, afterPoints;
+    private UUID playerUUID;
     private final ChangeCause cause;
 
-    public TeamDTRLog(double previousDTR, double afterDTR, UUID playerUUID, ChangeCause cause) {
-        super((previousDTR > afterDTR ? "&a" : "&c") + APIConstants.formatNumber(previousDTR) + " -> " + APIConstants.formatNumber(afterDTR) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " )"), TeamLogType.DTR_CHANGED);
+    public TeamPointsChangeLog(int previousPoints, int afterPoints, UUID playerUUID, ChangeCause cause) {
+        super((previousPoints > afterPoints ? "&a" : "&c") + APIConstants.formatNumber(previousPoints) + " -> " + APIConstants.formatNumber(afterPoints) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " )"), TeamLogType.POINTS_CHANGED);
 
-
-        this.previousDTR = previousDTR;
-        this.afterDTR = afterDTR;
+        this.previousPoints = previousPoints;
+        this.afterPoints = afterPoints;
         this.playerUUID = playerUUID;
         this.cause = cause;
     }
 
-    public TeamDTRLog(Document document) {
+    public TeamPointsChangeLog(Document document) {
         super(document);
-        this.previousDTR = document.getDouble("previousDTR");
-        this.afterDTR = document.getDouble("afterDTR");
-        this.playerUUID = UUID.fromString(document.getString("playerUUID"));
+        this.previousPoints = document.getInteger("previousPoints");
+        this.afterPoints = document.getInteger("afterPoints");
         this.cause = ChangeCause.valueOf(document.getString("cause"));
+        if (document.containsKey("playerUUID")) this.playerUUID = UUID.fromString(document.getString("playerUUID"));
     }
 
     @Override
     public Document toDocument() {
         Document document = super.toDocument();
 
-        document.put("previousDTR", this.previousDTR);
-        document.put("afterDTR", this.afterDTR);
-        document.put("playerUUID", this.playerUUID.toString());
+        document.put("previousPoints", this.previousPoints);
+        document.put("afterPoints", this.afterPoints);
         document.put("cause", this.cause.name());
+        if (this.playerUUID != null) document.put("playerUUID", this.playerUUID.toString());
 
         return document;
     }
@@ -53,8 +50,8 @@ public class TeamDTRLog extends TeamLog {
     public List<String> getLog() {
         List<String> log = super.getLog();
 
-        log.add(" &dPrevious DTR&7: &f" + APIConstants.formatNumber(this.previousDTR));
-        log.add(" &dAfter DTR&7: &f" + APIConstants.formatNumber(this.afterDTR));
+        log.add(" &dPrevious Points&7: &f" + APIConstants.formatNumber(this.previousPoints));
+        log.add(" &dAfter Points&7: &f" + APIConstants.formatNumber(this.afterPoints));
 
         if (this.playerUUID != null) {
             log.add(" &dChanged By&7: &f" + UUIDUtils.name(this.playerUUID));
@@ -67,7 +64,7 @@ public class TeamDTRLog extends TeamLog {
 
     public enum ChangeCause {
 
-        NATURAL_REGEN, FORCED, MEMBER_DEATH, LOGGER_DEATH, MEMBER_LEFT
+        NATURAL, FORCED, KILL, DEATH, KOTH, CITADEL, CONQUEST
 
     }
 

@@ -3,8 +3,11 @@ package dev.lbuddyboy.legend.api.providers;
 import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.deathmessage.DeathMessageProvider;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.timer.impl.CombatTimer;
 import dev.lbuddyboy.legend.user.model.LegendUser;
+import dev.lbuddyboy.rollback.Rollback;
 import dev.lbuddyboy.rollback.api.RollbackAPI;
+import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -20,15 +23,29 @@ import java.util.UUID;
  */
 public class RollbackProvider implements RollbackAPI {
 
+    public RollbackProvider() {
+        Rollback.getInstance().setRollbackAPI(this);
+    }
+
     @Override
     public boolean isDeathExempted(Player player) {
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
-        return user.isTimerActive("deathban");
+        return CitizensAPI.getNPCRegistry().isNPC(player) || user.isTimerActive("deathban");
     }
 
     @Override
-    public void applyDeath(UUID victim, ItemStack[] armor, ItemStack[] contents, int foodLevel, String ipAddress, Location location, Player killer, String deathMessage) {
+    public boolean canOpenEnderChest(Player player) {
+        return !LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class).isActive(player.getUniqueId());
+    }
+
+    @Override
+    public boolean canOpenVault(Player player) {
+        return !LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class).isActive(player.getUniqueId());
+    }
+
+    @Override
+    public void applyDeath(UUID victim, ItemStack[] armor, ItemStack[] contents, ItemStack[] extras, int foodLevel, String ipAddress, Location location, Player killer, String deathMessage) {
         Player player = Bukkit.getPlayer(victim);
         DeathMessageProvider provider = CommonsPlugin.getInstance().getDeathMessageHandler().getProvider();
 
@@ -36,7 +53,7 @@ public class RollbackProvider implements RollbackAPI {
             deathMessage = provider.getLastDeathMessage(player);
         }
 
-        RollbackAPI.super.applyDeath(victim, armor, contents, foodLevel, ipAddress, location, killer, deathMessage);
+        RollbackAPI.super.applyDeath(victim, armor, contents, extras, foodLevel, ipAddress, location, killer, deathMessage);
     }
 
     @Override

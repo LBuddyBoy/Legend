@@ -1,25 +1,21 @@
-package dev.lbuddyboy.legend.deathban.listener;
+package dev.lbuddyboy.legend.features.deathban.listener;
 
-import dev.lbuddyboy.arrow.util.totp.TOTPConstants;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.deathban.DeathbanHandler;
-import dev.lbuddyboy.legend.deathban.model.RespawnBlock;
+import dev.lbuddyboy.legend.features.deathban.DeathbanHandler;
+import dev.lbuddyboy.legend.features.deathban.model.RespawnBlock;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
-
-import java.util.Arrays;
 
 public class DeathbanListener implements Listener {
 

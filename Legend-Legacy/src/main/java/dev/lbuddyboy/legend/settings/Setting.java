@@ -17,7 +17,7 @@ import java.util.UUID;
 @Getter
 public enum Setting {
 
-    DEATH_MESSAGES("death-messages", "Death Messages", "&4", "&c", Material.SKELETON_SKULL, Arrays.asList(
+    DEATH_MESSAGES("death-messages", "Death Messages", "&4", "&c", Material.SKULL_ITEM, Arrays.asList(
             "&7Ability to see death messages",
             "&7that are announced in chat."
     ), true),
@@ -27,15 +27,17 @@ public enum Setting {
             "&7that are sent in global chat."
     ), true),
 
-    MESSAGES("receivingmessages", "Private Messages", "&d", "&7", Material.CHAIN, Arrays.asList(
+    MESSAGES("receivingmessages", "Private Messages", "&d", "&7", Material.CHEST, Arrays.asList(
             "&7Ability to see messages that",
             "&7personally sent to you."
     ), true),
+/*
 
     DUELS("duels", "Duel Notifications", "&b", "&3", Material.DIAMOND_SWORD, Arrays.asList(
             "&7Ability to see the message sent",
             "&7when a player duels you."
     ), true),
+*/
 
     ADDITIONAL_TEAM_INFO("extrateaminfo", "Informational Team Info", "&d", "&5", Material.BOOK, Arrays.asList(
             "&7Ability to hover over texts for more",
@@ -47,7 +49,7 @@ public enum Setting {
             "&7when a player finds diamond."
     ), true),
 
-    CLAIM_ENTER_LEAVE("claim-messages", "Enter/Leave Claim Messages", "&a", "&2", Material.OAK_SIGN, Arrays.asList(
+    CLAIM_ENTER_LEAVE("claim-messages", "Enter/Leave Claim Messages", "&a", "&2", Material.SIGN, Arrays.asList(
             "&7Ability to see the message sent",
             "&7when you leave/enter a claim."
     ), true),

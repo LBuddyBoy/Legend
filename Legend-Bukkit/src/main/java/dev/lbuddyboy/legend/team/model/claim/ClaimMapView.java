@@ -2,6 +2,7 @@ package dev.lbuddyboy.legend.team.model.claim;
 
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemUtils;
+import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.ClaimHandler;
 import dev.lbuddyboy.legend.team.model.Team;
@@ -20,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ClaimMapView {
 
     private static final List<Material> CLAIM_MATERIALS = Arrays.asList(
-            Material.WOOD,
+            Material.OAK_WOOD,
             Material.DIAMOND_BLOCK,
             Material.LAPIS_BLOCK,
             Material.REDSTONE_BLOCK,
@@ -32,7 +33,7 @@ public class ClaimMapView {
             Material.MOSSY_COBBLESTONE,
             Material.BOOKSHELF,
             Material.DIRT,
-            Material.DIODE,
+            Material.DIORITE,
             Material.GOLD_ORE,
             Material.DIAMOND_ORE,
             Material.GOLD_BLOCK
@@ -46,7 +47,7 @@ public class ClaimMapView {
     }
 
     public void clearClaims() {
-        this.blockChanges.forEach(l -> player.sendBlockChange(l, Material.AIR, (byte) 0));
+        this.blockChanges.forEach(l -> player.sendBlockChange(l, Material.AIR.createBlockData()));
         this.blockChanges.clear();
     }
 
@@ -88,24 +89,24 @@ public class ClaimMapView {
         Material glassData = Material.GLASS;
 
         for (Block corner : cuboid.fourCorners()) {
-            List<Location> pillar = createPillar(corner.getLocation());
+            List<Location> pillar = createPillar(corner.getLocation(), cuboid.getY2());
 
             for (Location location : pillar) {
-                player.sendBlockChange(location, location.getBlockY() % 5 == 0 ? material : glassData, (byte) 0);
+                player.sendBlockChange(location, location.getBlockY() % 5 == 0 ? material.createBlockData() : glassData.createBlockData());
                 this.blockChanges.add(location);
             }
         }
     }
 
-    public List<Location> createPillar(Location location) {
+    public List<Location> createPillar(Location location, int maxY) {
         World world = location.getWorld();
         List<Location> locations = new ArrayList<>();
 
         if (world == null) return new ArrayList<>();
 
-        for (int i = 1; i < world.getMaxHeight(); i++) {
+        for (int i = location.getBlockY(); i < maxY; i++) {
             Block block = world.getBlockAt(location.getBlockX(), i, location.getBlockZ());
-            if (block.getType() != Material.AIR) continue;
+            if (block.getType().isSolid()) continue;
 
             locations.add(block.getLocation());
         }

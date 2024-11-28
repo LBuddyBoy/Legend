@@ -2,28 +2,55 @@ package dev.lbuddyboy.legend.listener;
 
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.timer.impl.CombatTimer;
-import net.minecraft.server.v1_8_R3.BlockPosition;
-import net.minecraft.server.v1_8_R3.PortalTravelAgent;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.TravelAgent;
+import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_8_R3.CraftOfflinePlayer;
-import org.bukkit.craftbukkit.v1_8_R3.CraftTravelAgent;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.world.PortalCreateEvent;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EndListener implements Listener {
+
+    @EventHandler
+    public void onEntityCreatePortal(PortalCreateEvent event) {
+        if (event.getReason() == PortalCreateEvent.CreateReason.END_PLATFORM) {
+            event.getBlocks().clear();
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onMovePortal(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        Location to = event.getTo(), from = event.getFrom();
+
+        if (to == null || (to.getBlockX() == from.getBlockX() && to.getBlockY() == from.getBlockY() && to.getBlockZ() == from.getBlockZ())) return;
+        if (to.getBlock().getType() != Material.END_PORTAL) return;
+        if (player.getWorld().getEnvironment() != World.Environment.THE_END) return;
+
+        event.setTo(getEntranceLocation());
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        Location to = event.getTo(), from = event.getFrom();
+
+        if (to == null || (to.getBlockX() == from.getBlockX() && to.getBlockY() == from.getBlockY() && to.getBlockZ() == from.getBlockZ())) return;
+        if (to.getBlock().getType() != Material.WATER) return;
+        if (player.getWorld().getEnvironment() != World.Environment.THE_END) return;
+
+        event.setTo(getExitLocation());
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPortal(PlayerPortalEvent event) {
@@ -32,12 +59,7 @@ public class EndListener implements Listener {
 
         if (to.getWorld().getEnvironment() == World.Environment.THE_END) {
             event.setTo(getEntranceLocation());
-            event.useTravelAgent(false);
-            event.getPortalTravelAgent().setCanCreatePortal(false);
-        } else if (from.getWorld().getEnvironment() == World.Environment.THE_END && to.getWorld().getEnvironment() == World.Environment.NORMAL) {
-            event.setTo(getExitLocation());
-            event.useTravelAgent(false);
-            event.getPortalTravelAgent().setCanCreatePortal(false);
+            event.setCanCreatePortal(false);
         }
     }
 

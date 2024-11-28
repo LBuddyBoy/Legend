@@ -1,11 +1,10 @@
-package dev.lbuddyboy.samurai.map.leaderboard;
+package dev.lbuddyboy.legend.features.leaderboard;
 
-import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.Config;
 import dev.lbuddyboy.commons.util.ItemUtils;
 import dev.lbuddyboy.commons.util.LocationUtils;
-import dev.lbuddyboy.samurai.Samurai;
+import dev.lbuddyboy.legend.LegendBukkit;
 import eu.decentsoftware.holograms.api.DHAPI;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
 import eu.decentsoftware.holograms.api.holograms.HologramLine;
@@ -36,7 +35,7 @@ public class LeaderBoardHologram implements Cloneable {
     }
 
     public LeaderBoardHologram(String key, Config config) {
-        this.type = Samurai.getInstance().getLeaderBoardHandler().getStatById(key).get();
+        this.type = LegendBukkit.getInstance().getLeaderBoardHandler().getStatById(key).get();
 
         String locationString = config.getString("holograms." + key);
         if (locationString.equalsIgnoreCase("none")) return;
@@ -70,9 +69,9 @@ public class LeaderBoardHologram implements Cloneable {
         if (this.hologram == null) return;
 
         DHAPI.moveHologram(this.hologram, this.location);
-        this.otherLines.getFirst().setText(ItemUtils.getName(this.type.getMenuItem()));
+        this.otherLines.get(0).setText(ItemUtils.getName(this.type.getMenuItem()));
 
-        for (LeaderBoardUser user : Samurai.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values()) {
+        for (LeaderBoardUser user : LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoard(this.type).values()) {
             HologramLine line = placeLines.get(user.getPlace() - 1);
             line.setText(CC.translate("&e#" + user.getPlace() + ") &7" + user.getName() + ": &f" + type.format(user.getScore())));
         }
@@ -81,8 +80,8 @@ public class LeaderBoardHologram implements Cloneable {
     }
 
     public void save() {
-        Samurai.getInstance().getLeaderBoardHandler().getConfig().set("holograms." + this.type.getId(), this.location == null ? "none" : LocationUtils.serializeString(this.location));
-        Samurai.getInstance().getLeaderBoardHandler().getConfig().save();
+        LegendBukkit.getInstance().getLeaderBoardHandler().getConfig().set("holograms." + this.type.getId(), this.location == null ? "none" : LocationUtils.serializeString(this.location));
+        LegendBukkit.getInstance().getLeaderBoardHandler().getConfig().save();
     }
 
     @Override

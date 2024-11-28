@@ -31,15 +31,15 @@ public class DeathProvider implements DeathMessageProvider {
         if (player == null) return "";
 
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
-        String coloredName = CC.blend(user.getName(), "&6", "&e");
-        String coloredKills = CC.blend("[" + user.getKills() + "]", "&4", "&c");
+        String coloredName = CC.blend(user.getName(), "&4", "&c");
+        String coloredKills = CC.blend("[" + user.getKills() + "]", "&7", "&f");
 
         return CC.translate(coloredName + coloredKills);
     }
 
     @Override
     public String getMobFormat(@Nullable EntityType type) {
-        String coloredName = CC.blend(EntityUtils.getName(type), "&6", "&e");
+        String coloredName = CC.blend(EntityUtils.getName(type), "&4", "&c");
 
         return CC.translate(coloredName);
     }
@@ -51,5 +51,8 @@ public class DeathProvider implements DeathMessageProvider {
         return CC.blend(deathMessage, "&7", "&f");
     }
 
-
+    @Override
+    public String getDeathMessage(String deathMessage) {
+        return CC.translate("<blend:&4;&c>&lDEATH</> &7» ") + CC.translate(deathMessage);
+    }
 }

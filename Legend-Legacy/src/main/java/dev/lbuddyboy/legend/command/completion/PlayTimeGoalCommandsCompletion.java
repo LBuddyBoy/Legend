@@ -5,6 +5,7 @@ import co.aikar.commands.CommandCompletions;
 import co.aikar.commands.InvalidCommandArgument;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.features.playtime.model.PlayTimeGoal;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamMember;
 import lombok.AllArgsConstructor;
@@ -16,18 +17,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class TeamMemberCompletion implements CommandCompletions.CommandCompletionHandler<BukkitCommandCompletionContext> {
+public class PlayTimeGoalCommandsCompletion implements CommandCompletions.CommandCompletionHandler<BukkitCommandCompletionContext> {
 
     @Override
     public Collection<String> getCompletions(BukkitCommandCompletionContext context) throws InvalidCommandArgument {
         List<String> completions = new ArrayList<>();
         Player player = context.getPlayer();
-        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player).orElse(null);
+        PlayTimeGoal playTimeGoal = context.getContextValue(PlayTimeGoal.class);
 
-        if (team == null) {
-            completions.add(CC.translate("&cNo team..."));
+        if (playTimeGoal == null) {
+            completions.add(CC.translate("&cInvalid goal..."));
         } else {
-            completions.addAll(team.getMembers().stream().map(TeamMember::getName).collect(Collectors.toList()));
+            completions.addAll(playTimeGoal.getCommands());
         }
 
         return completions;

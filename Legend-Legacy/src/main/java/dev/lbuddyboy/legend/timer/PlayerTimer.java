@@ -33,7 +33,7 @@ public abstract class PlayerTimer implements Listener {
     }
     
     public String getColoredName() {
-        return CC.blend(getDisplayName(), getPrimaryColor(), getSecondaryColor());
+        return getPrimaryColor() + getDisplayName();
     }
 
     public void remove(UUID playerUUID) {

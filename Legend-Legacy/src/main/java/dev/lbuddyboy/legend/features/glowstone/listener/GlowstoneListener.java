@@ -1,7 +1,7 @@
-package dev.lbuddyboy.legend.glowstone.listener;
+package dev.lbuddyboy.legend.features.glowstone.listener;
 
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.glowstone.GlowstoneHandler;
+import dev.lbuddyboy.legend.features.glowstone.GlowstoneHandler;
 import dev.lbuddyboy.legend.team.model.Team;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -23,7 +23,7 @@ public interface ILeaderBoardStat {
     String getSecondaryColor();
 
     default ConfigurationSection getSection() {
-        return LegendBukkit.getInstance().getLeaderBoardHandler().getConfig().getConfigurationSection("leaderboards." + getId());
+        return LegendBukkit.getInstance().getLeaderBoardHandler().getConfig().getConfigurationSection("leaderboards." + getId().toLowerCase());
     }
 
 }

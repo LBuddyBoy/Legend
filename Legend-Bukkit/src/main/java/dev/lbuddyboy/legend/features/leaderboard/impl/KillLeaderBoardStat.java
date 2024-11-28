@@ -18,7 +18,7 @@ public class KillLeaderBoardStat implements ILeaderBoardStat {
 
     @Override
     public String getId() {
-        return "kills";
+        return "Kill";
     }
 
     @Override

@@ -2,7 +2,7 @@ enabled: true
 
 header:
   - ''
-  - '<blend:&6;&4;true>&lLegend HCF Core</>'
+  - '&6&lLegend HCF Core'
   - ''
 
 footer:
@@ -12,44 +12,239 @@ footer:
 
 left:
   stats:
-    text: "<blend:#FDD84D;#FC7652>&lYour Statistics</>"
+    text: "&6&lYour Statistics"
     slot: 1
     ping: -1 # -2 for it to not show -1 for it to be the players ping
     skin:
       texture: "%player_texture%" # blank for a blank skin %player% for the players texture
       signature: "%player_signature%"
   kills:
-    text: "&fKills: &#FDD84D%player_kills%"
+    text: "&fKills: &e%player_kills%"
     slot: 2
     ping: -2
     skin:
       texture: ""
       signature: ""
   deaths:
-    text: "&fDeaths: &#FDD84D%player_deaths%"
+    text: "&fDeaths: &e%player_deaths%"
     slot: 3
     ping: -2
     skin:
       texture: ""
       signature: ""
   playtime:
-    text: "&fPlaytime: &#FDD84D%player_playtime_short%"
+    text: "&fPlaytime: &e%player_playtime_short%"
     slot: 4
     ping: -2
     skin:
       texture: ""
       signature: ""
   lives:
-    text: "&fLives: &#FDD84D%player_lives%"
+    text: "&fLives: &e%player_lives%"
     slot: 5
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  server:
+    text: "&6&lMap Info"
+    slot: 7
+    ping: -1
+    skin:
+      texture: ""
+      signature: ""
+  kit:
+    text: "&fMap Kit: &dP2 S2"
+    slot: 8
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  desert:
+    text: "&fDesert: &e1,250, 1,250"
+    slot: 9
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  end:
+    text: "&fEnd Portal: &51,500, 1,500"
+    slot: 10
     ping: -2
     skin:
       texture: ""
       signature: ""
 
 middle:
+  team:
+    text: "&6&lYour Team"
+    slot: 1
+    ping: -2 # -2 for it to not show -1 for it to be the players ping
+    skin:
+      texture: "" # blank for a blank skin %player% for the players texture
+      signature: ""
+  makeone:
+    text: "&7To create a team and"
+    slot: 2
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  maketwo:
+    text: "&7start your adventure do"
+    slot: 3
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
+  makethree:
+    text: "&7/t create <name>"
+    slot: 4
+    ping: -2
+    skin:
+      texture: ""
+      signature: ""
 
 right:
 
 far-right:
-
+  team:
+    text: "&6&lTop Teams"
+    slot: 1
+    ping: -2 # -2 for it to not show -1 for it to be the players ping
+    skin:
+      texture: "" # blank for a blank skin %player% for the players texture
+      signature: ""
+  one:
+    text: "%team_top_1%"
+    slot: 2
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  two:
+    text: "%team_top_2%"
+    slot: 3
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  three:
+    text: "%team_top_3%"
+    slot: 4
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  four:
+    text: "%team_top_4%"
+    slot: 5
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  five:
+    text: "%team_top_5%"
+    slot: 6
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  six:
+    text: "%team_top_6%"
+    slot: 7
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  seven:
+    text: "%team_top_7%"
+    slot: 8
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  eight:
+    text: "%team_top_8%"
+    slot: 9
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  nine:
+    text: "%team_top_9%"
+    slot: 10
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  ten:
+    text: "%team_top_10%"
+    slot: 11
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  eleven:
+    text: "%team_top_11%"
+    slot: 12
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  twelve:
+    text: "%team_top_12%"
+    slot: 13
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  thirteen:
+    text: "%team_top_13%"
+    slot: 14
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  fourteen:
+    text: "%team_top_14%"
+    slot: 15
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  fifteen:
+    text: "%team_top_15%"
+    slot: 16
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  sixteen:
+    text: "%team_top_16%"
+    slot: 17
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  seventeen:
+    text: "%team_top_17%"
+    slot: 18
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  eighteen:
+    text: "%team_top_18%"
+    slot: 19
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""
+  nineteen:
+    text: "%team_top_19%"
+    slot: 20
+    ping: -2 
+    skin:
+      texture: ""
+      signature: ""

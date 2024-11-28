@@ -23,22 +23,20 @@ public enum TeamRole {
         return member.getRole().getWeight() >= role.getWeight();
     }
 
-    public boolean isHigher(TeamMember member) {
-        return member.getRole().getWeight() > this.weight;
-    }
-
     public boolean isHigher(TeamRole role) {
         return this.weight > role.getWeight();
     }
 
-    public boolean isHigherOrEqual(TeamRole role) {
-        return this.weight >= role.getWeight();
+    public boolean isLesser(TeamRole role) {
+        return this.weight < role.getWeight();
     }
 
-    public List<TeamMember> getMembers(UUID playerUUID) {
-        Optional<Team> teamOpt = LegendBukkit.getInstance().getTeamHandler().getTeam(playerUUID);
+    public boolean isLesserOrEqual(TeamRole role) {
+        return this.weight <= role.getWeight();
+    }
 
-        return teamOpt.map(team -> team.getMembers().stream().filter(member -> member.getRole() == this).toList()).orElse(Collections.emptyList());
+    public boolean isHigherOrEqual(TeamRole role) {
+        return this.weight >= role.getWeight();
     }
 
     public TeamRole next() {
