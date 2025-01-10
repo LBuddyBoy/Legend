@@ -40,7 +40,7 @@ public class MovementHandler implements Listener {
         if (checkMovement(player, team, true)) return;
 
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-            EnderPearlTimer timer = (EnderPearlTimer) LegendBukkit.getInstance().getTimerHandler().getTimer(EnderPearlTimer.class);
+            EnderPearlTimer timer = LegendBukkit.getInstance().getTimerHandler().getTimer(EnderPearlTimer.class);
 
             timer.remove(player.getUniqueId());
         }
@@ -53,7 +53,7 @@ public class MovementHandler implements Listener {
         InvincibilityTimer invincibilityTimer = (InvincibilityTimer) LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
 
         if (invincibilityTimer.isActive(player.getUniqueId())) {
-            if (team.getTeamType() != TeamType.SPAWN && team.getTeamType() != TeamType.ROAD) {
+            if (team.getTeamType() != TeamType.SPAWN && team.getTeamType() != TeamType.ROAD && !team.isMember(player.getUniqueId())) {
                 if (message) {
                     player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("invincibility.cannot-enter")
                             .replaceAll("%team%", team.getName(player))

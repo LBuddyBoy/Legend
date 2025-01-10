@@ -5,6 +5,7 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.LegendConstants;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.team.ClaimHandler;
 import dev.lbuddyboy.legend.team.TeamHandler;
 import dev.lbuddyboy.legend.team.model.Team;
@@ -61,8 +62,8 @@ public class ClaimWandListener implements Listener {
         }
 
         if (!systemClaim) {
-            if (player.getWorld().getEnvironment() == World.Environment.NETHER && !LegendBukkit.getInstance().getSettings().getBoolean("nether.players-can-claim")
-                    || player.getWorld().getEnvironment() == World.Environment.THE_END && !LegendBukkit.getInstance().getSettings().getBoolean("end.players-can-claim")) {
+            if (player.getWorld().getEnvironment() == World.Environment.NETHER && !SettingsConfig.NETHER_PLAYERS_CAN_CLAIM.getBoolean()
+                    || player.getWorld().getEnvironment() == World.Environment.THE_END && !SettingsConfig.END_PLAYERS_CAN_CLAIM.getBoolean()) {
                 player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.claim.error.not-enabled-world")));
                 return;
             }
@@ -125,6 +126,12 @@ public class ClaimWandListener implements Listener {
             ));
 
             player.getInventory().setItem(event.getHand(), null);
+            return;
+        }
+
+        if (event.getAction() == Action.RIGHT_CLICK_AIR) {
+            process.clearPillars(player);
+            this.claimHandler.getClaimProcesses().remove(player.getUniqueId());
             return;
         }
 

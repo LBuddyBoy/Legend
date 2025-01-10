@@ -30,8 +30,8 @@ public class NetherListener implements Listener {
             return;
         }
 
-        event.setCanCreatePortal(false);
-        event.setTo(to.getWorld().getSpawnLocation());
+        event.setCancelled(true);
+        player.teleport(to.getWorld().getSpawnLocation());
     }
 
     public Location findOrCreate(Location target) {

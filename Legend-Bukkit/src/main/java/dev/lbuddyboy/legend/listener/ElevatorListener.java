@@ -1,6 +1,7 @@
 package dev.lbuddyboy.legend.listener;
 
 import dev.lbuddyboy.commons.util.CC;
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -42,6 +43,9 @@ public class ElevatorListener implements Listener {
         Sign sign = (Sign) clicked.getState();
         if (sign.getLines().length < 2) return;
         if (!CC.stripColor(sign.getLine(0)).equalsIgnoreCase("[Elevator]")) return;
+
+        Block targetBlock = player.getTargetBlockExact(4, FluidCollisionMode.ALWAYS);
+        if (targetBlock != null && !targetBlock.getType().name().endsWith("_SIGN")) return;
 
         String direction = sign.getLine(1);
 

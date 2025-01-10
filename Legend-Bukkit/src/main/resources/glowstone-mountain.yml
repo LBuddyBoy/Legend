@@ -1,7 +1,9 @@
 resets-every: "1h"
 last-reset: -1
+placeholderBlock: false
 notify-intervals:
   - '30m'
   - '15m'
   - '5m'
 locations: []
+debrisLocations: []

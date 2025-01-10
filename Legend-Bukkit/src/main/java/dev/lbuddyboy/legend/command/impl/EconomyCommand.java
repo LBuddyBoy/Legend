@@ -3,6 +3,7 @@ package dev.lbuddyboy.legend.command.impl;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.annotation.HelpCommand;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ShortPrice;

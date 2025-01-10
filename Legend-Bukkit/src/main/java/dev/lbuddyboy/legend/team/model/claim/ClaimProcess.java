@@ -57,7 +57,7 @@ public class ClaimProcess {
 
     public void setPositionOne(Location positionOne) {
         this.positionOne = positionOne;
-        if (!this.exact) this.positionOne.setY(0);
+        if (!this.exact) this.positionOne.setY(this.positionOne.getWorld().getMinHeight());
     }
 
     public void setPositionTwo(Location positionTwo) {

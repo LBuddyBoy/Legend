@@ -19,10 +19,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPistonExtendEvent;
-import org.bukkit.event.block.BlockPistonRetractEvent;
-import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
@@ -57,6 +54,7 @@ public class SubclaimListener implements Listener {
         Block clicked = event.getClickedBlock();
 
         if (clicked == null) return;
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (processSubclaimBlock(player, clicked)) return;
 
         event.setUseInteractedBlock(Event.Result.DENY);
@@ -67,14 +65,15 @@ public class SubclaimListener implements Listener {
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         Block block = event.getBlock();
+        BlockState state = block.getState();
 
-        if (block.getState() instanceof Sign) {
-            if (!isSubclaimSign((Sign) block.getState())) return;
+        if (state instanceof Sign sign) {
+            if (!isSubclaimSign(sign)) return;
 
             Team teamAt = this.claimHandler.getTeam(block.getLocation()).orElse(null);
             if (teamAt == null) return;
             if (!teamAt.isMember(player.getUniqueId())) return;
-            if (hasPermission(teamAt.getMember(player.getUniqueId()).get(), ((Sign) block.getState())))
+            if (hasPermission(teamAt.getMember(player.getUniqueId()).get(), sign))
                 return;
 
             event.setCancelled(true);
@@ -82,22 +81,22 @@ public class SubclaimListener implements Listener {
             return;
         }
 
+        if (!(state instanceof Container)) return;
         if (processSubclaimBlock(player, block)) return;
 
         event.setCancelled(true);
         player.sendMessage(CC.translate("&cYou do not have access to this subclaim."));
     }
 
-    @EventHandler
+/*    @EventHandler
     public void onTransferInitiator(InventoryMoveItemEvent event) {
         Inventory initiator = event.getInitiator(), destination = event.getDestination();
-        if (!(destination.getHolder() instanceof Hopper)) return;
+        if (!(destination.getHolder() instanceof Hopper hopper)) return;
 
-        Hopper hopper = (Hopper) destination.getHolder();
         if (processSubclaimBlock(null, hopper.getBlock())) return;
 
         event.setCancelled(true);
-    }
+    }*/
 
     @EventHandler
     public void onPiston(BlockPistonRetractEvent event) {
@@ -114,16 +113,14 @@ public class SubclaimListener implements Listener {
         }
     }
 
+    private boolean batchProcessSubclaimBlocks(Collection<Block> blocks) {
+        return blocks.stream().allMatch(block -> processSubclaimBlock(null, block));
+    }
+
     @EventHandler
-    public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-        Block block = event.getBlock();
-        if (this.processSubclaimBlock(null, block)) return;
-
-        for (Block other : event.getBlocks()) {
-            if (this.processSubclaimBlock(null, other)) continue;
-
+    public void onPiston(BlockPistonExtendEvent event) {
+        if (!batchProcessSubclaimBlocks(event.getBlocks())) {
             event.setCancelled(true);
-            return;
         }
     }
 
@@ -133,8 +130,7 @@ public class SubclaimListener implements Listener {
 
         if (player != null) {
             Team teamAt = this.claimHandler.getTeam(block.getLocation()).orElse(null);
-            if (teamAt == null) return true;
-            if (!teamAt.isMember(player.getUniqueId())) return true;
+            if (teamAt == null || !teamAt.isMember(player.getUniqueId())) return true;
 
             return hasPermission(teamAt.getMember(player.getUniqueId()).get(), sign);
         }
@@ -145,41 +141,26 @@ public class SubclaimListener implements Listener {
     public Sign getSubclaimSign(Block block) {
         for (BlockFace face : SIGN_FACES) {
             Block relative = block.getRelative(face);
+            BlockState state = relative.getState();
 
-            if (!(relative.getState() instanceof Sign)) continue;
-            if (!(isSubclaimSign((Sign) relative.getState()))) continue;
-
-            return (Sign) relative.getState();
+            if (state instanceof Sign sign && isSubclaimSign(sign)) {
+                return sign;
+            }
         }
-
         return null;
     }
 
     public boolean isSubclaimSign(Sign sign) {
-        if (sign.getLines().length < 2) return false;
-
         String header = sign.getLine(0);
-
         return CC.stripColor(header).equalsIgnoreCase("[Subclaim]");
     }
 
     public boolean hasPermission(TeamMember member, Sign sign) {
-        List<String> allowed = new ArrayList<>();
+        List<String> allowedRoles = Arrays.stream(sign.getLines(), 1, Math.min(3, sign.getLines().length))
+                .flatMap(line -> Arrays.stream(line.split(",")))
+                .toList();
 
-        for (int i = 1; i <= 2; i++) {
-            if (sign.getLines().length < i + 1) continue;
-
-            String line = sign.getLine(i);
-            allowed.addAll(Arrays.stream(line.split(",")).collect(Collectors.toList()));
-        }
-
-        for (String line : allowed) {
-            if (!isPermitted(member, line)) continue;
-
-            return true;
-        }
-
-        return false;
+        return allowedRoles.stream().anyMatch(line -> isPermitted(member, line));
     }
 
     public boolean isPermitted(TeamMember member, String line) {

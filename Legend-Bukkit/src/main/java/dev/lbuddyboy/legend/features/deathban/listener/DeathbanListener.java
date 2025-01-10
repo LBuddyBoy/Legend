@@ -4,6 +4,7 @@ import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.features.deathban.DeathbanHandler;
 import dev.lbuddyboy.legend.features.deathban.model.RespawnBlock;
 import dev.lbuddyboy.legend.user.model.LegendUser;
@@ -11,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -27,7 +29,8 @@ public class DeathbanListener implements Listener {
 
         if (!user.isTimerActive("deathban")) return;
         if (this.deathbanHandler.isArenaSetup()) return;
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return;
+        if (user.getLives() > 0) return;
 
         event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
         event.setKickMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("deathban.kick-message")
@@ -37,7 +40,7 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return;
 
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
@@ -55,18 +58,19 @@ public class DeathbanListener implements Listener {
             return;
         }
 
-        this.deathbanHandler.handleRejoin(player);
+        this.deathbanHandler.handleRejoin(player, true);
     }
 
     @EventHandler
     public void onCommandProcess(PlayerCommandPreprocessEvent event) {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return;
 
         Player player = event.getPlayer();
         String command = event.getMessage().toLowerCase();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
         if (!user.isDeathBanned()) return;
+        if (player.isOp()) return;
 
         for (String whitelistedCommand : LegendBukkit.getInstance().getDeathbanHandler().getConfig().getStringList("allowed-commands")) {
             if (command.toLowerCase().startsWith(whitelistedCommand)) {
@@ -80,7 +84,7 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return;
 
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
@@ -90,35 +94,54 @@ public class DeathbanListener implements Listener {
         event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        this.deathbanHandler.handleDeathban(player);
+        this.deathbanHandler.handleDeathban(player, false);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onRespawn(PlayerRespawnEvent event) {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) {
+            event.setRespawnLocation(LegendBukkit.getInstance().getSpawnLocation());
+            return;
+        }
 
         Player player = event.getPlayer();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
 
-        if (!user.isDeathBanned()) return;
+        if (!user.isDeathBanned()) {
+            event.setRespawnLocation(LegendBukkit.getInstance().getSpawnLocation());
+            return;
+        }
 
-        this.deathbanHandler.handleRejoin(player);
-        event.setRespawnLocation(this.deathbanHandler.getTeam().getHome());
+        if (this.deathbanHandler.getTeam() != null && this.deathbanHandler.getTeam().getHome() != null) {
+            event.setRespawnLocation(this.deathbanHandler.getTeam().getHome());
+        } else {
+            event.setRespawnLocation(LegendBukkit.getInstance().getSpawnLocation());
+        }
+
+        this.deathbanHandler.handleRejoin(player, false);
     }
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return;
 
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
 
         if (this.deathbanHandler.getSafeZone() != null && this.deathbanHandler.getSafeZone().contains(player.getLocation())) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
+            if (!user.isDeathBanned()) return;
+
             event.setCancelled(true);
             return;
         }
@@ -136,7 +159,7 @@ public class DeathbanListener implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return;
 
         Player player = event.getPlayer();
         Block block = event.getBlock();

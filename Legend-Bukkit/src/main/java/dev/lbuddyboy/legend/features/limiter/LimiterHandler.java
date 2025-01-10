@@ -15,7 +15,7 @@ public class LimiterHandler implements IModule {
 
     @Override
     public void load() {
-        this.config = new Config(LegendBukkit.getInstance(), "lang");
+        reload();
 
         if (this.config.getBoolean("enchant-limiter", true)) {
             Bukkit.getServer().getPluginManager().registerEvents(new EnchantLimitListener(), LegendBukkit.getInstance());
@@ -30,4 +30,9 @@ public class LimiterHandler implements IModule {
 
     }
 
+    @Override
+    public void reload() {
+        this.config = new Config(LegendBukkit.getInstance(), "limiter");
+
+    }
 }

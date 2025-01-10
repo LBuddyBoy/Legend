@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.*;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -45,7 +46,7 @@ public class EndCommand extends BaseCommand {
     @Description("Sets the exit players are tped leaving end.")
     @CommandPermission("legend.command.end")
     public void setExit(Player sender) {
-        LegendBukkit.getInstance().getSettings().set("end.exit", LocationUtils.serializeString(sender.getLocation()));
+        SettingsConfig.END_OVERWORLD_EXIT.update(LocationUtils.serializeString(sender.getLocation()));
         LegendBukkit.getInstance().getSettings().save();
         sender.sendMessage(CC.translate("&aSuccessfully set the overworld end exit!"));
     }
@@ -54,8 +55,7 @@ public class EndCommand extends BaseCommand {
     @Description("Sets the exit players need to navigate toward to leave the end.")
     @CommandPermission("legend.command.end")
     public void setExitEnd(Player sender) {
-        LegendBukkit.getInstance().getSettings().set("end.exit-end", LocationUtils.serializeString(sender.getLocation()));
-        LegendBukkit.getInstance().getSettings().save();
+        SettingsConfig.END_EXIT_END.update(LocationUtils.serializeString(sender.getLocation()));
         sender.sendMessage(CC.translate("&aSuccessfully set the end exit!"));
     }
 
@@ -63,8 +63,7 @@ public class EndCommand extends BaseCommand {
     @Description("Sets the entrance players are tped to when going to end.")
     @CommandPermission("legend.command.end")
     public void setExitEntrance(Player sender) {
-        LegendBukkit.getInstance().getSettings().set("end.exit-entrance", LocationUtils.serializeString(sender.getLocation()));
-        LegendBukkit.getInstance().getSettings().save();
+        SettingsConfig.END_ENTRANCE.update(LocationUtils.serializeString(sender.getLocation()));
         sender.sendMessage(CC.translate("&aSuccessfully set the end entrance!"));
     }
 
@@ -89,19 +88,19 @@ public class EndCommand extends BaseCommand {
     }
 
     public List<Location> getCreeperLocations() {
-        return LegendBukkit.getInstance().getSettings().getStringList("end.creepers").stream().map(LocationUtils::deserializeString).collect(Collectors.toList());
-    }
-
-    public Location getExitLocation() {
-        return LocationUtils.deserializeString(LegendBukkit.getInstance().getSettings().getString("end.exit"));
+        return SettingsConfig.END_CREEPERS.getStringList().stream().map(LocationUtils::deserializeString).collect(Collectors.toList());
     }
 
     public Location getExitEndLocation() {
-        return LocationUtils.deserializeString(LegendBukkit.getInstance().getSettings().getString("end.exit-end"));
+        return LocationUtils.deserializeString(SettingsConfig.END_EXIT_END.getString());
+    }
+
+    public Location getExitLocation() {
+        return LocationUtils.deserializeString(SettingsConfig.END_OVERWORLD_EXIT.getString());
     }
 
     public Location getEntranceLocation() {
-        return LocationUtils.deserializeString(LegendBukkit.getInstance().getSettings().getString("end.entrance"));
+        return LocationUtils.deserializeString(SettingsConfig.END_ENTRANCE.getString());
     }
 
 }

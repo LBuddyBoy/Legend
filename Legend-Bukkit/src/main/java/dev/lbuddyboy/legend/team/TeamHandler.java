@@ -1,43 +1,67 @@
 package dev.lbuddyboy.legend.team;
 
+import com.lunarclient.apollo.Apollo;
+import com.lunarclient.apollo.module.team.TeamModule;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
-import dev.lbuddyboy.commons.CommonsPlugin;
+import dev.lbuddyboy.commons.api.data.impl.MongoDataStorage;
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.commons.util.CC;
+import dev.lbuddyboy.commons.util.Config;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
+import dev.lbuddyboy.legend.command.impl.EndPortalCommand;
+import dev.lbuddyboy.legend.team.config.TeamConfig;
 import dev.lbuddyboy.legend.team.listener.*;
 import dev.lbuddyboy.legend.team.model.*;
+import dev.lbuddyboy.legend.team.model.generator.GeneratorLootTable;
+import dev.lbuddyboy.legend.team.model.generator.GeneratorTier;
+import dev.lbuddyboy.legend.team.model.generator.upgrades.AbstractGeneratorUpgrade;
+import dev.lbuddyboy.legend.team.model.generator.upgrades.impl.EfficiencyUpgrade;
+import dev.lbuddyboy.legend.team.model.generator.upgrades.impl.FortuneUpgrade;
+import dev.lbuddyboy.legend.team.model.generator.upgrades.impl.XPFinderUpgrade;
+import dev.lbuddyboy.legend.team.model.log.TeamLog;
 import dev.lbuddyboy.legend.team.model.log.impl.TeamCreationLog;
 import dev.lbuddyboy.legend.team.model.log.impl.TeamDTRChangeLog;
 import dev.lbuddyboy.legend.team.thread.ClaimBorderThread;
 import dev.lbuddyboy.legend.team.thread.DTRThread;
 import dev.lbuddyboy.legend.team.thread.TeamSaveThread;
 import dev.lbuddyboy.legend.team.thread.TeamTopThread;
+import dev.lbuddyboy.legend.user.model.LegendUser;
+import dev.lbuddyboy.legend.user.model.nametag.ScoreboardEntryType;
+import dev.lbuddyboy.legend.util.BukkitUtil;
+import dev.lbuddyboy.legend.util.NameTagUtil;
 import lombok.Getter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+@Getter
 public class TeamHandler implements IModule {
 
     private final Map<UUID, Team> teamIds;
     private final Map<String, Team> teamNames;
     private final Map<UUID, Team> playerTeams;
-    @Getter private final Map<TopType, Map<Integer, TopEntry>> topTeams;
-    private final List<Thread> threads;
+    private final Map<TopType, Map<Integer, TopEntry>> topTeams;
+    private final List<TeamLog> logsToSave;
+    private final List<AbstractGeneratorUpgrade> generatorUpgrades;
+    private final Map<String, GeneratorTier> tiers;
 
-    private MongoCollection<Document> collection;
+    private final ClaimHandler claimHandler;
+    private final MovementHandler movementHandler;
 
-    @Getter private final ClaimHandler claimHandler;
-    @Getter private final MovementHandler movementHandler;
+    private MongoCollection<Document> collection, logCollection;
+    private Config config;
+    private GeneratorLootTable generatorLootTable;
 
     public TeamHandler() {
         this.teamIds = new ConcurrentHashMap<>();
@@ -46,33 +70,91 @@ public class TeamHandler implements IModule {
         this.topTeams = new ConcurrentHashMap<>();
         this.claimHandler = new ClaimHandler();
         this.movementHandler = new MovementHandler();
-        this.threads = new ArrayList<>();
+        this.logsToSave = new CopyOnWriteArrayList<>();
+        this.generatorUpgrades = new ArrayList<>();
+        this.tiers = new HashMap<>();
     }
 
     @Override
     public void load() {
         this.collection = LegendBukkit.getInstance().getMongoHandler().getDatabase().getCollection("Teams");
+        this.logCollection = LegendBukkit.getInstance().getMongoHandler().getDatabase().getCollection("TeamLogs");
 
         this.loadListeners();
         this.loadTeams();
         this.claimHandler.load();
 
-        this.threads.addAll(Arrays.asList(
-                new TeamSaveThread(),
-                new DTRThread(),
-                new TeamTopThread(),
-                new ClaimBorderThread()
+        new TeamSaveThread().start();
+        new DTRThread().start();
+        new TeamTopThread().start();
+        new ClaimBorderThread().start();
+
+        Bukkit.getScheduler().runTaskTimerAsynchronously(LegendBukkit.getInstance(), () -> {
+            this.logsToSave.forEach(change -> this.saveTeamLog(change, true));
+            this.logsToSave.clear();
+        }, 20 * 60, 20 * 60);
+
+        Bukkit.getScheduler().runTaskTimerAsynchronously(LegendBukkit.getInstance(), () -> {
+            for (Team team : getOnlineTeams()) {
+                if (team.getOnlinePlayers().size() <= 1) continue;
+
+                team.refreshTeamView();
+            }
+        }, 10, 10);
+
+        this.generatorLootTable = new GeneratorLootTable();
+        this.generatorLootTable.register();
+        this.generatorLootTable.registerCommandInfo(LegendBukkit.getInstance().getCommandHandler().getCommandManager());
+
+        this.generatorUpgrades.addAll(Arrays.asList(
+                new EfficiencyUpgrade(),
+                new FortuneUpgrade(),
+                new XPFinderUpgrade()
         ));
 
-        this.threads.forEach(Thread::start);
-
         this.updateTopTeams();
+
+        reload();
     }
 
     @Override
     public void unload() {
+        this.logsToSave.forEach(change -> this.saveTeamLog(change, false));
         this.teamIds.values().forEach(team -> saveTeam(team, false));
-        this.threads.clear();
+        this.logsToSave.clear();
+    }
+
+    @Override
+    public void reload() {
+        this.config = new Config(LegendBukkit.getInstance(), "team");
+        for (TeamConfig value : TeamConfig.values()) value.loadDefault();
+
+        this.loadTiers();
+    }
+
+    private void loadTiers() {
+        this.tiers.clear();
+
+        ConfigurationSection section = this.config.getConfigurationSection("generatorTiers");
+
+        if (section == null) {
+            LegendBukkit.getInstance().getLogger().warning("Trouble loading generator tiers: Please validate the YML!");
+            return;
+        }
+
+        for (String key : section.getKeys(false)) {
+            ConfigurationSection tierSection = section.getConfigurationSection(key);
+
+            if (tierSection == null) {
+                LegendBukkit.getInstance().getLogger().warning("Trouble loading " + key + " tier: Please validate the YML!");
+                continue;
+            }
+
+            GeneratorTier tier = new GeneratorTier(key, tierSection);
+
+            this.tiers.put(key, tier);
+            tier.getLootTable();
+        }
     }
 
     private void loadTeams() {
@@ -100,6 +182,7 @@ public class TeamHandler implements IModule {
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamWaypointListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new SubclaimListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new TeamLogListener(), LegendBukkit.getInstance());
+        LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new AutoRebuildListener(), LegendBukkit.getInstance());
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(this.movementHandler, LegendBukkit.getInstance());
     }
 
@@ -119,8 +202,45 @@ public class TeamHandler implements IModule {
         return getTeam(player.getUniqueId());
     }
 
-    public void removePlayerFromTeam(Team team, UUID playerUUID) {
+    public List<String> getDisallowedNames() {
+        return SettingsConfig.SETTINGS_DISALLOWED_TEAMS.getStringList();
+    }
 
+    public boolean isDisallowed(String name) {
+        return getDisallowedNames().stream().anyMatch(s -> s.equalsIgnoreCase(name.toLowerCase()
+                .replaceAll("0", "o")
+                .replaceAll("1", "i")
+                .replaceAll("3", "e")
+        ));
+    }
+
+    public void saveTeamLog(TeamLog log, boolean async) {
+        if (async) {
+            CompletableFuture.runAsync(() -> saveTeamLog(log, false));
+            return;
+        }
+
+        this.logCollection.replaceOne(Filters.eq("id", log.getId().toString()), log.toDocument(), new ReplaceOptions().upsert(true));
+    }
+
+    public void renameTeam(Team team, String name) {
+        this.teamNames.remove(team.getName());
+
+        team.setName(name);
+        team.flagSave();
+        this.teamNames.put(name.toLowerCase(), team);
+        NameTagUtil.updateTargetsForViewers(team.getOnlinePlayers(), BukkitUtil.getOnlinePlayers());
+    }
+
+    public void removePlayerFromTeam(Team team, UUID playerUUID) {
+        TeamModule teamModule = Apollo.getModuleManager().getModule(TeamModule.class);
+
+        for (Player player : team.getOnlinePlayers()) {
+            Apollo.getPlayerManager().getPlayer(player.getUniqueId())
+                    .ifPresent(teamModule::resetTeamMembers);
+        }
+
+        team.onHistoricalMemberLeave(playerUUID);
         team.updateNameTags();
         team.removeMember(playerUUID);
         this.playerTeams.remove(playerUUID);
@@ -128,20 +248,27 @@ public class TeamHandler implements IModule {
         if (!team.isDTRFrozen()) {
             double previousDTR = team.getDeathsUntilRaidable();
 
-            team.setDeathsUntilRaidable(team.getMaxDTR() - 1);
-            team.createTeamLog(new TeamDTRChangeLog(previousDTR, team.getDeathsUntilRaidable(), playerUUID, TeamDTRChangeLog.ChangeCause.MEMBER_LEFT));
+            team.setDeathsUntilRaidable(team.getMaxDTR() - 1.0D);
+            team.createTeamLog(new TeamDTRChangeLog(team.getId(), previousDTR, team.getDeathsUntilRaidable(), playerUUID, TeamDTRChangeLog.ChangeCause.MEMBER_LEFT));
         }
 
         Player player = Bukkit.getPlayer(playerUUID);
-        if (player != null) Arrays.stream(WaypointType.values()).forEach(type -> team.removeWaypoint(type.getWaypointName(), player));
+        if (player != null) {
+            Arrays.stream(WaypointType.values()).forEach(type -> team.removeWaypoint(type.getWaypointName(), player));
+
+            NameTagUtil.updateTargetsForViewers(team.getOnlinePlayers(), BukkitUtil.getOnlinePlayers());
+            player.closeInventory();
+        }
+
     }
 
     public void addPlayerToTeam(Team team, UUID playerUUID, TeamRole role) {
         TeamMember member = new TeamMember(playerUUID, role);
+        LegendUser memberUser = LegendBukkit.getInstance().getUserHandler().getUser(playerUUID);
 
+        team.onHistoricalMemberJoin(playerUUID);
         team.getMembers().add(member);
         this.playerTeams.put(playerUUID, team);
-        team.updateNameTags();
     }
 
     public Team createTeam(String name, UUID leaderUUID) {
@@ -155,10 +282,10 @@ public class TeamHandler implements IModule {
 
         if (leaderUUID != null) {
             team.addMember(new TeamMember(leaderUUID, TeamRole.LEADER));
-            team.createTeamLog(new TeamCreationLog(leaderUUID));
+            team.createTeamLog(new TeamCreationLog(team.getId(), leaderUUID));
         }
 
-        team.updateNameTags();
+        NameTagUtil.updateTargetsForViewers(team.getOnlinePlayers(), BukkitUtil.getOnlinePlayers());
 
         this.cacheTeam(team);
         this.saveTeam(team, true);
@@ -174,6 +301,7 @@ public class TeamHandler implements IModule {
     public void removeTeam(Team team) {
         this.teamIds.remove(team.getId());
         this.teamNames.remove(team.getName().toLowerCase());
+
         team.getMembersByUUID().forEach(this.playerTeams::remove);
         team.getClaims().forEach(claimHandler::removeClaim);
 
@@ -181,15 +309,23 @@ public class TeamHandler implements IModule {
             ally.removeAlliance(team);
         }
 
+        for (Player player : team.getOnlinePlayers()) {
+            player.closeInventory();
+        }
+
         Arrays.stream(WaypointType.values()).forEach(team::removeWaypoint);
 
-        team.updateNameTags();
+        NameTagUtil.updateTargetsForViewers(team.getOnlinePlayers(), BukkitUtil.getOnlinePlayers());
         updateTopTeams();
     }
 
     public void disbandTeam(Team team, boolean async) {
         if (async) {
-            CompletableFuture.runAsync(() -> disbandTeam(team, false));
+            CompletableFuture.runAsync(() -> disbandTeam(team, false)).exceptionally(throwable -> {
+                if (throwable != null) throwable.printStackTrace();
+
+                return null;
+            });
             return;
         }
 
@@ -204,6 +340,10 @@ public class TeamHandler implements IModule {
         }
 
         this.collection.replaceOne(Filters.eq("id", team.getId().toString()), team.toDocument(), new ReplaceOptions().upsert(true));
+    }
+
+    public List<GeneratorTier> getSortedTiers() {
+        return this.tiers.values().stream().sorted(Comparator.comparingInt(GeneratorTier::getTierRequired)).toList();
     }
 
     public List<Team> getTeams() {
@@ -225,8 +365,23 @@ public class TeamHandler implements IModule {
     public void sendTeamInfo(Player sender, Team team) {
         if (team.getTeamType() == TeamType.DEATHBAN_ARENA || team.getTeamType() == TeamType.ROAD) return;
 
+        if (team.getTeamType() == TeamType.LOOTHILL) {
+            LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.loothill").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+            return;
+        }
+
+        if (team.getTeamType() == TeamType.ENDPORTAL) {
+            EndPortalCommand.def(sender);
+            return;
+        }
+
         if (team.getTeamType() == TeamType.GLOWSTONE_MOUNTAIN) {
             LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.glowstone").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
+            return;
+        }
+
+        if (team.getTeamType() == TeamType.ORE_MOUNTAIN) {
+            LegendBukkit.getInstance().getLanguage().getStringList("team.info.format.oremountain").forEach(s -> sender.sendMessage(CC.translate(team.applyPlaceholders(s, sender))));
             return;
         }
 
@@ -269,8 +424,6 @@ public class TeamHandler implements IModule {
 
             this.topTeams.put(type, topTeams);
         }
-
-        teams.forEach(Team::updateNameTags);
     }
 
 }

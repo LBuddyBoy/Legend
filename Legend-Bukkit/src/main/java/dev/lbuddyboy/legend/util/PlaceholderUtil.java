@@ -61,6 +61,7 @@ public class PlaceholderUtil {
             IEvent event = Events.getInstance().getActiveEvent().get();
 
             s = event.applyPlaceHolders(s)
+                    .replaceAll("%team%", Events.getApi().getTeamName(player))
                     .replaceAll("%event-name%", event.getName())
                     .replaceAll("%event-starts-in%", "")
             ;
@@ -78,13 +79,13 @@ public class PlaceholderUtil {
         s = user.applyPlaceholders(s);
 
         return s
+                .replaceAll("%team_at%", LegendBukkit.getInstance().getTeamHandler().getClaimHandler().getTeam(player.getLocation()).map(other -> other.getName(player)).orElse("<blend:&7;&f>Wilderness</>"))
                 .replaceAll("%player_location%", LocationUtils.toString(player.getLocation()))
                 .replaceAll("%player_claim%", LegendConstants.getTeamAt(player))
                 .replaceAll("%credits-goal%", APIConstants.formatNumber(LegendBukkit.getInstance().getDeathbanHandler().getCreditsNeeded()))
                 .replaceAll("%online_players%", APIConstants.formatNumber(BukkitUtil.getOnlinePlayers().size()))
                 .replaceAll("%player_name%", player.getName())
-                .replaceAll("%player_texture%", user.getSkin().getTexture())
-                .replaceAll("%player_signature%", user.getSkin().getSignature())
+                .replaceAll("%player_texture%", user.getHeadTextureValue())
                 .replaceAll("%player_display_name%", player.getDisplayName())
                 .replaceAll("%date%", APIConstants.SDF.format(new Date()));
     }

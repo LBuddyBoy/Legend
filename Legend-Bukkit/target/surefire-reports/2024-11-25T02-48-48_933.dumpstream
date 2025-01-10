@@ -1,5 +1,0 @@
-# Created at 2024-11-25T02:48:49.127
-Boot Manifest-JAR contains absolute paths in classpath 'D:\SourceCodes\Legend\Legend-Bukkit\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

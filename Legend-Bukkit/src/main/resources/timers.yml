@@ -20,6 +20,13 @@ logout:
   duration: 30
   view: "SCOREBOARD"
   bold-display: true
+totem:
+  display-name: "Totem"
+  primary-color: "&6"
+  secondary-color: "&4"
+  duration: 60
+  view: "ACTION_BAR"
+  bold-display: true
 crapple:
   display-name: "Crapple"
   primary-color: "&6"

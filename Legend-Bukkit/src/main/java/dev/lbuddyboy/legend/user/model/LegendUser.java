@@ -3,27 +3,32 @@ package dev.lbuddyboy.legend.user.model;
 import com.mojang.authlib.properties.Property;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
-import dev.lbuddyboy.arrow.Arrow;
 import dev.lbuddyboy.arrow.staffmode.StaffModeConstants;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.api.util.TimeUtils;
 import dev.lbuddyboy.commons.util.skin.Skin;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.LegendConstants;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.features.kitmap.kit.EditedKit;
 import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
-import dev.lbuddyboy.legend.settings.Setting;
+import dev.lbuddyboy.legend.features.settings.Setting;
 import dev.lbuddyboy.legend.team.model.TeamType;
+import dev.lbuddyboy.legend.user.model.nametag.LegendScoreboard;
+import dev.lbuddyboy.legend.user.model.nametag.ScoreboardEntryType;
 import lombok.Data;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Team;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Data
@@ -35,15 +40,20 @@ public class LegendUser {
     private ChatMode chatMode = ChatMode.PUBLIC;
     private long playTime, lastOnline;
     private boolean playedBefore = false, deathBanned = false, combatLoggerDied = false, teamSpy = false;
-    private double balance;
+    private double balance, crystals;
+    private String headTextureValue = "ewogICJ0aW1lc3RhbXAiIDogMTY5OTIzNzU3NDc0NiwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS83YjQxYmQ5OGI3Y2I5ZmY5ZmIzMTM2ZDA1NzQxYmI4Njc4NjVkYTI1YjYzNzI1Y2EzMDZmMTJlMGQ1YmZmYTZmIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=";
 
     private final Map<Setting, Boolean> settings = new HashMap<>();
     private final Map<String, PersistentTimer> timers = new HashMap<>();
     private final Map<String, List<EditedKit>> editedKits = new HashMap<>();
+    private final List<String> claimedPlayTimeRewards = new ArrayList<>();
 
+    private transient LegendScoreboard scoreboard;
     private transient long joinedAt, lastBrokenAt;
     private transient Location lastBrokenLocation, lastBrokenBlock;
-    private transient Skin skin;
+    private transient List<String> queuedActionBars = new CopyOnWriteArrayList<>();
+    private transient long actionBarDelay = -1L;
+    private transient long lastRemindedPlayTimeRewards = 0L;
 
     public LegendUser(UUID uuid, String name) {
         this.uuid = uuid;
@@ -58,7 +68,9 @@ public class LegendUser {
         this.deaths = document.getInteger("deaths");
         this.combatLoggerDied = document.get("combatLoggerDied", false);
         this.balance = document.get("balance", 0D);
+        this.crystals = document.get("crystals", 0D);
         this.lastOnline = document.get("lastOnline", 0L);
+        this.headTextureValue = document.get("headTextureValue", "ewogICJ0aW1lc3RhbXAiIDogMTY5OTIzNzU3NDc0NiwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS83YjQxYmQ5OGI3Y2I5ZmY5ZmIzMTM2ZDA1NzQxYmI4Njc4NjVkYTI1YjYzNzI1Y2EzMDZmMTJlMGQ1YmZmYTZmIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=");
         this.currentKillStreak = document.getInteger("currentKillStreak", 0);
         this.highestKillStreak = document.getInteger("highestKillStreak", 0);
         this.credits = document.getInteger("credits", 0);
@@ -68,6 +80,7 @@ public class LegendUser {
         this.playedBefore = document.getBoolean("playedBefore", false);
         this.teamSpy = document.getBoolean("teamSpy", false);
         this.chatMode = ChatMode.valueOf(document.getString("chatMode"));
+        this.claimedPlayTimeRewards.addAll(document.getList("claimedPlayTimeRewards", String.class, new ArrayList<>()));
 
         Document settingsDocument = Document.parse(document.getString("settings")), timersDocument = Document.parse(document.getString("timers"))
                 , editedKitsDocument = Document.parse(document.getString("editedKits"));
@@ -92,7 +105,10 @@ public class LegendUser {
         document.put("lastOnline", this.lastOnline);
         document.put("kills", this.kills);
         document.put("combatLoggerDied", this.combatLoggerDied);
+        document.put("headTextureValue", this.headTextureValue);
+        document.put("claimedPlayTimeRewards", this.claimedPlayTimeRewards);
         document.put("balance", this.balance);
+        document.put("crystals", this.crystals);
         document.put("deaths", this.deaths);
         document.put("credits", this.credits);
         document.put("lives", this.lives);
@@ -111,7 +127,7 @@ public class LegendUser {
     }
 
     public boolean isDeathBanned() {
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) return false;
+        if (!SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) return false;
 
         return this.deathBanned;
     }
@@ -130,7 +146,7 @@ public class LegendUser {
         long playTime = this.getCurrentPlayTime();
         Player player = Bukkit.getPlayer(this.uuid);
 
-        if (player != null && !player.hasMetadata(StaffModeConstants.VANISH_META_DATA)) {
+        if (player != null && player.hasMetadata(StaffModeConstants.VANISH_META_DATA)) {
             playTime -= this.getActivePlayTime();
         }
 
@@ -324,17 +340,6 @@ public class LegendUser {
     public void setHighestKillStreak(int highestKillStreak) {
         this.highestKillStreak = highestKillStreak;
         LegendBukkit.getInstance().getDataEntry("HighestKillStreak").updateAndSaveEntry(this.uuid, this.highestKillStreak);
-    }
-
-    public Skin getSkin() {
-        if (skin != null) return skin;
-        Player player = Bukkit.getPlayer(this.uuid);
-        if (player == null) return Skin.DEFAULT_SKIN;
-
-        Optional<Property> onlineTexturesOpt = ((CraftPlayer) player).getProfile().getProperties().get("textures").stream().findFirst();
-
-        this.skin = onlineTexturesOpt.map(property -> new Skin(property.signature(), property.value())).orElse(Skin.DEFAULT_SKIN);
-        return skin;
     }
 
 }

@@ -3,9 +3,12 @@ package dev.lbuddyboy.legend.command.impl;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.annotation.HelpCommand;
+import dev.lbuddyboy.arrow.packet.GlobalMessagePacket;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ShortPrice;
+import dev.lbuddyboy.legend.LangConfig;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.legend.util.CommandUtil;
@@ -68,6 +71,47 @@ public class LivesCommand extends BaseCommand {
                     .replaceAll("%amount%", APIConstants.formatNumber(amount))
             ));
         }
+    }
+
+    @Subcommand("revive")
+    @CommandCompletion("@players")
+    public static void revive(CommandSender sender, @Name("target") OfflinePlayer player) {
+        String name = sender instanceof Player ? sender.getName() : "&4&lCONSOLE";
+        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
+
+        if (!user.isDeathBanned()) {
+            LangConfig.LIVES_ERROR_NOT_DEATHBANNED.sendMessage(sender);
+            return;
+        }
+
+        if (sender instanceof Player senderPlayer) {
+            LegendUser senderUser = LegendBukkit.getInstance().getUserHandler().getUser(senderPlayer.getUniqueId());
+
+            if (senderUser.getLives() <= 0 && !sender.hasPermission("legend.command.revive")) {
+                sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("lives.error.insufficient")
+                        .replaceAll("%target%", player.getName())
+                ));
+                return;
+            }
+
+            senderUser.setLives(senderUser.getLives() - 1);
+            senderUser.save(true);
+        }
+
+        user.removeTimer("deathban");
+        user.save(true);
+
+        new GlobalMessagePacket(player.getUniqueId(), CC.translate(LegendBukkit.getInstance().getLanguage().getString("deathban.revived.other")
+                .replaceAll("%sender%", name)
+        )).send();
+
+        if (player.isOnline() && player.getPlayer() != null) {
+            LegendBukkit.getInstance().getDeathbanHandler().handleRevive(player.getPlayer());
+        }
+
+        sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("deathban.revived.sender")
+                .replaceAll("%target%", player.getName())
+        ));
     }
 
     @Subcommand("admin set")

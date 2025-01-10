@@ -1,0 +1,22 @@
+broadcast:
+  enabled: true
+  message: "<blend:&6;&e>&lPLAYTIME REWARDS</> &7» <blend:&6;&e>%player%</>&f has claimed the %reward_display_name%&f playtime reward! &7(/ptrewards)"
+rewards:
+  oneHour:
+    displayName: "<blend:&6;&e>&lONE HOUR</>"
+    displayMaterial: "PLAYER_HEAD"
+    requiredPlayTime: "1h"
+    displayTexture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODZiYzE4NzcyYWNkMzQzZTZhYjIwMTAzYzRhOWU0MjExNWYyMjQ4NDI3ZWNiZDIwNjcxZDZjZDI0ZWU3ZWY4YyJ9fX0="
+    rewards:
+      - '<blend:&3;&b>&l1x Ability Barrel</>'
+    commands:
+      - 'ability givebox %player% 1'
+  twoHours:
+    displayName: "<blend:&6;&e>&lTWO HOURS</>"
+    displayMaterial: "PLAYER_HEAD"
+    requiredPlayTime: "2h"
+    displayTexture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWI3ODFjOTUzZjg1ZGY3NzVmOTdjNjRmZWYyZjUwYjczMTM2NjI1NjgyN2UwZjg4YzIyOTcwYzIzMzE3YzY5NSJ9fX0="
+    rewards:
+      - '<blend:&3;&b>&l2x Ability Barrel</>'
+    commands:
+      - 'ability givebox %player% 2'

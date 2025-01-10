@@ -12,7 +12,7 @@ public class LegendConstants {
     public static final DecimalFormat KDR_FORMAT = new DecimalFormat("#.##");
 
     public static boolean isUHCKitMap(Location location) {
-        return LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false) && LegendBukkit.getInstance().getSettings().getBoolean("kitmap.enabled", false) && !isWarzone(location);
+        return SettingsConfig.SETTINGS_UHC_MODE.getBoolean() && SettingsConfig.KITMAP_ENABLED.getBoolean() && !isWarzone(location);
     }
 
     public static boolean isAdminBypass(Player player) {
@@ -33,19 +33,19 @@ public class LegendConstants {
     }
 
     public static int getWilderness(World world) {
-        int buffer = LegendBukkit.getInstance().getSettings().getInt("wilderness.overworld");
+        int buffer = SettingsConfig.WILDERNESS_OVERWORLD.getInt();
 
-        if (world.getEnvironment() == World.Environment.NETHER) buffer = LegendBukkit.getInstance().getSettings().getInt("wilderness.nether");
-        if (world.getEnvironment() == World.Environment.THE_END) buffer = LegendBukkit.getInstance().getSettings().getInt("wilderness.end");
+        if (world.getEnvironment() == World.Environment.NETHER) buffer = SettingsConfig.WILDERNESS_NETHER.getInt();
+        if (world.getEnvironment() == World.Environment.THE_END) buffer = SettingsConfig.WILDERNESS_END.getInt();
 
         return buffer;
     }
 
     public static int getBuffer(World world) {
-        int buffer = LegendBukkit.getInstance().getSettings().getInt("buffer.overworld");
+        int buffer = SettingsConfig.BUFFER_OVERWORLD.getInt();
 
-        if (world.getEnvironment() == World.Environment.NETHER) buffer = LegendBukkit.getInstance().getSettings().getInt("buffer.nether");
-        if (world.getEnvironment() == World.Environment.THE_END) buffer = LegendBukkit.getInstance().getSettings().getInt("buffer.end");
+        if (world.getEnvironment() == World.Environment.NETHER) buffer = SettingsConfig.BUFFER_NETHER.getInt();
+        if (world.getEnvironment() == World.Environment.THE_END) buffer = SettingsConfig.BUFFER_END.getInt();
 
         return buffer;
     }

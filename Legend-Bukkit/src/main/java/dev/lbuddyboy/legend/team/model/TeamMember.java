@@ -1,5 +1,6 @@
 package dev.lbuddyboy.legend.team.model;
 
+import dev.lbuddyboy.arrow.staffmode.StaffModeConstants;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.util.UUIDUtils;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,15 @@ public class TeamMember {
     }
 
     public boolean isOnline() {
-        return Bukkit.getPlayer(this.uuid) != null;
+        Player player = Bukkit.getPlayer(this.uuid);
+
+        return player != null;
+    }
+
+    public boolean isStaffOnline() {
+        Player player = Bukkit.getPlayer(this.uuid);
+
+        return player != null && !player.hasMetadata(StaffModeConstants.VANISH_META_DATA);
     }
 
     public Player getPlayer() {
@@ -46,7 +55,7 @@ public class TeamMember {
         ChatColor color = ChatColor.GRAY;
 
         if (LegendBukkit.getInstance().getUserHandler().getUser(this.uuid).isTimerActive("deathban")) color = ChatColor.RED;
-        else if (isOnline()) color = ChatColor.GREEN;
+        else if (isStaffOnline()) color = ChatColor.GREEN;
 
         return color;
     }

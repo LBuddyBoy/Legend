@@ -5,6 +5,7 @@ import co.aikar.commands.CommandCompletions;
 import co.aikar.commands.InvalidCommandArgument;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.model.Team;
+import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.util.BukkitUtil;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
@@ -28,7 +29,7 @@ public class TeamCompletion implements CommandCompletions.CommandCompletionHandl
         if (this.flag.equalsIgnoreCase("all")) {
             completions.addAll(LegendBukkit.getInstance().getTeamHandler().getTeams().stream().map(Team::getName).collect(Collectors.toList()));
         } else if (this.flag.equalsIgnoreCase("player")) {
-            completions.addAll(LegendBukkit.getInstance().getTeamHandler().getPlayerTeams().stream().map(Team::getName).collect(Collectors.toList()));
+            completions.addAll(LegendBukkit.getInstance().getTeamHandler().getTeams().stream().filter(team -> team.getTeamType() == TeamType.PLAYER || team.getTeamType() == TeamType.ENDPORTAL || team.getTeamType() == TeamType.ORE_MOUNTAIN || team.getTeamType() == TeamType.LOOTHILL || team.getTeamType() == TeamType.GLOWSTONE_MOUNTAIN || team.getTeamType() == TeamType.CITADEL || team.getTeamType() == TeamType.KOTH).map(Team::getName).collect(Collectors.toList()));
         } else if (this.flag.equalsIgnoreCase("system")) {
             completions.addAll(LegendBukkit.getInstance().getTeamHandler().getSystemTeams().stream().map(Team::getName).collect(Collectors.toList()));
         }

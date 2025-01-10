@@ -3,6 +3,7 @@ package dev.lbuddyboy.legend.util;
 import dev.lbuddyboy.arrow.staffmode.StaffModeConstants;
 import dev.lbuddyboy.arrow.staffmode.model.StaffMode;
 import dev.lbuddyboy.legend.LegendBukkit;
+import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -15,10 +16,8 @@ import java.util.stream.Collectors;
 
 public class BukkitUtil {
 
-    public static List<? extends Player> getOnlinePlayers() {
-        return LegendBukkit.getInstance().getServer().getOnlinePlayers().stream().filter(p -> {
-            return !p.hasMetadata(StaffModeConstants.VANISH_META_DATA);
-        }).collect(Collectors.toList());
+    public static List<Player> getOnlinePlayers() {
+        return LegendBukkit.getInstance().getServer().getOnlinePlayers().stream().map(p -> ((Player)p)).filter(p -> !CitizensAPI.getNPCRegistry().isNPC(p)).collect(Collectors.toList());
     }
 
     public static List<? extends Player> getStaffPlayers() {

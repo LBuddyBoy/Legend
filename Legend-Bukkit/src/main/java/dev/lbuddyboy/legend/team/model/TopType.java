@@ -9,6 +9,7 @@ import java.util.function.Function;
 @Getter
 public enum TopType {
 
+    RAIDABLE("Raidable", Team::getMadeRaidable),
     POINTS("Points", Team::getPoints);
 
     private final String displayName;

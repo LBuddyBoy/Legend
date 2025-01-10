@@ -19,6 +19,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.inventory.ItemStack;
@@ -178,6 +179,11 @@ public class ClaimHandler implements IModule, Listener {
         int step = 1 << GridCoordinate.BITS;
         Cuboid bounds = claim.getBounds();
 
+        if (bounds == null) {
+            LegendBukkit.getInstance().getLogger().info("Error caching claim for " + team.getName() + ": Null world");
+            return;
+        }
+
         for (int x = bounds.getX1(); x < bounds.getX2() + step; x += step) {
             for (int z = bounds.getZ1(); z < bounds.getZ2() + step; z += step) {
                 Multimap<GridCoordinate, Claim> worldMap = this.claims.get(bounds.getWorldName());
@@ -237,6 +243,13 @@ public class ClaimHandler implements IModule, Listener {
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event) {
         registerWorld(event.getWorld());
+    }
+
+    @EventHandler
+    public void onChangeWorld(PlayerChangedWorldEvent event) {
+        this.removeMapView(event.getPlayer());
+        this.clearBorderView(event.getPlayer());
+        this.borderViews.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler

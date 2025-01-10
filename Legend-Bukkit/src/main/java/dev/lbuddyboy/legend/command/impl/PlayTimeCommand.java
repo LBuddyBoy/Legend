@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.HelpEntry;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.annotation.HelpCommand;
 import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.commons.api.util.TimeUtils;
 import dev.lbuddyboy.commons.util.CC;
@@ -11,6 +12,7 @@ import dev.lbuddyboy.commons.util.PagedItem;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.playtime.PlayTimeGoalHandler;
 import dev.lbuddyboy.legend.features.playtime.menu.PlayTimeGoalMenu;
+import dev.lbuddyboy.legend.features.playtime.menu.PlayTimeRewardsMenu;
 import dev.lbuddyboy.legend.features.playtime.model.PlayTimeGoal;
 import dev.lbuddyboy.legend.util.CommandUtil;
 import org.bukkit.command.CommandSender;
@@ -39,6 +41,11 @@ public class PlayTimeCommand extends BaseCommand {
                             .replaceAll("%player%", user.getName())
             ));
         });
+    }
+
+    @Subcommand("rewards|reward")
+    public void rewards(Player sender) {
+        new PlayTimeRewardsMenu().openMenu(sender);
     }
 
     @Subcommand("goals")

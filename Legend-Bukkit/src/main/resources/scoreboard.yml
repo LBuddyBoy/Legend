@@ -4,6 +4,11 @@ separator:
   enabled: true
   text: '&7&m-------------------'
 
+claim:
+  enabled: true
+  lines:
+    - '<blend:&6;&e>&lClaim</>&7: &f%team_at%'
+
 deathban:
   - '&fTime Left&7: &d%deathban%'
   - '&fLives&7: &c%player_lives%'
@@ -13,6 +18,27 @@ koth:
   - '&b&l%name% KoTH'
   - '&fTime Left: &b%time-left%'
 
+conquest:
+  - '<blend:#fbd708;#FFD958>&lConquest</>'
+  - '&c%red_time_left% &e%yellow_time_left%'
+  - '&9%blue_time_left% &a%green_time_left%'
+  - '&7» &#ffd958%conquest_top_1_name%&7: &f%conquest_top_1_points%'
+  - '&7» &#ffd958%conquest_top_2_name%&7: &f%conquest_top_2_points%'
+  - '&7» &#ffd958%conquest_top_3_name%&7: &f%conquest_top_3_points%'
+
+ctp_no_capper:
+  - '&b&l%name%&7: &f%time-left% &9[%tickets%]'
+
+ctp_contested:
+  - '&b&l%name%&7: &f%time-left% %display_tickets%'
+
+dps:
+  - '<blend:#fB0808;#ff4747>&lDPS</>&7: &f%health%'
+
+ctp:
+  - '&b&l%name%&7: &f%time-left% &9[%tickets%]'
+  - '&f%checkpoint-display%'
+
 dtc:
   - '&9&lDTC'
   - '&fBreaks Left: &9%blocks-left%/%default-blocks%'
@@ -21,13 +47,16 @@ citadel:
   - '&d&lCitadel'
   - '&fTime Left: &d%time-left%'
 
-archer:
-  speed: "&fSpeed: &e%cooldown-mmss%"
-  jump: "&fJump: &a%cooldown-mmss%"
+system_focus:
+  - ' '
+  - '&fTeam&7: %team% &7[%home_world%&7]'
+  - '&fHome&7: &e%home%'
 
-bard:
-  energy: "&fEnergy: &b%energy%"
-  cooldown: "&fEffect: &c%cooldown-mmss%"
+player_focus:
+  - ' '
+  - '&fTeam&7: %team% &7[%online%/%total%]'
+  - '&fDTR&7: %dtr-color%%dtr%%dtr-symbol%'
+  - '&fHome&7: &e%home%'
 
 footer:
   enabled: true

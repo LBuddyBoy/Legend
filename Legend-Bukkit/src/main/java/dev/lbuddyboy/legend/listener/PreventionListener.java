@@ -3,6 +3,7 @@ package dev.lbuddyboy.legend.listener;
 import com.google.common.collect.Sets;
 import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.util.Tasks;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,15 +23,11 @@ public class PreventionListener implements Listener {
     @EventHandler
     public void onEntitySpawn(CreatureSpawnEvent event) {
         if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.CUSTOM) return;
+        if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.COMMAND) return;
         if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER) return;
         if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER_EGG) return;
 
         event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onPreCommand(PlayerCommandPreprocessEvent event) {
-
     }
 
 /*

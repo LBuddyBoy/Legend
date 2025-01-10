@@ -3,8 +3,11 @@ package dev.lbuddyboy.legend.command.impl.admin;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import dev.lbuddyboy.api.user.model.Notification;
+import dev.lbuddyboy.arrow.Arrow;
 import dev.lbuddyboy.arrow.ArrowPlugin;
+import dev.lbuddyboy.arrow.command.impl.CoinShopCommand;
 import dev.lbuddyboy.arrow.command.impl.admin.NotificationCommand;
+import dev.lbuddyboy.arrow.command.impl.admin.UserCommand;
 import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.commons.api.util.TimeUtils;
@@ -13,17 +16,19 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.schedule.ScheduleEntry;
 import dev.lbuddyboy.legend.features.schedule.ScheduleMenu;
+import dev.lbuddyboy.legend.features.settings.Setting;
+import dev.lbuddyboy.legend.timer.server.SOTWTimer;
+import dev.lbuddyboy.legend.util.BukkitUtil;
 import lombok.AllArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @CommandAlias("schedule")
@@ -49,15 +54,15 @@ public class ScheduleCommand extends BaseCommand {
     @CommandPermission("legend.command.schedule.admin")
     @Description("Creates a schedule entry with no prompt for a display name.")
     public void createPublic(CommandSender sender,
-                       @Name("id") @Single String id,
-                       @Name("dayOfTheWeek") int dayOfTheWeek,
-                       @Name("hourOfTheDay") int hourOfTheDay,
-                       @Name("minuteOfTheDay") int minuteOfTheDay,
-                       @Name("broadcast") boolean broadcast,
-                       @Name("removeAfterDone") boolean adminOnly,
-                       @Name("removeAfterDone") boolean removeAfterExecute,
-                       @Name("displayName") @Single String displayName,
-                       @Name("command") String command
+                             @Name("id") @Single String id,
+                             @Name("dayOfTheWeek") int dayOfTheWeek,
+                             @Name("hourOfTheDay") int hourOfTheDay,
+                             @Name("minuteOfTheDay") int minuteOfTheDay,
+                             @Name("broadcast") boolean broadcast,
+                             @Name("adminOnly") boolean adminOnly,
+                             @Name("removeAfterDone") boolean removeAfterExecute,
+                             @Name("displayName") @Single String displayName,
+                             @Name("command") String command
     ) {
         ScheduleEntry entry = LegendBukkit.getInstance().getScheduleHandler().createScheduleEntry(
                 id,
@@ -79,10 +84,10 @@ public class ScheduleCommand extends BaseCommand {
     @CommandPermission("legend.command.schedule.admin")
     @Description("Queues a schedule entry to execute after a set time.")
     public void queue(CommandSender sender,
-                       @Name("id") @Single String id,
-                       @Name("duration") TimeDuration duration,
-                       @Name("broadcast") boolean broadcast,
-                       @Name("command") String command
+                      @Name("id") @Single String id,
+                      @Name("duration") TimeDuration duration,
+                      @Name("broadcast") boolean broadcast,
+                      @Name("command") String command
     ) {
         Calendar calendar = Calendar.getInstance(APIConstants.TIME_ZONE, APIConstants.LOCALE);
         Date date = new Date(System.currentTimeMillis() + duration.transform());
@@ -96,13 +101,13 @@ public class ScheduleCommand extends BaseCommand {
     @CommandPermission("legend.command.schedule.admin")
     @Description("Creates a schedule entry that is viewable by everyone.")
     public void createPublic(CommandSender sender,
-                       @Name("id") @Single String id,
-                       @Name("dayOfTheWeek") int dayOfTheWeek,
-                       @Name("hourOfTheDay") int hourOfTheDay,
-                       @Name("minuteOfTheDay") int minuteOfTheDay,
-                       @Name("broadcast") boolean broadcast,
-                       @Name("removeAfterDone") boolean removeAfterExecute,
-                       @Name("command") String command
+                             @Name("id") @Single String id,
+                             @Name("dayOfTheWeek") int dayOfTheWeek,
+                             @Name("hourOfTheDay") int hourOfTheDay,
+                             @Name("minuteOfTheDay") int minuteOfTheDay,
+                             @Name("broadcast") boolean broadcast,
+                             @Name("removeAfterDone") boolean removeAfterExecute,
+                             @Name("command") String command
     ) {
         this.create(sender, id, dayOfTheWeek, hourOfTheDay, minuteOfTheDay, broadcast, false, removeAfterExecute, command);
     }
@@ -111,15 +116,57 @@ public class ScheduleCommand extends BaseCommand {
     @CommandPermission("legend.command.schedule.admin")
     @Description("Creates a schedule entry that is viewable by only people with this command.")
     public void createPrivate(CommandSender sender,
-                       @Name("id") @Single String id,
-                       @Name("dayOfTheWeek") int dayOfTheWeek,
-                       @Name("hourOfTheDay") int hourOfTheDay,
-                       @Name("minuteOfTheDay") int minuteOfTheDay,
-                       @Name("broadcast") boolean broadcast,
-                       @Name("removeAfterDone") boolean removeAfterExecute,
-                       @Name("command") String command
+                              @Name("id") @Single String id,
+                              @Name("dayOfTheWeek") int dayOfTheWeek,
+                              @Name("hourOfTheDay") int hourOfTheDay,
+                              @Name("minuteOfTheDay") int minuteOfTheDay,
+                              @Name("broadcast") boolean broadcast,
+                              @Name("removeAfterDone") boolean removeAfterExecute,
+                              @Name("command") String command
     ) {
         this.create(sender, id, dayOfTheWeek, hourOfTheDay, minuteOfTheDay, broadcast, true, removeAfterExecute, command);
+    }
+
+    @Subcommand("createms")
+    @Private
+    @CommandPermission("legend.command.schedule.admin")
+    public void createMineSurge(CommandSender sender) {
+        this.createPublic(sender, "two-ability-barrel-all", 7, 15, 15, true, false, true, "<blend:&3;&b>&l2X ABILITY BARREL ALL</>", "abilityitem giveboxall 2");
+        this.createPublic(sender, "two-legend-key-all", 7, 15, 30, true, false, true, "<blend:&5;&d>&l2X LEGEND KEY ALL</>", "crate giveall Legend 2");
+        this.createPublic(sender, "random-coins", 7, 15, 45, true, false, true, "<blend:&6;&e>&l1,000 COINS GIVEAWAY</>", "schedule giverandomcoins 1000");
+        this.createPublic(sender, "random-minigame", 7, 16, 0, true, false, true, "<blend:&4;&c>&lRANDOM MINIGAME FOR 7D LEGEND RANK</>", "minigame startrandom");
+        this.createPublic(sender, "two-legend-key-all", 7, 16, 30, true, false, true, "<blend:&5;&c>&l3X AMETHYST KEY ALL</>", "crate giveall Amethyst 3");
+        this.createPublic(sender, "random-koth", 7, 17, 15, true, false, true, "<blend:&9;&b>&lRANDOM KOTH</>", "koth start Winter");
+
+        this.createPublic(sender, "citadel", 0, 12, 0, true, false, true, "<blend:&5;&d>&lCITADEL</>", "citadel start Citadel");
+
+        for (int day = 0; day <= 7; day++) {
+            if (day == 7) continue;
+
+            for (int hour = 0; hour <= 23; hour++) {
+                if (hour == 12 && day == 0) continue;
+
+                if (hour % 5 == 0) {
+                    this.createPublic(sender, day + "-" + hour + "-two-amethyst-key-all", day, hour, 0, true, false, true, "<blend:&5;&c>&l2X AMETHYST KEY ALL</>", "crate giveall Amethyst 2");
+                } else if (hour % 3 == 0) {
+                    this.createPublic(sender, day + "-" + hour + "-one-legend-key-all", day, hour, 0, true, false, true, "<blend:&5;&d>&l1X LEGEND KEY ALL</>", "crate giveall Legend 1");
+                }
+            }
+        }
+
+    }
+
+    @Subcommand("giverandomcoins")
+    @Private
+    @CommandPermission("legend.command.schedule.admin")
+    public void giverandomcoins(CommandSender sender, @Name("amount") long amount) {
+        List<Player> players = BukkitUtil.getOnlinePlayers();
+        Player player = players.get(ThreadLocalRandom.current().nextInt(players.size()));
+
+        Bukkit.dispatchCommand(sender, "coinshop coins add " + player.getName() + " " + amount);
+        Bukkit.broadcastMessage(" ");
+        Bukkit.broadcastMessage(CC.translate("&a" + player.getName() + "&f has won the &e" + APIConstants.formatNumber(amount) + " coins&f!"));
+        Bukkit.broadcastMessage(" ");
     }
 
     public void create(CommandSender sender,

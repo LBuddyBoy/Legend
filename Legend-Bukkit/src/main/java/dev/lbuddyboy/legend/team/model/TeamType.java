@@ -15,11 +15,15 @@ public enum TeamType {
     PLAYER(1000),
     SPAWN(1),
     ROAD(200),
+    ENDPORTAL(150),
     KOTH(150),
+    CTP(150),
     DTC(150),
     CITADEL(150),
     DEATHBAN_ARENA(1250),
-    GLOWSTONE_MOUNTAIN(500);
+    ORE_MOUNTAIN(500),
+    GLOWSTONE_MOUNTAIN(500),
+    LOOTHILL(500);
 
     private final int weight;
 

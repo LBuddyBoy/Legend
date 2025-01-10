@@ -29,7 +29,7 @@ public class ClaimBorderThread extends Thread {
 
     @Override
     public void run() {
-        while (LegendBukkit.isENABLED()) {
+        while (true) {
             try {
                 CombatTimer combatTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
                 InvincibilityTimer invincibilityTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
@@ -54,7 +54,7 @@ public class ClaimBorderThread extends Thread {
                     }
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
 
             try {

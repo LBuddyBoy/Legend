@@ -2,11 +2,13 @@ package dev.lbuddyboy.legend.listener;
 
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import org.bukkit.Material;
 import org.bukkit.block.BrewingStand;
 import org.bukkit.block.Furnace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BrewingStartEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.Inventory;
@@ -19,66 +21,20 @@ public class FastListener implements Listener {
     @EventHandler
     public void onBurn(FurnaceBurnEvent event) {
         Furnace furnace = (Furnace) event.getBlock().getState();
-        furnace.setCookTime((short) 135);
+        furnace.setCookTimeTotal(60);
     }
 
     @EventHandler
     public void onSmelt(FurnaceSmeltEvent event) {
         Furnace furnace = (Furnace) event.getBlock().getState();
-        furnace.setCookTime((short) 135);
+        furnace.setCookTimeTotal(60);
     }
 
     @EventHandler
-    public void onBrew(BrewEvent event) {
-        BrewingStand stand = (BrewingStand) event.getBlock().getState();
+    public void onBrew(BrewingStartEvent event) {
+        if (!SettingsConfig.SETTINGS_FAST_BREW.getBoolean()) return;
 
-        stand.removeMetadata("started_brewing", LegendBukkit.getInstance());
-    }
-
-    @EventHandler
-    public void onMove(InventoryMoveItemEvent event) {
-        Inventory initiator = event.getInitiator(), destination = event.getDestination();
-
-        if (!(destination instanceof BrewerInventory)) return;
-        BrewerInventory brewerInventory = (BrewerInventory) destination;
-        BrewingStand stand = brewerInventory.getHolder();
-
-        if (stand.hasMetadata("started_brewing")) {
-            if (brewerInventory.getIngredient() == null || brewerInventory.getIngredient().getType() == Material.AIR) {
-                stand.removeMetadata("started_brewing", LegendBukkit.getInstance());
-            } else if (brewerInventory.getContents() == null || Arrays.stream(brewerInventory.getContents()).noneMatch(t -> t != null && (t.getType() == Material.POTION || t.getType() == Material.GLASS_BOTTLE))) {
-                stand.removeMetadata("started_brewing", LegendBukkit.getInstance());
-            } else {
-                return;
-            }
-        }
-
-        Tasks.run(() -> {
-            stand.setBrewingTime(100);
-            stand.setMetadata("started_brewing", new FixedMetadataValue(LegendBukkit.getInstance(), System.currentTimeMillis()));
-        });
-    }
-
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        if (!(event.getInventory() instanceof BrewerInventory)) return;
-        BrewerInventory brewerInventory = (BrewerInventory) event.getInventory();
-        BrewingStand stand = brewerInventory.getHolder();
-
-        if (stand.hasMetadata("started_brewing")) {
-            if (brewerInventory.getIngredient() == null || brewerInventory.getIngredient().getType() == Material.AIR) {
-                stand.removeMetadata("started_brewing", LegendBukkit.getInstance());
-            } else if (brewerInventory.getContents() == null || Arrays.stream(brewerInventory.getContents()).noneMatch(t -> t != null && (t.getType() == Material.POTION || t.getType() == Material.GLASS_BOTTLE))) {
-                stand.removeMetadata("started_brewing", LegendBukkit.getInstance());
-            } else {
-                return;
-            }
-        }
-
-        Tasks.run(() -> {
-            stand.setBrewingTime(100);
-            stand.setMetadata("started_brewing", new FixedMetadataValue(LegendBukkit.getInstance(), System.currentTimeMillis()));
-        });
+        event.setTotalBrewTime(100);
     }
 
 }

@@ -1,7 +1,24 @@
-took-money-on-death: "<blend:&6;&e>You took $%amount% from %target% from killing them!</>"
+took-money-on-death: "&eYou took &2$%amount%&e from %target% from killing them!"
 cobblestone:
   enabled: "<blend:&8;&7>[Cobblestone] You can now pickup cobblestone items!</>"
   disabled: "<blend:&8;&7>[Cobblestone] You can no longer pickup cobblestone items!</>"
+
+found-diamonds: "&f[FD] &b%player% founds %amount% diamonds."
+
+help:
+  - ''
+  - '<blend:&6;&e>&lLegend Help</>'
+  - '&7» &f/lives - check your lives'
+  - '&7» &f/pay - pay a player money'
+  - '&7» &f/bal - check your balance'
+  - '&7» &f/logout - logout safely without a logger'
+  - '&7» &f/pvp enable - enable your pvp timer'
+  - ''
+  - '<blend:&6;&e>&lServer Info</>'
+  - '&7» &fStore: &astore.example.net'
+  - '&7» &fDiscord: &9discord.example.net'
+  - '&7» &fTeamspeak: &bts.example.net'
+  - ''
 
 killstreak:
   broadcast: "<blend:&2;&a>&lKILL STREAKS</> &7» &6%player% &ereached the &d%killstreak% &efor getting a &c%kills% &ekillstreak!"
@@ -116,47 +133,6 @@ sotw:
     - ' '
     - '&7&m---------------'
 
-classes:
-  limited: "<blend:&3;&b>CLASSES</> &cThat class cannot be applied because your team has too many."
-  bard:
-    applied: "<blend:&6;&e>&lBARD</> &aThe bard class is now enabled! Support your team with effects!"
-    removed: "<blend:&6;&e>&lBARD</> &cThe bard class has been disabled!"
-    warming: "<blend:&6;&e>&lBARD</> &eThe bard class is warming up!"
-    effect:
-      insufficient: "<blend:&6;&e>&lBARD</> &cYou need %required-energy% bard energy to use %effect%!"
-      used: "<blend:&6;&e>&lBARD</> &aSuccessfully gave %effect% to %players% players! You used %energy% bard energy."
-      cooldown: "<blend:&6;&e>&lBARD</> &cYou cannot use a bard effect for %cooldown-decimal% seconds!"
-
-  miner:
-    applied: "<blend:&7;&f>&lMINER</> &aThe miner class is now enabled!"
-    removed: "<blend:&7;&f>&lMINER</> &cThe miner class has been disabled!"
-    warming: "<blend:&7;&f>&lMINER</> &eThe miner class is warming up!"
-
-  archer:
-    applied: "<blend:&2;&a>&lARCHER</> &aThe archer class is now enabled! Bows will apply a 25% damage multiplier on the enemy!"
-    removed: "<blend:&2;&a>&lARCHER</> &cThe archer class has been disabled!"
-    warming: "<blend:&2;&a>&lARCHER</> &eThe archer class is warming up!"
-    shot:
-      victim: "<blend:&2;&a>&lARCHER TAG</> &eYou have been archer tagged for 5 seconds by %shooter%! You will now take 25% more damage!"
-      shooter: "<blend:&2;&a>&lARCHER TAG</> &eYou archer tagged %victim% for 5 seconds! They will now take 25% more damage!"
-    speed:
-      used: "<blend:&2;&a>&lARCHER ABILITY</> &aSuccessfully used the Speed IV archer ability!"
-      cooldown: "<blend:&2;&a>&lARCHER ABILITY</> &cYou are on speed cooldown for %cooldown-decimal%s"
-    jump:
-      used: "<blend:&2;&a>&lARCHER ABILITY</> &aSuccessfully used the Jump Boost VII archer ability!"
-      cooldown: "<blend:&2;&a>&lARCHER ABILITY</> &cYou are on jump cooldown for %cooldown-decimal%s"
-  
-  rogue:
-    applied: "<blend:&8;&7>&lROGUE</> &aThe rogue class is now enabled! You can now backstab opponents with gold swords!"
-    removed: "<blend:&8;&7>&lROGUE</> &cThe rogue class has been disabled!"
-    warming: "<blend:&8;&7>&lROGUE</> &eThe rogue class is warming up!"
-    speed:
-      used: "<blend:&8;&7>&lROGUE ABILITY</> &aSuccessfully used the Speed IV archer ability!"
-      cooldown: "<blend:&8;&7>&lROGUE ABILITY</> &cYou are on speed cooldown for %cooldown-decimal%s"
-    jump:
-      used: "<blend:&8;&7>&lROGUE ABILITY</> &aSuccessfully used the Jump Boost VII archer ability!"
-      cooldown: "<blend:&8;&7>&lROGUE ABILITY</> &cYou are on jump cooldown for %cooldown-decimal%s"
-
 buffer:
   cant-place: "<blend:&4;&c>You cannot place blocks until past %buffer%!</>"
   cant-break: "<blend:&4;&c>You cannot break blocks until past %buffer%!</>"
@@ -176,8 +152,10 @@ action-bar:
 
 crapple-cooldown: "<blend:&4;&c>You cannot consume golden apples for %cooldown% seconds</>"
 gapple-cooldown: "<blend:&4;&c>You cannot consume god apples for %cooldown% seconds</>"
+totem-cooldown: "<blend:&4;&c>You cannot consume a totem for %cooldown% seconds</>"
 enderpearl-cooldown: "<blend:&4;&c>You cannot use your enderpearl for %cooldown% seconds</>"
 combat-tagged:
+  denied: "<blend:&4;&c>You cannot do this whilst combat tagged.</>"
   spawn: "<blend:&4;&c>You cannot enter spawn whilst combat tagged.</>"
   portal: "<blend:&4;&c>You cannot enter use portals whilst combat tagged.</>"
   cannot-enter: "&cYou cannot enter %team%'s&c land whilst combat tagged."
@@ -198,6 +176,19 @@ invincibility:
 glowstone:
   reset-soon: "<blend:&6;&e>&lGLOWSTONE MOUNTAIN</> &eGlowstone Mountain will be resetting in &6%time%&e!"
   reset-announcement: "<blend:&6;&e>&lGLOWSTONE MOUNTAIN</> &eGlowstone Mountain has been reset, all glowstone has been respawned&e!"
+
+loothill:
+  reset-soon: "<blend:&3;&b>&lLOOT HILL</> &bLoot Hill will be resetting in &3%time%&e!"
+  reset-announcement: "<blend:&3;&b>&lLOOT HILL</> &bLoot Hill has been reset, all loot blocks have been respawned&e!"
+
+nametags:
+  prefix: "%leaderboard_place%"
+  suffix: ""
+  lunar: "%team-place% &7[%team% &7| %dtr-color%%dtr%%dtr-symbol%&7]"
+  lunar-nametags: true
+  staff-lines: true
+  staff-mode: "&d[Staff Mode]"
+  vanished: "&7[Hidden]"
 
 end-info:
   - ' '
@@ -256,8 +247,12 @@ team:
   connected: "<blend:&2;&a>[Member Join] %player% is now online!</>"
   disconnected: "<blend:&2;&a>[Member Quit] %player% is now offline!</>"
   create:
+    too-short-or-long: "<blend:&4;&c>[Team Error] Your team name needs to be over or equal to 3 characters and below or equal to 16 characters.</>"
+    illegal-name: "<blend:&4;&c>[Team Error] Your team name you chose is blocked.</>"
     already-exists: "<blend:&4;&c>[Team Error] A team under that name already exists.</>"
     broadcast: "<blend:&3;&b>[Team]</> <blend:&2;&a>%player% has created the %team% team!</>"
+  rename:
+    broadcast: "<blend:&3;&b>[Team]</> <blend:&2;&a>%player% has renamed the %old-name% team to the %new-name% team!</>"
   disband:
     broadcast: "<blend:&3;&b>[Team]</> <blend:&4;&c>%player% has disbanded the %team% team!</>"
   invite:
@@ -307,6 +302,7 @@ team:
       - ' '
     confirmed: "<blend:&6;&e>[Claim]</> &aSuccessfully purchased your claim for $%price%! It can be viewed as the emerald block pillars."
     land-change:
+      type: "TITLE" # should it send to the title or action bar (TITLE, ACTION_BAR, NONE)
       entering: "&fEntering: &e%team%"
       leaving: ", &fLeaving: &7%team%"
       hover: "&aClick to view more info on this team."
@@ -336,11 +332,13 @@ team:
     names:
       spawn: "<blend:&2;&a>Safezone</>"
       road: "<blend:&6;&e>%team% Road</>"
-      koth: "<blend:&3;&b>&l%team% KoTH</>"
-      citadel: "<blend:&5;&d>&lCitadel</>"
-      dtc: "<blend:&4;&c>&lDTC</>"
+      koth: "<blend:&3;&b>%team% KoTH</>"
+      endportal: "<blend:&5;&c>End Portal</>"
+      citadel: "<blend:&5;&d>&Citadel</>"
+      dtc: "<blend:&4;&c>DTC</>"
       warzone: "<blend:&4;&c>Warzone</>"
-      glowstone: "<blend:&6;&e>Glowstone Mountain</>"
+      glowstone_mountain: "<blend:&6;&e>Glowstone Mountain</>"
+      loothill: "<blend:&3;&b>Loot Hill</>"
       deathban_arena: "<blend:&c;&e>Deathban Arena</>"
   home:
     set: "<blend:&3;&b>The team home has been updated by %player%</>"
@@ -412,12 +410,51 @@ team:
     # %members% - returns all members with name formats
     # %home% - returns the home formatted in X, Y, Z
     format:
+      endportal:
+        - ' '
+        - '<blend:&5;&c>End Portal Information</>'
+        - '&fLocation: &6%home%'
+        - ' '
+      koth:
+        - ' '
+        - '%team% KoTH'
+        - '&fLocation: &b%home%'
+        - ' '
+      citadel:
+        - ' '
+        - '%team%'
+        - '&fLocation: &d%home%'
+        - ' '
+      dtc:
+        - ' '
+        - '%team% DTC'
+        - '&fLocation: &c%home%'
+        - ' '
+      ctp:
+        - ' '
+        - '%team% CTP'
+        - '&fLocation: &e%home%'
+        - ' '
+      loothill:
+        - ' '
+        - '%team%'
+        - '&fLocation: &6%home%'
+        - '&fResets in: &e%loothill-next-reset%'
+        - '&fBlocks left: &e%loothill-blocks-left%'
+        - ' '
+      oremountain:
+        - ' '
+        - '%team%'
+        - '&fLocation: &2%home%'
+        - '&fResets in: &a%oremountain-next-reset%'
+        - '&fBlocks left: &a%oremountain-blocks-left%'
+        - ' '
       glowstone:
         - ' '
         - '%team%'
         - '&fLocation: &6%home%'
         - '&fResets in: &e%glowstone-next-reset%'
-        - '&fGlowstone left: &e%glowstone-blocks-left%'
+        - '&fBlocks left: &e%glowstone-blocks-left%'
         - ' '
       spawn:
         - ' '

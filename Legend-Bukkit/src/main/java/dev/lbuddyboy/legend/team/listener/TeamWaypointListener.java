@@ -5,6 +5,7 @@ import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.team.TeamHandler;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.WaypointType;
+import dev.lbuddyboy.legend.util.NameTagUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

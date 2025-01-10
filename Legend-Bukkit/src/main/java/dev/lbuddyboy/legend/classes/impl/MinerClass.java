@@ -30,6 +30,18 @@ import java.util.*;
 public class MinerClass extends PvPClass {
 
     @Override
+    public void loadDefaults() {
+        this.config.addDefault("settings.limit", -1);
+        this.config.addDefault("settings.warmup", 0);
+        this.config.addDefault("settings.enabled", true);
+
+        this.config.addDefault("lang.limited", "<blend:&7;&f>&lMINER</> &7» &cClass couldn't be applied because your team has too many.");
+        this.config.addDefault("lang.applied", "<blend:&7;&f>&lMINER</> &7» &aThe miner class is now enabled! Mine your heart out!");
+        this.config.addDefault("lang.removed", "<blend:&7;&f>&lMINER</> &7» &cThe miner class is now disabled!");
+        this.config.addDefault("lang.warming", "<blend:&7;&f>&lMINER</> &7» &eThe miner class is warming up!");
+    }
+
+    @Override
     public String getName() {
         return "Miner";
     }
@@ -56,9 +68,9 @@ public class MinerClass extends PvPClass {
     public boolean apply(Player player) {
         if (!super.apply(player)) return false;
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, Integer.MAX_VALUE, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, PotionEffect.INFINITE_DURATION, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, PotionEffect.INFINITE_DURATION, 1));
         return true;
     }
 
@@ -83,7 +95,7 @@ public class MinerClass extends PvPClass {
     public void tick(Player player) {
         if (player.getLocation().getY() <= 20) {
             if (player.hasPotionEffect(PotionEffectType.INVISIBILITY)) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 1));
             }
         } else {
             if (player.hasPotionEffect(PotionEffectType.INVISIBILITY)) {

@@ -6,6 +6,9 @@ depend:
   - Commons
   - DecentHolograms
 softdepend:
+  - Claim
+  - Duels
+  - MiniGames
   - AuctionHouse
   - Events
   - Crates

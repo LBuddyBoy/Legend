@@ -2,6 +2,7 @@ package dev.lbuddyboy.legend.listener;
 
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -10,15 +11,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityCreatePortalEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.world.PortalCreateEvent;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EndListener implements Listener {
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent event) {
+        if (event.getCause() != PlayerTeleportEvent.TeleportCause.CHORUS_FRUIT) return;
+
+        event.setCancelled(true);
+    }
 
     @EventHandler
     public void onEntityCreatePortal(PortalCreateEvent event) {
@@ -37,7 +43,8 @@ public class EndListener implements Listener {
         if (to.getBlock().getType() != Material.END_PORTAL) return;
         if (player.getWorld().getEnvironment() != World.Environment.THE_END) return;
 
-        event.setTo(getEntranceLocation());
+        event.setCancelled(true);
+        player.teleport(this.getEntranceLocation());
     }
 
     @EventHandler
@@ -74,15 +81,15 @@ public class EndListener implements Listener {
     }
 
     public List<Location> getCreeperLocations() {
-        return LegendBukkit.getInstance().getSettings().getStringList("end.creepers").stream().map(LocationUtils::deserializeString).collect(Collectors.toList());
+        return SettingsConfig.END_CREEPERS.getStringList().stream().map(LocationUtils::deserializeString).collect(Collectors.toList());
     }
 
     public Location getExitLocation() {
-        return LocationUtils.deserializeString(LegendBukkit.getInstance().getSettings().getString("end.exit"));
+        return LocationUtils.deserializeString(SettingsConfig.END_OVERWORLD_EXIT.getString());
     }
 
     public Location getEntranceLocation() {
-        return LocationUtils.deserializeString(LegendBukkit.getInstance().getSettings().getString("end.entrance"));
+        return LocationUtils.deserializeString(SettingsConfig.END_ENTRANCE.getString());
     }
 
 }

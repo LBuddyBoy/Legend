@@ -15,8 +15,8 @@ public class TeamInvitationLog extends TeamLog {
 
     private final UUID sender, target;
 
-    public TeamInvitationLog(UUID sender, UUID target) {
-        super("&6" + UUIDUtils.name(sender) + " &einvited &6" + UUIDUtils.name(target) + " &eto join the team!", TeamLogType.INVITATION);
+    public TeamInvitationLog(UUID teamId, UUID sender, UUID target) {
+        super(teamId, "&6" + UUIDUtils.name(sender) + " &einvited &6" + UUIDUtils.name(target) + " &eto join the team!", TeamLogType.INVITATION);
 
         this.sender = sender;
         this.target = target;

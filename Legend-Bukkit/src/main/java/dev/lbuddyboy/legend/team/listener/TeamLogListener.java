@@ -4,6 +4,7 @@ import dev.lbuddyboy.commons.CommonsPlugin;
 import dev.lbuddyboy.commons.deathmessage.DeathMessageProvider;
 import dev.lbuddyboy.commons.deathmessage.event.PlayerKilledEvent;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.team.TeamHandler;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.log.impl.TeamMemberDeathLog;
@@ -35,16 +36,16 @@ public class TeamLogListener implements Listener {
 
         if (victimTeam != null) {
             victimTeam.setPoints(
-                    victimTeam.getPoints() + LegendBukkit.getInstance().getSettings().getInt("points.death"),
+                    victimTeam.getPoints() + SettingsConfig.POINTS_DEATH.getInt(),
                     victim.getUniqueId(),
                     TeamPointsChangeLog.ChangeCause.DEATH
             );
 
-            victimTeam.createTeamLog(new TeamMemberDeathLog(victim.getUniqueId(), deathMessage));
+            victimTeam.createTeamLog(new TeamMemberDeathLog(victimTeam.getId(), victim.getUniqueId(), deathMessage));
         }
 
         if (killer != null) {
-            if (LegendBukkit.getInstance().getSettings().getBoolean("kitmap.kill-reward.enabled")) {
+            if (SettingsConfig.KITMAP_KILL_REWARDS_ENABLED.getBoolean()) {
                 List<String> commands = LegendBukkit.getInstance().getSettings().getStringList("kitmap.kill-reward.commands");
 
                 commands.forEach(s -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replaceAll("%player%", killer.getName())));
@@ -54,7 +55,7 @@ public class TeamLogListener implements Listener {
             if (killerTeam == null) return;
 
             killerTeam.setPoints(
-                    killerTeam.getPoints() + LegendBukkit.getInstance().getSettings().getInt("points.kill"),
+                    killerTeam.getPoints() + SettingsConfig.POINTS_KILL.getInt(),
                     killer.getUniqueId(),
                     TeamPointsChangeLog.ChangeCause.KILL
             );

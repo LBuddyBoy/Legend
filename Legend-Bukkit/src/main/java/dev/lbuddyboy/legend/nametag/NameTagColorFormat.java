@@ -5,6 +5,7 @@ import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.timer.impl.ArcherTagTimer;
 import dev.lbuddyboy.legend.timer.impl.InvincibilityTimer;
 import dev.lbuddyboy.legend.timer.server.SOTWTimer;
+import dev.lbuddyboy.legend.user.model.nametag.ScoreboardEntryType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.ChatColor;
@@ -41,9 +42,12 @@ public enum NameTagColorFormat {
 
         return invincibilityTimer.isActive(target.getUniqueId()) || (sotwTimer.isActive() && !sotwTimer.isEnabled(target));
     }),
+    FOCUSED(ChatColor.DARK_PURPLE, (viewer, target) -> LegendBukkit.getInstance().getTeamHandler().getTeam(viewer).map(team -> (team.getFocusedTeam() != null && team.getFocusedTeam().isMember(target.getUniqueId())) || team.getFocusedPlayer() != null && team.getFocusedPlayer().equals(target.getUniqueId())).orElse(false)),
+
+    /*,
     ARCHER_TAG(ChatColor.GREEN, (viewer, target) -> {
         return LegendBukkit.getInstance().getTimerHandler().getTimer(ArcherTagTimer.class).isActive(target.getUniqueId());
-    });
+    })*/;
 
     private final ChatColor color;
     private final BiPredicate<Player, Player> predicate;

@@ -1,0 +1,7 @@
+resets-every: "1h20m"
+last-reset: -1
+notify-intervals:
+  - '30m'
+  - '15m'
+  - '5m'
+locations: []

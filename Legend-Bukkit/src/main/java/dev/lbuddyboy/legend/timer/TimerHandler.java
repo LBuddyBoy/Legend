@@ -30,6 +30,7 @@ public class TimerHandler implements IModule {
         this.serverTimerConfig = new Config(LegendBukkit.getInstance(), "server-timers");
 
         this.timers.addAll(Arrays.asList(
+                new TotemTimer(),
                 new CrappleTimer(),
                 new GappleTimer(),
                 new CombatTimer(),

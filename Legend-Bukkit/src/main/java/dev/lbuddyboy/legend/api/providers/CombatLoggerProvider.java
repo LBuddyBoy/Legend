@@ -9,6 +9,7 @@ import dev.lbuddyboy.commons.api.util.TimeDuration;
 import dev.lbuddyboy.commons.deathmessage.DeathMessageProvider;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.team.model.log.impl.TeamDTRChangeLog;
@@ -18,8 +19,15 @@ import dev.lbuddyboy.legend.timer.impl.InvincibilityTimer;
 import dev.lbuddyboy.legend.timer.server.SOTWTimer;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.rollback.Rollback;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
@@ -51,12 +59,13 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
         if (user.isDeathBanned()) return false;
         if (sotwTimer.isActive() && !sotwTimer.getEnabledPlayers().contains(player.getUniqueId())) return false;
         if (invincibilityTimer.isActive(player.getUniqueId())) return false;
-        if (player.getNearbyEntities(20, 20, 20)
+        if (player.getNearbyEntities(40, 40, 40)
                 .stream()
                 .filter(entity -> entity instanceof Player)
-                .map(entity -> ((Player) entity)).noneMatch(p -> {
+                .map(entity -> ((Player) entity))
+                .noneMatch(p -> {
                     Optional<Team> teamOpt = LegendBukkit.getInstance().getTeamHandler().getTeam(p);
-                    return teamOpt.map(team -> team.getOnlinePlayers().contains(player)).orElse(false);
+                    return teamOpt.map(team -> !team.getOnlinePlayers().contains(player)).orElse(false);
 
                 }) && !combatTimer.isActive(player.getUniqueId())) return false;
         if (TeamType.SPAWN.appliesAt(player.getLocation())) return false;
@@ -79,6 +88,10 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
 
         Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(combatLogger.getOwner()).orElse(null);
 
+/*        if (combatLogger.getNpc() instanceof Player entity) {
+            entity.setNoDamageTicks(20);
+        }*/
+
         return team == null || !team.isMember(attacker.getUniqueId());
     }
 
@@ -98,7 +111,18 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
         long time = (long) combatLogger.getMetadata().get("deathbanTime");
         String ipAddress = (String) combatLogger.getMetadata().get("ipAddress");
 
-        combatLogger.getNpc().getEntity().getWorld().strikeLightning(combatLogger.getNpc().getEntity().getLocation());
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, ((CraftWorld)player.getWorld()).getHandle());
+            Location location = combatLogger.getNpc().getEntity().getLocation();
+
+            bolt.setVisualOnly(true);
+
+            ((CraftPlayer)player).getHandle().connection.sendPacket(new ClientboundAddEntityPacket(bolt, 0, new BlockPos(
+                    location.getBlockX(),
+                    location.getBlockY(),
+                    location.getBlockZ()
+            )));
+        }
 
         if ((Boolean) combatLogger.getMetadata().get("bypassDeathban")) {
             user.setCombatLoggerDied(true);
@@ -106,6 +130,8 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
             user.applyTimer("deathban", time);
             user.setDeathBanned(true);
         }
+
+        user.removeTimer("combat");
 
         DeathMessageProvider provider = CommonsPlugin.getInstance().getDeathMessageHandler().getProvider();
         String victimName = combatLogger.getNpc().getFullName();
@@ -122,21 +148,25 @@ public class CombatLoggerProvider implements CombatLoggerAPI {
 
         if (team != null) {
             double previousDTR = team.getDeathsUntilRaidable();
+            double newDTR = previousDTR - SettingsConfig.TEAM_DTR_LOSS.getDouble();
 
-            team.applyDTRFreeze(new TimeDuration(LegendBukkit.getInstance().getSettings().getString("team.regeneration.cooldown", "30m")).transform());
-            team.setDeathsUntilRaidable(team.getDeathsUntilRaidable() - LegendBukkit.getInstance().getSettings().getDouble("team.regeneration.loss", 1.0D));
-            team.setPoints(team.getPoints() + LegendBukkit.getInstance().getSettings().getInt("points.death"), combatLogger.getOwner(), TeamPointsChangeLog.ChangeCause.DEATH);
+            team.applyDTRFreeze(SettingsConfig.TEAM_REGEN_COOLDOWN.getTimeDuration().transform());
+            team.setDeathsUntilRaidable(newDTR);
+            team.setPoints(
+                    team.getPoints() + SettingsConfig.POINTS_DEATH.getInt(),
+                    combatLogger.getOwner(),
+                    TeamPointsChangeLog.ChangeCause.LOGGER_DEATH
+            );
+            team.createTeamLog(new TeamDTRChangeLog(team.getId(), previousDTR, team.getDeathsUntilRaidable(), combatLogger.getOwner(), TeamDTRChangeLog.ChangeCause.LOGGER_DEATH));
             team.flagSave();
-            team.createTeamLog(new TeamDTRChangeLog(previousDTR, team.getDeathsUntilRaidable(), combatLogger.getOwner(), TeamDTRChangeLog.ChangeCause.LOGGER_DEATH));
         }
 
         if (killer != null) {
-            Team killerTeam = LegendBukkit.getInstance().getTeamHandler().getTeam(killer).orElse(null);
-
-            if (killerTeam != null) {
-                killerTeam.setPoints(killerTeam.getPoints() + LegendBukkit.getInstance().getSettings().getInt("points.kill"), killer.getUniqueId(), TeamPointsChangeLog.ChangeCause.KILL);
-            }
-
+            LegendBukkit.getInstance().getTeamHandler().getTeam(killer).ifPresent(killerTeam -> killerTeam.setPoints(
+                    killerTeam.getPoints() + SettingsConfig.POINTS_KILL.getInt(),
+                    killer.getUniqueId(),
+                    TeamPointsChangeLog.ChangeCause.LOGGER_KILL
+            ));
         }
 
         Rollback.getInstance().getRollbackAPI().applyDeath(

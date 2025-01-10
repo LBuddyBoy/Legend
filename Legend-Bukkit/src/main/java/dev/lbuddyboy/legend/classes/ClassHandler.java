@@ -3,15 +3,15 @@ package dev.lbuddyboy.legend.classes;
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.classes.impl.ArcherClass;
-import dev.lbuddyboy.legend.classes.impl.BardClass;
-import dev.lbuddyboy.legend.classes.impl.MinerClass;
-import dev.lbuddyboy.legend.classes.impl.RogueClass;
+import dev.lbuddyboy.legend.SettingsConfig;
+import dev.lbuddyboy.legend.classes.impl.*;
 import dev.lbuddyboy.legend.classes.listener.PvPClassListener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,18 +20,17 @@ public class ClassHandler implements IModule {
 
     private List<PvPClass> classes;
     private Map<UUID, PvPClass> activeClasses;
+    private File directory;
 
     @Override
     public void load() {
         this.activeClasses = new ConcurrentHashMap<>();
         this.classes = new ArrayList<>();
 
-        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.miner.enabled")) this.classes.add(new MinerClass());
-        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.bard.enabled")) this.classes.add(new BardClass());
-        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.archer.enabled")) this.classes.add(new ArcherClass());
-        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.rogue.enabled")) this.classes.add(new RogueClass());
+        this.directory = new File(LegendBukkit.getInstance().getDataFolder(), "classes");
+        if (!this.directory.exists()) this.directory.mkdir();
 
-        this.classes.forEach(c -> LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(c, LegendBukkit.getInstance()));
+        reload();
 
         Tasks.runTimer(() -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
@@ -60,6 +59,21 @@ public class ClassHandler implements IModule {
         }, 5, 5);
 
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new PvPClassListener(), LegendBukkit.getInstance());
+    }
+
+    @Override
+    public void reload() {
+        this.classes.forEach(HandlerList::unregisterAll);
+        this.classes.clear();
+
+        new MinerClass();
+        new BardClass();
+        new ArcherClass();
+        new RogueClass();
+        new HunterClass();
+        new DiverClass();
+
+        this.classes.forEach(c -> LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(c, LegendBukkit.getInstance()));
     }
 
     @Override

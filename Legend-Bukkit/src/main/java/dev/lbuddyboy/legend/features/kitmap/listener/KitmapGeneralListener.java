@@ -1,6 +1,7 @@
 package dev.lbuddyboy.legend.features.kitmap.listener;
 
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.team.model.TeamType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,7 @@ public class KitmapGeneralListener implements Listener {
     public void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
 
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("kitmap.enabled")) return;
+        if (!SettingsConfig.KITMAP_ENABLED.getBoolean()) return;
         if (!TeamType.SPAWN.appliesAt(player.getLocation())) return;
 
         event.setCancelled(true);

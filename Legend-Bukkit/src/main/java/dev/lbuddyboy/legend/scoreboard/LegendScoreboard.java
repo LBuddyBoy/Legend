@@ -5,10 +5,16 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.events.Events;
 import dev.lbuddyboy.events.IEvent;
 import dev.lbuddyboy.events.citadel.Citadel;
+import dev.lbuddyboy.events.conquest.Conquest;
+import dev.lbuddyboy.events.ctp.CaptureThePoint;
+import dev.lbuddyboy.events.dps.DPS;
 import dev.lbuddyboy.events.dtc.DTC;
 import dev.lbuddyboy.events.koth.KoTH;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.classes.impl.BardClass;
+import dev.lbuddyboy.legend.features.settings.Setting;
+import dev.lbuddyboy.legend.team.model.Team;
+import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.timer.PlayerTimer;
 import dev.lbuddyboy.legend.timer.ServerTimer;
 import dev.lbuddyboy.legend.timer.server.SOTWTimer;
@@ -29,7 +35,7 @@ public class LegendScoreboard implements ScoreboardImpl {
 
     @Override
     public int getWeight() {
-        return 100;
+        return 5000;
     }
 
     @Override
@@ -46,18 +52,27 @@ public class LegendScoreboard implements ScoreboardImpl {
     public List<String> getLines(Player player) {
         List<String> lines = new ArrayList<>(), toReturn = new ArrayList<>();
         LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
-        List<KoTH> koths = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof KoTH).map(e -> ((KoTH)e)).filter(IEvent::isActive).collect(Collectors.toList());
-        List<DTC> dtcs = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof DTC).map(e -> ((DTC)e)).filter(IEvent::isActive).collect(Collectors.toList());
-        List<Citadel> citadels = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof Citadel).map(e -> ((Citadel)e)).filter(IEvent::isActive).collect(Collectors.toList());
+        List<KoTH> koths = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof KoTH).map(e -> ((KoTH) e)).filter(IEvent::isActive).collect(Collectors.toList());
+        List<CaptureThePoint> ctps = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof CaptureThePoint).map(e -> ((CaptureThePoint) e)).filter(IEvent::isActive).collect(Collectors.toList());
+        List<DTC> dtcs = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof DTC).map(e -> ((DTC) e)).filter(IEvent::isActive).collect(Collectors.toList());
+        List<Citadel> citadels = Events.getInstance().getEvents().values().stream().filter(e -> e instanceof Citadel).map(e -> ((Citadel) e)).filter(IEvent::isActive).collect(Collectors.toList());
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player.getUniqueId()).orElse(null);
 
         if (user.isDeathBanned()) {
             lines.addAll(LegendBukkit.getInstance().getScoreboard().getStringList("deathban"));
         } else {
+            if (Setting.SCOREBOARD_CLAIM_AT.isToggled(player)) {
+                if (LegendBukkit.getInstance().getScoreboard().getBoolean("claim.enabled")) {
+                    lines.addAll(LegendBukkit.getInstance().getScoreboard().getStringList("claim.lines"));
+                }
+            }
+
             for (PlayerTimer timer : LegendBukkit.getInstance().getTimerHandler().getScoreboardTimers()) {
                 if (!timer.isActive(player.getUniqueId())) continue;
 
                 lines.add(timer.format(player.getUniqueId(), LegendBukkit.getInstance().getScoreboard().getString("timer-format")));
             }
+
             for (ServerTimer timer : LegendBukkit.getInstance().getTimerHandler().getScoreboardServerTimers()) {
                 if (!timer.isActive()) continue;
 
@@ -83,17 +98,48 @@ public class LegendScoreboard implements ScoreboardImpl {
 
             for (String s : LegendBukkit.getInstance().getScoreboard().getStringList("koth")) {
                 lines.add(koTH.applyPlaceHolders(s
-                        .replaceAll("%name%", koTH.getName())
+                        .replaceAll("%name%", koTH.getDisplayName())
                 ));
             }
         }
 
+        if (!ctps.isEmpty()) {
+            CaptureThePoint ctp = ctps.getFirst();
+            String tickets = team == null ? "" : "&9[" + ctp.getTickets().getOrDefault(team.getId(), 0) + "]";
+
+            if (ctp.getTickets().isEmpty()) {
+                for (String s : LegendBukkit.getInstance().getScoreboard().getStringList("ctp_no_capper")) {
+                    lines.add(ctp.applyPlaceHolders(s
+                            .replaceAll("%name%", ctp.getDisplayName())
+                            .replaceAll("%display_tickets%", tickets)
+                            .replaceAll("%tickets%", String.valueOf((team == null ? 0 : ctp.getTickets().getOrDefault(team.getId(), 0))))
+                    ));
+                }
+            } else if (ctp.isContested()) {
+                for (String s : LegendBukkit.getInstance().getScoreboard().getStringList("ctp_contested")) {
+                    lines.add(ctp.applyPlaceHolders(s
+                            .replaceAll("%name%", ctp.getDisplayName())
+                            .replaceAll("%display_tickets%", tickets)
+                            .replaceAll("%tickets%", String.valueOf((team == null ? 0 : ctp.getTickets().getOrDefault(team.getId(), 0))))
+                    ));
+                }
+            } else {
+                for (String s : LegendBukkit.getInstance().getScoreboard().getStringList("ctp")) {
+                    lines.add(ctp.applyPlaceHolders(s
+                            .replaceAll("%name%", ctp.getDisplayName())
+                            .replaceAll("%display_tickets%", tickets)
+                            .replaceAll("%tickets%", String.valueOf((team == null ? 0 : ctp.getTickets().getOrDefault(team.getId(), 0))))
+                    ));
+                }
+            }
+        }
+
         if (!dtcs.isEmpty()) {
-            DTC dtc = dtcs.get(0);
+            DTC dtc = dtcs.getFirst();
 
             for (String s : LegendBukkit.getInstance().getScoreboard().getStringList("dtc")) {
                 lines.add(dtc.applyPlaceHolders(s
-                        .replaceAll("%name%", dtc.getName())
+                        .replaceAll("%name%", dtc.getDisplayName())
                 ));
             }
         }
@@ -105,6 +151,28 @@ public class LegendScoreboard implements ScoreboardImpl {
                 lines.add(citadel.applyPlaceHolders(s
                         .replaceAll("%name%", citadel.getName())
                 ));
+            }
+        }
+
+        Conquest conquest = Events.getInstance().getConquest();
+
+        if (conquest.isActive()) {
+            lines.addAll(LegendBukkit.getInstance().getScoreboard().getStringList("conquest").stream().map(conquest::applyPlaceHolders).toList());
+        }
+
+        DPS dps = Events.getInstance().getDps();
+
+        if (dps.isActive()) {
+            lines.addAll(LegendBukkit.getInstance().getScoreboard().getStringList("dps").stream().map(dps::applyPlaceHolders).toList());
+        }
+
+        if (team != null && team.getFocusedTeam() != null) {
+            if (!lines.isEmpty()) lines.add(" ");
+
+            if (team.getFocusedTeam().getTeamType() == TeamType.PLAYER) {
+                lines.addAll(LegendBukkit.getInstance().getScoreboard().getStringList("player_focus").stream().map(s -> team.getFocusedTeam().applyPlaceholders(s, player)).toList());
+            } else {
+                lines.addAll(LegendBukkit.getInstance().getScoreboard().getStringList("system_focus").stream().map(s -> team.getFocusedTeam().applyPlaceholders(s, player)).toList());
             }
         }
 

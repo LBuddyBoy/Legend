@@ -2,6 +2,8 @@ package dev.lbuddyboy.legend.timer.server;
 
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.api.PlayerClaimChangeEvent;
+import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.timer.ServerTimer;
 import dev.lbuddyboy.legend.util.BukkitUtil;
@@ -12,6 +14,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -46,7 +50,8 @@ public class SOTWTimer extends ServerTimer {
             return;
         }
 
-        if (this.enabledPlayers.contains(victim.getUniqueId()) && this.enabledPlayers.contains(damager.getUniqueId())) return;
+        if (this.enabledPlayers.contains(victim.getUniqueId()) && this.enabledPlayers.contains(damager.getUniqueId()))
+            return;
 
         event.setCancelled(true);
     }
@@ -71,12 +76,54 @@ public class SOTWTimer extends ServerTimer {
         event.setCancelled(true);
     }
 
+    @EventHandler
+    public void onClaimChange(PlayerClaimChangeEvent event) {
+        Team toTeam = event.getToTeam(), fromTeam = event.getFromTeam();
+        Player player = event.getPlayer();
+
+        if (!isActive()) return;
+
+        if (fromTeam != null && (toTeam == null || toTeam.getTeamType() != TeamType.SPAWN)) {
+            for (Player other : Bukkit.getOnlinePlayers()) {
+                other.showPlayer(LegendBukkit.getInstance(), player);
+            }
+        }
+
+        if (toTeam != null && toTeam.getTeamType() == TeamType.SPAWN) {
+            for (Player other : Bukkit.getOnlinePlayers()) {
+                other.hidePlayer(LegendBukkit.getInstance(), player);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        if (!isActive()) return;
+
+        for (Player other : Bukkit.getOnlinePlayers()) {
+            if (TeamType.SPAWN.appliesAt(player.getLocation())) {
+                other.hidePlayer(LegendBukkit.getInstance(), player);
+                continue;
+            }
+            if (!TeamType.SPAWN.appliesAt(other.getLocation())) continue;
+
+            player.hidePlayer(LegendBukkit.getInstance(), other);
+        }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+
+    }
+
     public boolean isEnabled(UUID playerUUID) {
         return this.enabledPlayers.contains(playerUUID);
     }
 
     public boolean isEnabled(Player player) {
-        return isEnabled(player.getUniqueId());
+        return isActive() && isEnabled(player.getUniqueId());
     }
 
     @Override
@@ -93,15 +140,26 @@ public class SOTWTimer extends ServerTimer {
 
             @Override
             public void run() {
+                if (isActive()) return;
+
                 LegendBukkit.getInstance().getLanguage().getStringList("sotw.ended").forEach(s -> Bukkit.broadcastMessage(CC.translate(s)));
+                end();
             }
 
-        }.runTaskLater(LegendBukkit.getInstance(), 20 * (duration / 1000L));
+        }.runTaskTimer(LegendBukkit.getInstance(), 20, 20L);
     }
 
     @Override
     public void end() {
         super.end();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player other : Bukkit.getOnlinePlayers()) {
+                if (!TeamType.SPAWN.appliesAt(other.getLocation())) continue;
+
+                player.showPlayer(LegendBukkit.getInstance(), other);
+            }
+        }
 
         if (this.endTask != null) {
             this.endTask.cancel();

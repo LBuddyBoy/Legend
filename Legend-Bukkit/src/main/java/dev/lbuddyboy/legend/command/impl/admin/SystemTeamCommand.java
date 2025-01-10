@@ -37,7 +37,7 @@ public class SystemTeamCommand extends BaseCommand {
             return;
         }
 
-        this.teamHandler.createTeam(name, null, type).createTeamLog(new TeamCreationLog(sender.getUniqueId()));
+        this.teamHandler.createTeam(name, null, type);
         sender.sendMessage(CC.translate("<blend:&6;&e>&lSYSTEM TEAM</> &7» &aSuccessfully created '" + name + "' with the team type of " + type.name() + "!"));
     }
 

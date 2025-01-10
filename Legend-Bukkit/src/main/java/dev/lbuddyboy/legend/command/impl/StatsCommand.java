@@ -2,6 +2,7 @@ package dev.lbuddyboy.legend.command.impl;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.annotation.Optional;
 import dev.lbuddyboy.api.user.model.User;
 import dev.lbuddyboy.api.user.model.UserMetadata;
 import dev.lbuddyboy.arrow.Arrow;
@@ -11,16 +12,18 @@ import dev.lbuddyboy.commons.api.util.TimeUtils;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
+import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import dev.lbuddyboy.legend.util.UUIDUtils;
+import dev.lbuddyboy.rollback.Rollback;
+import dev.lbuddyboy.rollback.rollback.PlayerDeath;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @CommandAlias("stats")
@@ -35,6 +38,84 @@ public class StatsCommand extends BaseCommand {
 		LegendBukkit.getInstance().getLanguage().getStringList("leaderboards.stats").forEach(s -> {
 			sender.sendMessage(CC.translate(user.applyPlaceholders(s)));
 		});
+	}
+
+	@Subcommand("admin realkills")
+	@CommandPermission("legend.command.stats.update")
+	@CommandCompletion("@players")
+	public void realkills(CommandSender sender, @Name("player") UUID player) {
+		Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player).orElse(null);
+
+		if (team == null) {
+			return;
+		}
+
+		sender.sendMessage(CC.translate("&aLoading " + UUIDUtils.name(player) + "'s kill report..."));
+
+		Rollback.getInstance().getRollbackHandler().getKills(player).whenCompleteAsync((kills, throwable) -> {
+			if (throwable != null) {
+				throwable.printStackTrace();
+				return;
+			}
+
+			int totalKills = kills.size();
+			Map<UUID, Integer> dupesFound = new HashMap<>();
+			Map<UUID, Integer> historicalMembersFound = new HashMap<>();
+
+			for (int index = 0; index < kills.size(); index++) {
+				PlayerDeath currentDeath = kills.get(index);
+				int countedDupes = 1;
+
+				if (team.getHistoricalMembers().stream().anyMatch(historicalMember -> historicalMember.getPlayerUUID().equals(currentDeath.getVictim()))) {
+					historicalMembersFound.put(currentDeath.getVictim(), historicalMembersFound.getOrDefault(currentDeath.getVictim(), 0) + 1);
+				}
+
+				for (int nextIndex = index; nextIndex <= kills.size(); nextIndex++) {
+					PlayerDeath nextDeath = kills.get(nextIndex);
+
+					if (!nextDeath.getVictim().equals(currentDeath.getVictim())) break;
+
+					countedDupes++;
+					index++;
+				}
+
+				if (countedDupes > 2) {
+					totalKills -= countedDupes;
+				}
+
+				if (countedDupes == 1) continue;
+
+				dupesFound.put(currentDeath.getVictim(), dupesFound.getOrDefault(currentDeath.getVictim(), 0) + countedDupes);
+			}
+
+			int historicalMemberSum = historicalMembersFound.values()
+					.stream()
+					.mapToInt(Integer::intValue)
+					.sum();
+
+			sender.sendMessage(" ");
+			sender.sendMessage(CC.translate("&d&l" + UUIDUtils.name(player) + "'s Kill Report"));
+			sender.sendMessage(CC.translate("&fTotal Kills&7: &e" + kills.size()));
+			sender.sendMessage(CC.translate("&fReal Kills&7: &e" + totalKills));
+			sender.sendMessage(CC.translate("&fHistorical Member Kills&7: &e" + historicalMemberSum));
+			sender.sendMessage(" ");
+			sender.sendMessage(CC.translate("&d&lHistorical Member Summary"));
+			if (historicalMembersFound.isEmpty()) {
+				sender.sendMessage(CC.translate("&cNone"));
+			} else {
+				historicalMembersFound.forEach((uuid, value) -> sender.sendMessage(CC.translate("&e" + UUIDUtils.name(uuid) + "&7: &c" + value)));
+			}
+			sender.sendMessage(" ");
+			sender.sendMessage(CC.translate("&d&lDupe Kill Summary"));
+			if (dupesFound.isEmpty()) {
+				sender.sendMessage(CC.translate("&cNone"));
+			} else {
+				dupesFound.forEach((uuid, value) -> sender.sendMessage(CC.translate("&e" + UUIDUtils.name(uuid) + "&7: &c" + value)));
+			}
+			sender.sendMessage(" ");
+
+		});
+
 	}
 
 	@Subcommand("admin setkills")
@@ -122,7 +203,7 @@ public class StatsCommand extends BaseCommand {
 
 		List<OfflinePlayer> players = Arrays.asList(Bukkit.getOfflinePlayers());
 		long startedAt = System.currentTimeMillis();
-		String serverName = LegendBukkit.getInstance().getSettings().getString("server.name");
+		String serverName = SettingsConfig.SETTINGS_SERVER_NAME.getString();
 
 		Tasks.runAsync(() -> {
 			for (OfflinePlayer player : players) {

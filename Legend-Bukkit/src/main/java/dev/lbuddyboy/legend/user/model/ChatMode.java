@@ -5,11 +5,10 @@ import dev.lbuddyboy.api.user.model.User;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.leaderboard.impl.KillLeaderBoardStat;
-import dev.lbuddyboy.legend.settings.Setting;
+import dev.lbuddyboy.legend.features.settings.Setting;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamMember;
 import dev.lbuddyboy.legend.team.model.TeamRole;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -35,7 +34,7 @@ public enum ChatMode {
                 ChatColor chatColor = ChatColor.valueOf(user.getChatColor());
                 String fancyPlace = LegendBukkit.getInstance().getLeaderBoardHandler().getFancyPlace(player.getUniqueId(), KillLeaderBoardStat.class);
 
-                String prefix = fancyPlace;
+                String prefix = "";
 
                 prefix += teamOpt.map(team -> CC.translate("&6[" + team.getName(receiver) + "&6] ")).orElse("");
                 prefix += CC.translate(user.getDisplayName());
@@ -57,7 +56,7 @@ public enum ChatMode {
 
         return teamOpt.map(Team::getOnlinePlayers).orElse(Collections.emptyList());
     }), ((event, receiver) -> CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.chat.team-format")
-            .replaceAll("%player%", event.getPlayer().getName())
+            .replaceAll("%player%", LegendBukkit.getInstance().getTeamHandler().getTeam(event.getPlayer()).map(team -> team.getMember(event.getPlayer().getUniqueId()).get().getDisplayName()).orElse(event.getPlayer().getName()))
             .replaceAll("%message%", CC.stripColor(event.getMessage())
             )))
     ),

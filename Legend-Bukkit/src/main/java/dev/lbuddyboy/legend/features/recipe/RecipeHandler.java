@@ -2,6 +2,8 @@ package dev.lbuddyboy.legend.features.recipe;
 
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
+import dev.lbuddyboy.legend.classes.impl.RogueClass;
 import dev.lbuddyboy.legend.features.recipe.impl.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -40,7 +42,7 @@ public class RecipeHandler implements IModule {
 
             if (item == null || item.getType() == Material.AIR) continue;
 
-            if (!LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false)) {
+            if (!SettingsConfig.SETTINGS_UHC_MODE.getBoolean()) {
                 if (item.getType() == Material.GLISTERING_MELON_SLICE) recipeIterator.remove();
             }
 
@@ -51,14 +53,14 @@ public class RecipeHandler implements IModule {
 
         }
 
-        if (LegendBukkit.getInstance().getSettings().getBoolean("classes.rogue.enabled", true)) {
+        if (LegendBukkit.getInstance().getClassHandler().getClass(RogueClass.class) != null) {
             this.recipes.put("chainmail_helmet", new ChainmailHelmet());
             this.recipes.put("chainmail_chestplate", new ChainmailChestplate());
             this.recipes.put("chainmail_leggings", new ChainmailLeggings());
             this.recipes.put("chainmail_boots", new ChainmailBoots());
         }
 
-        if (LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false)) {
+        if (SettingsConfig.SETTINGS_UHC_MODE.getBoolean()) {
             this.recipes.put("golden_head", new GoldenHead());
             this.recipes.put("player_head", new PlayerHead());
         } else {

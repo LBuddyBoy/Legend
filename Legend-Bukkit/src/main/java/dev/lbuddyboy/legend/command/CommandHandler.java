@@ -8,8 +8,10 @@ import dev.lbuddyboy.arrow.command.context.TimeDurationContext;
 import dev.lbuddyboy.arrow.command.context.UUIDContext;
 import dev.lbuddyboy.commons.api.util.IModule;
 import dev.lbuddyboy.commons.api.util.TimeDuration;
+import dev.lbuddyboy.commons.util.ItemUtils;
 import dev.lbuddyboy.commons.util.ShortPrice;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.command.completion.PlayTimeGoalCommandsCompletion;
 import dev.lbuddyboy.legend.command.completion.TeamCompletion;
 import dev.lbuddyboy.legend.command.completion.TeamInvitationsCompletion;
@@ -18,6 +20,7 @@ import dev.lbuddyboy.legend.command.context.*;
 import dev.lbuddyboy.legend.command.impl.*;
 import dev.lbuddyboy.legend.command.impl.admin.*;
 import dev.lbuddyboy.legend.command.topic.LegendHelpTopic;
+import dev.lbuddyboy.legend.features.gateways.model.Gateway;
 import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
 import dev.lbuddyboy.legend.features.leaderboard.ILeaderBoardStat;
 import dev.lbuddyboy.legend.features.playtime.model.PlayTimeGoal;
@@ -42,11 +45,14 @@ import java.util.stream.Collectors;
 @Getter
 public class CommandHandler implements IModule {
 
-    private PaperCommandManager commandManager;
+    private final PaperCommandManager commandManager;
+
+    public CommandHandler() {
+        this.commandManager = new PaperCommandManager(LegendBukkit.getInstance());
+    }
 
     @Override
     public void load() {
-        this.commandManager = new PaperCommandManager(LegendBukkit.getInstance());
         this.commandManager.enableUnstableAPI("help");
 
         this.commandManager.getCommandCompletions().registerCompletion("teams", new TeamCompletion("all"));
@@ -58,6 +64,7 @@ public class CommandHandler implements IModule {
         this.commandManager.getCommandCompletions().registerCompletion("playTimeGoalCommands", new PlayTimeGoalCommandsCompletion());
         this.commandManager.getCommandCompletions().registerCompletion("teamTypes", (ctx) -> Arrays.stream(TeamType.values()).map(Enum::name).collect(Collectors.toList()));
         this.commandManager.getCommandCompletions().registerCompletion("teamRoles", (ctx) -> Arrays.stream(TeamRole.values()).map(Enum::name).collect(Collectors.toList()));
+        this.commandManager.getCommandCompletions().registerCompletion("gateways", (ctx) -> LegendBukkit.getInstance().getGatewayHandler().getGateways().keySet());
         this.commandManager.getCommandCompletions().registerCompletion("playerTimers", (ctx) -> LegendBukkit.getInstance().getTimerHandler().getTimers().stream().map(PlayerTimer::getId).collect(Collectors.toList()));
         this.commandManager.getCommandCompletions().registerCompletion("playTimeGoals", (ctx) -> LegendBukkit.getInstance().getPlayTimeGoalHandler().getPlayTimeGoals().keySet());
         this.commandManager.getCommandCompletions().registerCompletion("leaderboard-types", c -> LegendBukkit.getInstance().getLeaderBoardHandler().getLeaderBoardStats().stream().map(ILeaderBoardStat::getId).collect(Collectors.toList()));
@@ -72,6 +79,7 @@ public class CommandHandler implements IModule {
 
         this.commandManager.getCommandContexts().registerContext(AbstractRecipe.class, new AbstractRecipeContext());
         this.commandManager.getCommandContexts().registerContext(Kit.class, new KitContext());
+        this.commandManager.getCommandContexts().registerContext(Gateway.class, new GatewayContext());
         this.commandManager.getCommandContexts().registerContext(PlayTimeGoal.class, new PlayTimeGoalContext());
         this.commandManager.getCommandContexts().registerContext(Team.class, new TeamContext());
         this.commandManager.getCommandContexts().registerContext(TeamMember.class, new TeamMemberContext());
@@ -81,6 +89,20 @@ public class CommandHandler implements IModule {
         this.commandManager.getCommandContexts().registerContext(ShortPrice.class, new ShortPriceContext());
         this.commandManager.getCommandContexts().registerContext(ChatMode.class, (s) -> ChatMode.findMode(s.popFirstArg()));
 
+        this.commandManager.registerCommand(new EOTWCommand());
+        this.commandManager.registerCommand(new HomeCommand());
+        this.commandManager.registerCommand(new FixCommand());
+        this.commandManager.registerCommand(new LootTablesCommand());
+        this.commandManager.registerCommand(new PlayTimeRewardsCommand());
+        this.commandManager.registerCommand(new GeneratorCommand());
+        this.commandManager.registerCommand(new ChatGameCommand());
+        this.commandManager.registerCommand(new EnderDragonCommand());
+        this.commandManager.registerCommand(new FocusCommand());
+        this.commandManager.registerCommand(new GatewayCommand());
+        this.commandManager.registerCommand(new EffectCommand());
+        this.commandManager.registerCommand(new TutorialCommand());
+        this.commandManager.registerCommand(new TeamLocationCommand());
+        this.commandManager.registerCommand(new LootHillCommand());
         this.commandManager.registerCommand(new CobbleCommand());
         this.commandManager.registerCommand(new ScheduleCommand());
         this.commandManager.registerCommand(new TrashCommand());
@@ -104,17 +126,28 @@ public class CommandHandler implements IModule {
         this.commandManager.registerCommand(new SystemTeamCommand());
         this.commandManager.registerCommand(new SettingsCommand());
         this.commandManager.registerCommand(new LegendCommand());
+        this.commandManager.registerCommand(new PingCommand());
+        this.commandManager.registerCommand(new HelpCommand());
+        this.commandManager.registerCommand(new EndPortalCommand());
+        this.commandManager.registerCommand(new DesertCommand());
+        this.commandManager.registerCommand(new ReviveCommand());
+        this.commandManager.registerCommand(new OreMountainCommand());
 
-        if (LegendBukkit.getInstance().getSettings().getBoolean("server.deathbans", true)) {
+        if (!SettingsConfig.SETTINGS_DISABLE_END_CRYSTALS.getBoolean()) {
+            this.commandManager.registerCommand(new CrystalShopCommand());
+            this.commandManager.registerCommand(new CrystalCommand());
+        }
+
+        if (SettingsConfig.SETTINGS_DEATHBANS.getBoolean()) {
             this.commandManager.registerCommand(new LivesCommand());
             this.commandManager.registerCommand(new DeathbanCommand());
         }
 
-        if (LegendBukkit.getInstance().getSettings().getBoolean("kitmap.enabled", true)) {
+        if (SettingsConfig.KITMAP_ENABLED.getBoolean()) {
             this.commandManager.registerCommand(new KillStreakCommand());
         }
 
-        Bukkit.getHelpMap().registerHelpTopicFactory(BukkitRootCommand.class, (command) -> new LegendHelpTopic(this.commandManager, (BukkitRootCommand) command));
+//        Bukkit.getHelpMap().registerHelpTopicFactory(BukkitRootCommand.class, (command) -> new LegendHelpTopic(this.commandManager, (BukkitRootCommand) command));
 
     }
 

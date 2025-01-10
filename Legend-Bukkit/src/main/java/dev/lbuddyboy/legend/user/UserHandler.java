@@ -79,12 +79,6 @@ public class UserHandler implements IModule {
         this.collection = LegendBukkit.getInstance().getMongoHandler().getDatabase().getCollection("Users");
         this.npcUser = new LegendUser(UUID.randomUUID(), "NPCProfile123456789");
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            LegendUser user = getUser(player.getUniqueId());
-
-            user.setJoinedAt(System.currentTimeMillis());
-        }
-
         LegendBukkit.getInstance().getServer().getPluginManager().registerEvents(new UserListener(), LegendBukkit.getInstance());
     }
 

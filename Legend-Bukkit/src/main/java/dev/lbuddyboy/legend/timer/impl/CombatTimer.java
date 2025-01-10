@@ -2,18 +2,22 @@ package dev.lbuddyboy.legend.timer.impl;
 
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.api.PlayerClaimChangeEvent;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.timer.PlayerTimer;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityToggleGlideEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -64,6 +68,24 @@ public class CombatTimer extends PlayerTimer {
         messageDelay.remove(player.getUniqueId());
     }
 
+    @EventHandler
+    public void onElytra(EntityToggleGlideEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        if (!isActive(player.getUniqueId())) return;
+
+        event.setCancelled(true);
+        player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("combat-tagged.denied")));
+    }
+
+    @EventHandler
+    public void onElytraFly(EntityToggleGlideEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        if (!event.isGliding()) return;
+        if (!player.getLocation().getBlock().getRelative(BlockFace.DOWN, 3).getType().isSolid()) return;
+
+        event.setCancelled(true);
+    }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDeath(PlayerDeathEvent event) {
         messageDelay.remove(event.getEntity().getUniqueId());
@@ -73,6 +95,23 @@ public class CombatTimer extends PlayerTimer {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         messageDelay.remove(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void onCommandPreProcess(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+
+        if (player.isOp()) return;
+        if (!isActive(player.getUniqueId())) return;
+
+        for (String command : SettingsConfig.DISALLOWED_COMBAT_COMMANDS.getStringList()) {
+            if (message.toLowerCase().startsWith(command.toLowerCase())) {
+                event.setCancelled(true);
+                player.sendMessage(CC.translate("&cYou cannot do this command whilst combat tagged."));
+                return;
+            }
+        }
     }
 
 }

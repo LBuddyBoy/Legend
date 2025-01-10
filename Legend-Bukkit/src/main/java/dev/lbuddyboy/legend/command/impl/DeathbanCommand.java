@@ -3,6 +3,8 @@ package dev.lbuddyboy.legend.command.impl;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.annotation.HelpCommand;
+import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import dev.lbuddyboy.arrow.packet.GlobalMessagePacket;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemUtils;
@@ -54,24 +56,9 @@ public class DeathbanCommand extends BaseCommand {
     }
 
     @Subcommand("revive")
+    @CommandCompletion("@players")
     public void revive(CommandSender sender, @Name("target") OfflinePlayer player) {
-        String name = sender instanceof Player ? ((Player)sender).getName() : "&4&lCONSOLE";
-        LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
-
-        user.removeTimer("deathban");
-        user.save(true);
-
-        new GlobalMessagePacket(player.getUniqueId(), CC.translate(LegendBukkit.getInstance().getLanguage().getString("deathban.revived.other")
-                .replaceAll("%sender%", name)
-        )).send();
-
-        if (player.isOnline() && player.getPlayer() != null) {
-            LegendBukkit.getInstance().getDeathbanHandler().handleRevive(player.getPlayer());
-        }
-
-        sender.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("deathban.revived.sender")
-                .replaceAll("%target%", player.getName())
-        ));
+        LivesCommand.revive(sender, player);
     }
 
     @Subcommand("safezone clear")
@@ -112,6 +99,12 @@ public class DeathbanCommand extends BaseCommand {
         LegendBukkit.getInstance().getDeathbanHandler().getConfig().set("safezone.b", LocationUtils.serializeString(sender.getLocation()));
         LegendBukkit.getInstance().getDeathbanHandler().getConfig().save();
         sender.sendMessage(CC.translate("&a[Deathban Arena] Successfully setup point 'b' for the deathban arena."));
+    }
+
+    @Subcommand("ban")
+    @CommandPermission("legend.command.deathban.admin")
+    public void ban(Player sender, @Name("player") OnlinePlayer player) {
+        LegendBukkit.getInstance().getDeathbanHandler().handleDeathban(player.getPlayer(), true);
     }
 
 }

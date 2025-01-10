@@ -7,6 +7,7 @@ import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.features.leaderboard.impl.*;
 import dev.lbuddyboy.legend.features.leaderboard.model.LeaderBoardHologram;
 import dev.lbuddyboy.legend.features.leaderboard.model.RotatingHologram;
+import dev.lbuddyboy.legend.util.UUIDUtils;
 import lombok.Getter;
 
 import java.util.*;
@@ -29,17 +30,7 @@ public class LeaderBoardHandler implements IModule {
     @Override
     public void load() {
         this.lastUpdated = System.currentTimeMillis();
-        this.config = new Config(LegendBukkit.getInstance(), "leaderboards");
-
-        this.leaderBoardStats.addAll(Arrays.asList(
-                new KillLeaderBoardStat(),
-                new DeathLeaderBoardStat(),
-                new MoneyLeaderBoardStat(),
-                // new KDRLeaderBoardStat(),
-                // new KillStreakLeaderBoardStat(),
-                new HighestKillStreakLeaderBoardStat(),
-                new PlayTimeLeaderBoardStat()
-        ));
+        reload();
 
         this.rotatingHologram = new RotatingHologram(LocationUtils.deserializeString(config.getString("rotating-hologram", "world;0;100;0;0;0;")));
 
@@ -68,20 +59,38 @@ public class LeaderBoardHandler implements IModule {
          * Preload player heads bc it lags so bad for some reason
          */
 
-        for (ILeaderBoardStat stat : this.leaderBoardStats) {
-            LeaderboardDataEntry leaderboardDataEntry = LegendBukkit.getInstance().getDataEntry(stat.getId());
-            List<Map.Entry<UUID, Integer>> users = leaderboardDataEntry.getLeaderBoards().entrySet().stream()
-                    .sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
-                    .limit(10)
-                    .toList();
+        Tasks.runAsync(() -> {
+            for (ILeaderBoardStat stat : this.leaderBoardStats) {
+                LeaderboardDataEntry leaderboardDataEntry = LegendBukkit.getInstance().getDataEntry(stat.getId());
+                List<Map.Entry<UUID, Integer>> users = leaderboardDataEntry.getLeaderBoards().entrySet().stream()
+                        .sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
+                        .limit(10)
+                        .toList();
 
-            users.forEach(e -> new ItemFactory(e.getKey()).build());
-        }
+                users.forEach(e -> {
+                    new ItemFactory(e.getKey()).build();
+                    LegendBukkit.getInstance().getLogger().info("Pre-Loading leaderboard head texture for " + UUIDUtils.name(e.getKey()) + " for " + leaderboardDataEntry.getId() + "");
+                });
+            }
+        });
     }
 
     @Override
     public void unload() {
 
+    }
+
+    @Override
+    public void reload() {
+        this.config = new Config(LegendBukkit.getInstance(), "leaderboards");
+        this.leaderBoardStats.clear();
+        this.leaderBoardStats.addAll(Arrays.asList(
+                new KillLeaderBoardStat(),
+                new DeathLeaderBoardStat(),
+                new MoneyLeaderBoardStat(),
+                new HighestKillStreakLeaderBoardStat(),
+                new PlayTimeLeaderBoardStat()
+        ));
     }
 
     public <T extends ILeaderBoardStat> List<Map.Entry<UUID, Integer>> getLeaderBoard(Class<T> clazz) {

@@ -33,6 +33,8 @@ public class ClaimBorderView {
         Iterator<Location> iterator = this.blockChanges.iterator();
         while (iterator.hasNext()) {
             Location location = iterator.next();
+            if (!location.getWorld().equals(player.getWorld())) break;
+
             if (getClaimWall() != null) {
                 if (location.distanceSquared(player.getLocation()) <= ClaimBorderThread.REGION_DISTANCE_SQUARED) {
                     continue;
@@ -48,8 +50,6 @@ public class ClaimBorderView {
         ClaimBorder wall = getClaimWall();
 
         if (wall == null) return;
-
-        LegendBukkit.getInstance().getLogger().info(" ");
 
         Cuboid.BorderIterator iterator = cuboid.borderIterator();
 

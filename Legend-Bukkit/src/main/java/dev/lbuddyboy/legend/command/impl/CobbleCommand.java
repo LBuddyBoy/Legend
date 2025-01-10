@@ -2,14 +2,11 @@ package dev.lbuddyboy.legend.command.impl;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
-import dev.lbuddyboy.legend.settings.Setting;
-import dev.lbuddyboy.legend.user.model.LegendUser;
+import dev.lbuddyboy.legend.features.settings.Setting;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 @CommandAlias("cobble|cobblestone")
 public class CobbleCommand extends BaseCommand {

@@ -4,8 +4,11 @@ import dev.lbuddyboy.commons.api.APIConstants;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.LegendConstants;
+import dev.lbuddyboy.legend.team.listener.TeamClaimListener;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -18,6 +21,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import java.util.List;
 
 public class BufferListener implements Listener {
 
@@ -103,12 +108,19 @@ public class BufferListener implements Listener {
             }
         }
 
+        List<LivingEntity> entities = TeamClaimListener.getEntities(player);
+        for (LivingEntity entity : entities) {
+            if (!TeamClaimListener.getLookingAt(player, entity)) continue;
+            if (entity instanceof Cow) return;
+        }
+
         event.setCancelled(true);
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("buffer.cant-place")
                 .replaceAll("%buffer%", APIConstants.formatNumber(LegendConstants.getBuffer(block.getWorld())))
         ));
     }
 
+/*
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent event) {
         Block clicked = event.getClickedBlock();
@@ -125,7 +137,7 @@ public class BufferListener implements Listener {
         player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("buffer.cant-interact")
                 .replaceAll("%buffer%", APIConstants.formatNumber(LegendConstants.getBuffer(clicked.getWorld())))
         ));
-    }
+    }*/
 
     @EventHandler
     public void onBlockChange(BlockFadeEvent event) {

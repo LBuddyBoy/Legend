@@ -25,9 +25,9 @@ public class CrappleTimer extends PlayerTimer {
     public void onConsume(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
-        if (item == null) return;
+
         if (item.getType() != Material.GOLDEN_APPLE) return;
-        if (item.getDurability() != 0) return;
+
         if (!isActive(player.getUniqueId())) {
             apply(player);
             return;

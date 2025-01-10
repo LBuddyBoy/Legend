@@ -17,8 +17,8 @@ public class TeamCreationLog extends TeamLog {
 
     private final UUID sender;
 
-    public TeamCreationLog(UUID sender) {
-        super("&6" + UUIDUtils.name(sender) + " &acreated &ethe team!", TeamLogType.CREATED);
+    public TeamCreationLog(UUID teamId, UUID sender) {
+        super(teamId, "&6" + UUIDUtils.name(sender) + " &acreated &ethe team!", TeamLogType.CREATED);
 
         this.sender = sender;
     }

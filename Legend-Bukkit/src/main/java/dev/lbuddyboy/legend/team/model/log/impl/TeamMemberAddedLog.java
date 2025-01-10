@@ -15,8 +15,8 @@ public class TeamMemberAddedLog extends TeamLog {
     private final UUID playerUUID;
     private final JoinedFrom joinedFrom;
 
-    public TeamMemberAddedLog(UUID playerUUID, String title, JoinedFrom joinedFrom) {
-        super(title, TeamLogType.MEMBER_ADDED);
+    public TeamMemberAddedLog(UUID teamId, UUID playerUUID, String title, JoinedFrom joinedFrom) {
+        super(teamId, title, TeamLogType.MEMBER_ADDED);
 
         this.playerUUID = playerUUID;
         this.joinedFrom = joinedFrom;

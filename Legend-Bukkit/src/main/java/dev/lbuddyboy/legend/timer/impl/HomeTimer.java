@@ -76,7 +76,8 @@ public class HomeTimer extends PlayerTimer {
     }
 
     public void start(Player player) {
-        CombatTimer combatTimer = (CombatTimer) LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
+        CombatTimer combatTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
+        InvincibilityTimer invincibilityTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(InvincibilityTimer.class);
         Location home = LegendBukkit.getInstance().getTeamHandler().getTeam(player).map(Team::getHome).orElse(null);
         int duration = this.getDuration(player);
 
@@ -93,6 +94,10 @@ public class HomeTimer extends PlayerTimer {
         if (combatTimer.isActive(player.getUniqueId())) {
             player.sendMessage(CC.translate(LegendBukkit.getInstance().getLanguage().getString("team.home.warp-error.combat-tagged")));
             return;
+        }
+
+        if (invincibilityTimer.isActive(player.getUniqueId())) {
+            player.sendMessage(CC.translate("<blend:&4;&c>&lWARNING!</>&c If you are caught trapping anyone in your claim with Invincibility you will be punished."));
         }
 
         if (home == null) {

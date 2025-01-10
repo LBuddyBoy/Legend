@@ -15,8 +15,8 @@ public class TeamInvitationRevokedLog extends TeamLog {
 
     private final UUID sender, target;
 
-    public TeamInvitationRevokedLog(UUID sender, UUID target) {
-        super("&6" + UUIDUtils.name(sender) + " &erevoked &6" + UUIDUtils.name(target) + "&e's invitation!", TeamLogType.INVITATION_REVOKED);
+    public TeamInvitationRevokedLog(UUID teamId, UUID sender, UUID target) {
+        super(teamId, "&6" + UUIDUtils.name(sender) + " &erevoked &6" + UUIDUtils.name(target) + "&e's invitation!", TeamLogType.INVITATION_REVOKED);
 
         this.sender = sender;
         this.target = target;

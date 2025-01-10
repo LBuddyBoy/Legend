@@ -21,6 +21,16 @@ public class ScheduleHandler implements IModule {
     @Override
     public void load() {
         new ScheduleThread().start();
+        reload();
+    }
+
+    @Override
+    public void unload() {
+        this.saveSchedule();
+    }
+
+    @Override
+    public void reload() {
         this.loadSchedule();
 
         this.config.setComments("schedule", Arrays.asList(
@@ -35,12 +45,6 @@ public class ScheduleHandler implements IModule {
                 "Format: id;;dayOfWeek;;hourOfDay;;minute;;command;;display;;adminOnly;;removeAfterExecute;;broadcast"
         ));
         this.config.save();
-
-    }
-
-    @Override
-    public void unload() {
-        this.saveSchedule();
     }
 
     public void saveSchedule() {
@@ -85,7 +89,7 @@ public class ScheduleHandler implements IModule {
             if (e.isAdminOnly()) return sender.hasPermission("legend.command.schedule.admin");
 
             return true;
-        }).min(Comparator.comparingLong(o -> o.getDate().getTime())).orElse(null);
+        }).min(Comparator.comparingLong(o -> Long.compare(o.getDate().getTime(), System.currentTimeMillis()))).orElse(null);
     }
 
     public List<ScheduleEntry> getScheduleEntries(int dayOfWeek) {

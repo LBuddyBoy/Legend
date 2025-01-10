@@ -43,6 +43,19 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>ca.bkaw</groupId>
+                <artifactId>paper-nms-maven-plugin</artifactId>
+                <version>1.4.4</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>remap</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -77,19 +90,30 @@
             <id>lunarclient</id>
             <url>https://repo.lunarclient.dev</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>bytecode.space</id>
+            <url>https://repo.bytecode.space/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <version>1.21.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <groupId>ca.bkaw</groupId>
+            <artifactId>paper-nms</artifactId>
+            <version>1.21.3-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -107,6 +131,12 @@
         <dependency>
             <groupId>dev.lbuddyboy.arrow</groupId>
             <artifactId>Arrow-Bukkit</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>Duels</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
@@ -148,6 +178,13 @@
             <systemPath>${pom.basedir}/libs/DecentHolograms.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>PlaceholderAPI</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/libs/PlaceholderAPI.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>citizens</groupId>
             <artifactId>Citizens</artifactId>
             <version>LATEST</version>
@@ -163,6 +200,18 @@
         </dependency>
         <dependency>
             <groupId>dev.lbuddyboy</groupId>
+            <artifactId>AbilityItems</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>MiniGames</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
             <artifactId>Crates</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
@@ -170,6 +219,24 @@
         <dependency>
             <groupId>dev.lbuddyboy.combatlogger</groupId>
             <artifactId>CombatLogger</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>Warps</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>Claim</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.lbuddyboy</groupId>
+            <artifactId>lVouchers</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>

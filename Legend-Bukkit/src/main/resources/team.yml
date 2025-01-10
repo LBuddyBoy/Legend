@@ -1,0 +1,28 @@
+generatorTiers:
+  tier_1:
+    displayName: "Tier 1"
+    primaryColor: "&7"
+    secondaryColor: "&f"
+    tierRequired: 1
+    menu:
+      slot: 13
+      material: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E1MTZmYmFlMTYwNThmMjUxYWVmOWE2OGQzMDc4NTQ5ZjQ4ZjZkNWI2ODNmMTljZjVhMTc0NTIxN2Q3MmNjIn19fQ=="
+      customModelData: 0
+  tier_2:
+    displayName: "Tier 2"
+    primaryColor: "&3"
+    secondaryColor: "&b"
+    tierRequired: 2
+    menu:
+      slot: 14
+      material: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDY5OGFkZDM5Y2Y5ZTRlYTkyZDQyZmFkZWZkZWMzYmU4YTdkYWZhMTFmYjM1OWRlNzUyZTlmNTRhZWNlZGM5YSJ9fX0="
+      customModelData: 0
+  tier_3:
+    displayName: "Tier 3"
+    primaryColor: "&6"
+    secondaryColor: "&e"
+    tierRequired: 3
+    menu:
+      slot: 15
+      material: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmQ5ZTRjZDVlMWI5ZjNjOGQ2Y2E1YTFiZjQ1ZDg2ZWRkMWQ1MWU1MzVkYmY4NTVmZTlkMmY1ZDRjZmZjZDIifX19"
+      customModelData: 0

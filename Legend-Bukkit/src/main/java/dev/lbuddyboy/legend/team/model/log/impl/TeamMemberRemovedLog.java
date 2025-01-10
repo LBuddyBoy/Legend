@@ -15,8 +15,8 @@ public class TeamMemberRemovedLog extends TeamLog {
     private final UUID playerUUID;
     private final LeftCause cause;
 
-    public TeamMemberRemovedLog(UUID playerUUID, String title, LeftCause cause) {
-        super(title, TeamLogType.MEMBER_REMOVED);
+    public TeamMemberRemovedLog(UUID teamId, UUID playerUUID, String title, LeftCause cause) {
+        super(teamId, title, TeamLogType.MEMBER_REMOVED);
 
         this.playerUUID = playerUUID;
         this.cause = cause;

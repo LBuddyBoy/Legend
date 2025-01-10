@@ -12,6 +12,7 @@ import dev.lbuddyboy.legend.listener.EventListener;
 import dev.lbuddyboy.legend.team.model.Team;
 import dev.lbuddyboy.legend.timer.impl.CombatTimer;
 import dev.lbuddyboy.legend.timer.impl.InvincibilityTimer;
+import dev.lbuddyboy.legend.util.UUIDUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -55,6 +56,34 @@ public class EventProvider implements IEventAPI {
         }
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public UUID getTeamId(UUID uuid) {
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(uuid).orElse(null);
+
+        return team == null ? null : team.getId();
+    }
+
+    @Override
+    public String getTeamName(Player player) {
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeam(player.getUniqueId()).orElse(null);
+
+        return team == null ? player.getName() : team.getName();
+    }
+
+    @Override
+    public String getTeamName(UUID uuid) {
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeamById(uuid).orElse(null);
+
+        return team == null ? "N/A" : team.getName();
+    }
+
+    @Override
+    public List<Player> getMembersByTeamId(UUID uuid) {
+        Team team = LegendBukkit.getInstance().getTeamHandler().getTeamById(uuid).orElse(null);
+
+        return team == null ? Collections.emptyList() : team.getOnlinePlayers();
     }
 
 }

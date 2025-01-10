@@ -6,6 +6,7 @@ import dev.lbuddyboy.commons.util.Config;
 import dev.lbuddyboy.commons.util.LocationUtils;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
 import dev.lbuddyboy.legend.features.kitmap.listener.*;
 import dev.lbuddyboy.legend.features.kitmap.model.ResetBlock;
@@ -48,7 +49,7 @@ public class KitMapHandler implements IModule {
             this.kits.put(kit.getName().toLowerCase(), kit);
         }
 
-        if (LegendBukkit.getInstance().getSettings().getBoolean("kitmap.kill-streaks.enabled")) {
+        if (SettingsConfig.KITMAP_KILL_STREAKS_ENABLED.getBoolean()) {
             ConfigurationSection section = LegendBukkit.getInstance().getSettings().getConfigurationSection("kitmap.kill-streaks.goals");
 
             for (String key : section.getKeys(false)) {

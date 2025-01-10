@@ -29,15 +29,16 @@ public class GlowstoneHandler implements IModule {
 
     private final List<Long> notified = new ArrayList<>();
     private List<Location> glowstoneLocations;
+    private List<Location> debrisLocations;
     private Config config;
     @Setter private int blocksLeft;
 
     @Override
     public void load() {
         this.glowstoneLocations = new ArrayList<>();
-        this.config = new Config(LegendBukkit.getInstance(), "glowstone-mountain.yml");
+        this.debrisLocations = new ArrayList<>();
+        reload();
 
-        this.glowstoneLocations.addAll(this.config.getStringList("locations").stream().map(LocationUtils::deserializeString).collect(Collectors.toList()));
         this.runDebug();
 
         Tasks.runTimer(() -> {
@@ -68,6 +69,15 @@ public class GlowstoneHandler implements IModule {
     @Override
     public void unload() {
 
+    }
+
+    @Override
+    public void reload() {
+        this.glowstoneLocations.clear();
+        this.debrisLocations.clear();
+        this.config = new Config(LegendBukkit.getInstance(), "glowstone-mountain.yml");
+        this.glowstoneLocations.addAll(this.config.getStringList("locations").stream().map(LocationUtils::deserializeString).toList());
+        this.debrisLocations.addAll(this.config.getStringList("debrisLocations").stream().map(LocationUtils::deserializeString).toList());
     }
 
     public long getNextReset() {
@@ -107,7 +117,8 @@ public class GlowstoneHandler implements IModule {
 
     public void respawn() {
         this.glowstoneLocations.forEach(l -> l.getBlock().setType(Material.GLOWSTONE));
-        this.blocksLeft = this.glowstoneLocations.size();
+        this.debrisLocations.forEach(l -> l.getBlock().setType(Material.ANCIENT_DEBRIS));
+        this.blocksLeft = this.glowstoneLocations.size() + this.debrisLocations.size();
         this.notified.clear();
         this.config.set("last-reset", System.currentTimeMillis());
         this.config.save();
@@ -125,21 +136,28 @@ public class GlowstoneHandler implements IModule {
         }
 
         this.glowstoneLocations.clear();
+        this.debrisLocations.clear();
 
         for (Claim claim : getTeam().getClaims()) {
             for (Block block : claim.getBounds()) {
-                if (block.getType() != Material.GLOWSTONE) continue;
+                if (block.getType() == Material.GLOWSTONE) {
+                    this.glowstoneLocations.add(block.getLocation().clone());
+                    continue;
+                }
+                if (block.getType() != Material.ANCIENT_DEBRIS) continue;
 
-                this.glowstoneLocations.add(block.getLocation().clone());
+                this.debrisLocations.add(block.getLocation().clone());
             }
         }
 
         sender.sendMessage(CC.translate("&aSuccessfully scanned " + this.glowstoneLocations.size() + " glowstone locations!"));
+        sender.sendMessage(CC.translate("&aSuccessfully scanned " + this.debrisLocations.size() + " ancient debris locations!"));
         this.saveLocations();
     }
 
     public void saveLocations() {
         this.config.set("locations", this.glowstoneLocations.stream().map(LocationUtils::serializeString).collect(Collectors.toList()));
+        this.config.set("debrisLocations", this.debrisLocations.stream().map(LocationUtils::serializeString).collect(Collectors.toList()));
         this.config.save();
     }
 

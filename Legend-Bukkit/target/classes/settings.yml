@@ -12,6 +12,25 @@ server:
   fast-brew: true
   fast-smelt: true
   uhc-mode: false
+  disable-swing-sound: false
+  disable-swing-delay: false
+  disallowed-teams:
+    - 'glowstone'
+    - 'spawn'
+    - 'loothill'
+    - 'deathban'
+    - 'nigger'
+    - 'nigga'
+    - 'faggot'
+    - 'bean'
+    - 'beaner'
+    - 'gook'
+    - 'chink'
+
+modifiers:
+  base-damage: 1.0
+  saturation: 1.0
+  durability: 1.0
 
 points:
   kill: 5
@@ -21,24 +40,6 @@ points:
   dtc: 75
   made-raidable: 25
   went-raidable: -25
-
-classes:
-  miner:
-    enabled: true
-    warmup: 0 # seconds
-    limit: -1 # how many can a team have? -1 = infinite
-  bard:
-    enabled: true
-    warmup: 3 # seconds
-    limit: -1
-  archer:
-    enabled: true
-    warmup: 3 # seconds
-    limit: -1
-  rogue:
-    enabled: true
-    warmup: 3 # seconds
-    limit: -1
 
 kitmap:
   enabled: false

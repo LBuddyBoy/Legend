@@ -83,7 +83,7 @@ public class UHCListener implements Listener {
 
     public void createHealthBar(Player player) {
         final double health = player.getHealth();
-        final double max = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        final double max = player.getAttribute(Attribute.MAX_HEALTH).getValue();
 
         final int intHealth = BukkitUtil.roundUpPositive(health);
         final int intMax = BukkitUtil.roundUpPositive(max);
@@ -100,7 +100,7 @@ public class UHCListener implements Listener {
 
     public void removeHealthBar(Player player) {
         final double health = player.getHealth();
-        final double max = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        final double max = player.getAttribute(Attribute.MAX_HEALTH).getValue();
 
         final int intHealth = BukkitUtil.roundUpPositive(health);
         final int intMax = BukkitUtil.roundUpPositive(max);
@@ -123,7 +123,7 @@ public class UHCListener implements Listener {
 
     public static int getRawAmountOfHearts(@NotNull final Player player) {
         if (player.isHealthScaled())
-            return (int) Math.round(player.getHealth() * 10.0 / player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            return (int) Math.round(player.getHealth() * 10.0 / player.getAttribute(Attribute.MAX_HEALTH).getValue());
         else
             return (int) Math.round(player.getHealth());
     }

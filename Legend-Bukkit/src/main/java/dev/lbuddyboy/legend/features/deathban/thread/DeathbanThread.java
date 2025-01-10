@@ -1,5 +1,6 @@
 package dev.lbuddyboy.legend.features.deathban.thread;
 
+import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
 import dev.lbuddyboy.legend.user.model.LegendUser;
 import org.bukkit.Bukkit;
@@ -9,13 +10,13 @@ public class DeathbanThread extends Thread {
 
     @Override
     public void run() {
-        while (LegendBukkit.isENABLED()) {
+        while (true) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 LegendUser user = LegendBukkit.getInstance().getUserHandler().getUser(player.getUniqueId());
                 if (!user.isDeathBanned()) continue;
                 if (user.isTimerActive("deathban")) continue;
 
-                LegendBukkit.getInstance().getDeathbanHandler().handleRevive(player);
+                Tasks.run(() -> LegendBukkit.getInstance().getDeathbanHandler().handleRevive(player));
             }
 
             try {

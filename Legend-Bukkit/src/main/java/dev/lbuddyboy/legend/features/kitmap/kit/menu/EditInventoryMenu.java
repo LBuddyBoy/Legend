@@ -7,6 +7,7 @@ import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemFactory;
 import dev.lbuddyboy.commons.util.Tasks;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.features.kitmap.kit.EditedKit;
 import dev.lbuddyboy.legend.features.kitmap.kit.Kit;
 import dev.lbuddyboy.legend.user.model.LegendUser;
@@ -68,7 +69,7 @@ public class EditInventoryMenu extends IMenu {
             buttons.put(slot, new EditorItemButton(item));
         }
 
-        if (!LegendBukkit.getInstance().getSettings().getBoolean("server.uhc-mode", false)) {
+        if (!SettingsConfig.SETTINGS_UHC_MODE.getBoolean()) {
             buttons.put(fillInvSlot, new FillInventoryButton());
         } else {
             deleteSlot++;

@@ -15,8 +15,8 @@ public class TeamMemberDeathLog extends TeamLog {
 
     private final UUID victimUUID;
 
-    public TeamMemberDeathLog(UUID victimUUID, String action) {
-        super(action, TeamLogType.MEMBER_DEATH);
+    public TeamMemberDeathLog(UUID teamId, UUID victimUUID, String action) {
+        super(teamId, action, TeamLogType.MEMBER_DEATH);
 
         this.victimUUID = victimUUID;
     }

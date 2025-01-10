@@ -16,11 +16,13 @@ import java.util.*;
 public abstract class TeamLog {
 
     private final UUID id;
+    private final UUID teamId;
     private final String action;
     private final TeamLogType type;
     private final long loggedAt;
 
-    public TeamLog(String action, TeamLogType type) {
+    public TeamLog(UUID teamId, String action, TeamLogType type) {
+        this.teamId = teamId;
         this.action = action;
         this.id = UUID.randomUUID();
         this.type = type;
@@ -30,6 +32,7 @@ public abstract class TeamLog {
     public TeamLog(Document document) {
         this.action = document.getString("action");
         this.id = UUID.fromString(document.getString("id"));
+        this.teamId = UUID.fromString(document.getString("teamId"));
         this.type = TeamLogType.valueOf(document.getString("type"));
         this.loggedAt = document.getLong("loggedAt");
     }
@@ -38,6 +41,7 @@ public abstract class TeamLog {
         Document document = new Document();
 
         document.put("id", this.id.toString());
+        document.put("teamId", this.teamId.toString());
         document.put("action", this.action);
         document.put("type", this.type.name());
         document.put("loggedAt", this.loggedAt);

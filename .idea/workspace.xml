@@ -5,460 +5,497 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f2d9371-2153-4465-9471-b8fb49b0670e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/libs/Citizens.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/libs/DecentHolograms.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/libs/imanityspigot.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/libs/znpcs.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LegendBukkit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LegendConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/actionbar/LegendActionBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/PlayerClaimChangeEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/TeamMemberDeathEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/AuctionHouseProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/CombatLoggerProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/CrateProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/DeathProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/EventProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/RollbackProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/ClassHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/PvPClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/ArcherClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/BardClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/MinerClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/RogueClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/listener/PvPClassListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/CommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/completion/PlayTimeGoalCommandsCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/completion/TeamCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/completion/TeamInvitationsCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/completion/TeamMemberCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/AbstractRecipeContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/KitContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/PlayTimeGoalContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/ScheduleEntryContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/ShortPriceContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/TeamContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/TeamMemberContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/TeamRoleContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/TeamTypeContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/BuildCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/CobbleCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/DeathbanCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EconomyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EndCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/GlowstoneCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/KillStreakCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LeaderBoardCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LivesCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LogoutCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PayCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PvPCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/RecipeCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SOTWCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SettingsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/ShopCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SpawnCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/StatsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/TeamCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/TrashCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/KitCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/LegendCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/SystemTeamCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/TimerCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/topic/LegendHelpTopic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/DeathbanHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/listener/DeathbanListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/model/RespawnBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/thread/DeathbanThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/glowstone/GlowstoneHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/glowstone/listener/GlowstoneListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/KitMapHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/kit/EditedKit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/kit/Kit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/BlockBoostListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/KillStreakListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/KitSignListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/KitmapGeneralListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/TrashSignListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/UHCListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/model/ResetBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/streak/KillStreak.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/ILeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/DeathLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/HighestKillStreakLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/KDRLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/KillLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/KillStreakLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/MoneyLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/PlayTimeLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/model/LeaderBoardHologram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/model/RotatingHologram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/LimiterHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/EnchantLimitListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/PotionLimitListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/PlayTimeGoalHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeGoalMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/model/PlayTimeGoal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/AbstractRecipe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/RecipeHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailBoots.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailChestplate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailHelmet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailLeggings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/GlisteringMelon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/GoldenHead.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/PlayerHead.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/menu/RecipeMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/menu/RecipeViewMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/schedule/ScheduleEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/schedule/ScheduleHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/schedule/ScheduleMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/schedule/ScheduleThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/ShopHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/BufferListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/ChatListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/ElevatorListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/EndListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/EventListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/FastListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/GeneralListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/NetherListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/PreventionListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/SpawnListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/UHCListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/nametag/LegendNametagProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/nametag/NameTagColorFormat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/settings/Setting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/settings/SettingsMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/tab/LegendTabHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/tab/LegendTabProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/ClaimHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/MovementHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/TeamHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/ClaimWandListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/SubclaimListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamClaimListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamDTRListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamLogListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamWaypointListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/Team.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamMember.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TopEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TopType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/WaypointType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/Claim.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimBorder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimBorderView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimMapView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/GridCoordinate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/TeamLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/TeamLogType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamCreationLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationRevokedLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberDeathLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/ClaimBorderThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/DTRThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/TeamSaveThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/TeamTopThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/PlayerTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/ServerTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/TimerHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/ArcherTagTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/ClassWarmUpTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/CombatTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/CrappleTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/GappleTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/HomeTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/InvincibilityTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/LogoutTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/SpawnTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/StuckTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/server/SOTWTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/UserHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/listener/UserListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/ChatMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/LegendUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/PersistentTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/BukkitUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/CommandUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/Cooldown.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/Coordinate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/Cuboid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/PlaceholderUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/TypeTokens.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/UUIDUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/deathban.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/glowstone-mountain.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/lang.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/leaderboards.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/limiter.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/plugin.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/schedule.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/scoreboard.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/server-timers.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/settings.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/tab/default.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/tab/team.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/timers.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/test/java/ClaimTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/test/java/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/libs/Citizens.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/libs/DecentHolograms.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/libs/imanityspigot.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/libs/znpcs.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/LegendBukkit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/LegendConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/actionbar/LegendActionBar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/api/PlayerClaimChangeEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/api/TeamMemberDeathEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/api/providers/CrateProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/api/providers/DeathProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/api/providers/EventProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/api/providers/RollbackProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/ClassHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/PvPClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/impl/ArcherClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/impl/BardClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/impl/MinerClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/impl/RogueClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/classes/listener/PvPClassListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/CommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/completion/PlayTimeGoalCommandsCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/completion/TeamCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/completion/TeamMemberCompletion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/context/PlayTimeGoalContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/context/ShortPriceContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/context/TeamContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/context/TeamMemberContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/context/TeamRoleContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/context/TeamTypeContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/BuildCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/CobbleCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/DeathbanCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/EconomyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/EndCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/GlowstoneCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/LeaderBoardCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/LivesCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/PayCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/PvPCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/RecipeCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/SOTWCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/SettingsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/SpawnCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/StatsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/TeamCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/admin/SystemTeamCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/command/impl/admin/TimerCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/deathban/DeathbanHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/deathban/listener/DeathbanListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/deathban/model/RespawnBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/deathban/thread/DeathbanThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/glowstone/GlowstoneHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/glowstone/listener/GlowstoneListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/ILeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHologram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/RotatingHologram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/comparator/LeaderBoardComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/DeathLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/HighestKillStreakLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/KDRLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/KillLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/KillStreakLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/MoneyLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/impl/PlayTimeLeaderBoardStat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/leaderboard/thread/LeaderBoardUpdateThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/limiter/LimiterHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/EnchantLimitListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/PotionLimitListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/playtime/PlayTimeGoalHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeGoalMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/playtime/model/PlayTimeGoal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/AbstractRecipe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/RecipeHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailBoots.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailChestplate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailHelmet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/ChainmailLeggings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/impl/GlisteringMelon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/menu/RecipeMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/recipe/menu/RecipeViewMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/features/shop/ShopHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/BufferListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/ChatListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/ElevatorListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/EndListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/FastListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/NetherListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/PreventionListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/listener/SpawnListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/nametag/LegendNametagProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/nametag/NameTagColorFormat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/settings/Setting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/settings/SettingsMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/tab/LegendTabHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/tab/LegendTabProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/tab/TabColumn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/ClaimHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/MovementHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/TeamHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/listener/ClaimWandListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/listener/SubclaimListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/listener/TeamClaimListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/listener/TeamDTRListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/listener/TeamListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/listener/TeamWaypointListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/Team.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/TeamMember.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/TeamRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/TeamType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/TopEntry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/TopType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/WaypointType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/claim/Claim.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimBorder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimBorderView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimMapView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/model/claim/GridCoordinate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/thread/ClaimBorderThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/thread/DTRThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/thread/TeamSaveThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/team/thread/TeamTopThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/PlayerTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/ServerTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/TimerHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/ArcherTagTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/CombatTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/CrappleTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/GappleTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/HomeTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/InvincibilityTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/impl/StuckTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/timer/server/SOTWTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/user/UserHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/user/listener/UserListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/user/model/ChatMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/user/model/LegendUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/user/model/PersistentTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/BukkitUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/CommandUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/Cooldown.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/Cuboid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/PlaceholderUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/TypeTokens.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/java/dev/lbuddyboy/legend/util/UUIDUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/deathban.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/glowstone-mountain.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/lang.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/leaderboards.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/limiter.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/plugin.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/scoreboard.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/server-timers.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/settings.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/tab/default.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/tab/team.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/main/resources/timers.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/test/java/ClaimTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/src/test/java/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/actionbar/LegendActionBar.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/api/PlayerClaimChangeEvent.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/api/TeamMemberDeathEvent.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/CommandHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/completion/TeamCompletion.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/completion/TeamMemberCompletion.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/context/TeamContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/context/TeamMemberContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/context/TeamRoleContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/context/TeamTypeContext.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/impl/SettingsCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/command/impl/TeamCommand.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/listener/BufferListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/listener/ChatListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/nametag/LegendNametagProvider.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/nametag/NameTagColorFormat.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/settings/Setting.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/settings/SettingsMenu.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/tab/LegendTabHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/tab/LegendTabProvider.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/ClaimHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/TeamHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/listener/ClaimWandListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/listener/TeamClaimListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/listener/TeamDTRListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/listener/TeamListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/Team.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/TeamMember.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/TeamRole.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/TeamType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/TopEntry.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/TopType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/claim/Claim.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimMapView.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/model/claim/GridCoordinate.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/thread/DTRThread.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/thread/TeamSaveThread.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/team/thread/TeamTopThread.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/timer/PlayerTimer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/timer/TimerHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/timer/impl/CombatTimer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/timer/impl/HomeTimer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/timer/impl/InvincibilityTimer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/user/UserHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/user/listener/UserListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/user/model/ChatMode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/user/model/LegendUser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/user/model/PersistentTimer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/util/BukkitUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/util/Cuboid.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/util/PlaceholderUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/util/TypeTokens.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/dev/lbuddyboy/legend/util/UUIDUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/lang.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/plugin.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/settings.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/tab/default.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/classes/timers.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Legend-Legacy/target/test-classes/ClaimTest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/libs/PlaceholderAPI.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LangConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/SettingsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/PacketEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/PacketReceiveEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/PacketSendEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/TeamNoLongerRaidableEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/TeamSetRaidableEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/AbilityProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/ClaimHook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/DuelProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/MiniGamesProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/PlaceholderAPIHook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/VoucherHook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/WarpHook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/DiverClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/HunterClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/context/GatewayContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/CrystalCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/CrystalShopCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/DesertCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EffectCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EndPortalCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/FixCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/FocusCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/HelpCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/HomeCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LootHillCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LootTablesCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/OreMountainCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PingCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PlayTimeRewardsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/ReviveCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/TeamLocationCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/TutorialCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/ChatGameCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/EOTWCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/EnderDragonCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/GatewayCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/GeneratorCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/chatgames/ChatGameHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/chatgames/model/AbstractChatGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/chatgames/model/impl/MathChatGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/chatgames/model/impl/QuestionGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/chatgames/model/impl/ScrambleGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/crystals/CrystalHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/crystals/listener/CrystalListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/crystals/menu/CrystalShopMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/crystals/model/CrystalShopItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/crystals/model/CrystalShopLootTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/enderdragon/EnderDragonHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/enderdragon/listener/EnderDragonListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/enderdragon/model/CustomDragonFight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/enderdragon/model/CustomEnderDragon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/gateways/GatewayHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/gateways/listener/GatewayListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/gateways/listener/SelectionListeners.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/gateways/model/Gateway.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/gateways/model/Selection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/loothill/LootHillHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/loothill/listener/LootHillListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/oremountain/OreMountainHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/oremountain/listener/OreMountainListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeRewardsMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/model/PlayTimeReward.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/menu/ShopItemMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/menu/ShopMainMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/model/ShopCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/model/ShopItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/DiamondListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/ModifierListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/PacketListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/StatTrackListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/packet/PacketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/scoreboard/MiniGameScoreboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/task/ClearLagTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/config/TeamConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/AutoRebuildListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/menu/TeamBrewMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/menu/generator/GeneratorTiersMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/menu/generator/TeamGeneratorCollectMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/menu/generator/TeamGeneratorMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/menu/generator/TeamGeneratorUpgradeMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/HistoricalMember.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/brew/BrewData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/brew/BrewResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/brew/BrewType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/GeneratorData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/GeneratorItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/GeneratorLootTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/GeneratorTier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/upgrades/AbstractGeneratorUpgrade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/upgrades/impl/EfficiencyUpgrade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/upgrades/impl/FortuneUpgrade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/generator/upgrades/impl/XPFinderUpgrade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamNoLongerRaidableLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamNowRaidableLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/generator/TeamGeneratedItemClaimLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/generator/TeamGeneratedItemExpireLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/generator/TeamGeneratedItemLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/TotemTimer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/nametag/LegendScoreboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/nametag/NameTagColorFormat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/nametag/ScoreboardEntryType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/LevelUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/NameTagUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/PlayerUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/ReflectionUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/StatTracker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/WebHookUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/model/DocumentedItemStack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/loot-hill.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/ore-mountain.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/playtime-rewards.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/team.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LegendBukkit.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LegendBukkit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LegendConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/LegendConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/actionbar/LegendActionBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/actionbar/LegendActionBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/CombatLoggerProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/CombatLoggerProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/DeathProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/DeathProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/EventProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/api/providers/EventProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/ClassHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/ClassHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/PvPClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/PvPClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/ArcherClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/ArcherClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/BardClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/BardClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/MinerClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/MinerClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/RogueClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/impl/RogueClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/listener/PvPClassListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/classes/listener/PvPClassListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/CommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/completion/TeamCompletion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/completion/TeamCompletion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/CobbleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/CobbleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/DeathbanCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/DeathbanCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EconomyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EconomyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EndCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/EndCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/GlowstoneCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/GlowstoneCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LivesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/LivesCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PvPCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/PvPCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SOTWCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SOTWCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SettingsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SettingsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/ShopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/ShopCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SpawnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/SpawnCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/StatsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/StatsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/TeamCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/TeamCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/LegendCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/LegendCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/SystemTeamCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/command/impl/admin/SystemTeamCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/DeathbanHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/DeathbanHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/listener/DeathbanListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/listener/DeathbanListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/thread/DeathbanThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/deathban/thread/DeathbanThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/glowstone/GlowstoneHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/glowstone/GlowstoneHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/glowstone/listener/GlowstoneListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/glowstone/listener/GlowstoneListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/KitMapHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/KitMapHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/KitmapGeneralListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/kitmap/listener/KitmapGeneralListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/LimiterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/LimiterHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/EnchantLimitListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/EnchantLimitListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/PotionLimitListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/limiter/listener/PotionLimitListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/PlayTimeGoalHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/playtime/PlayTimeGoalHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/RecipeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/recipe/RecipeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/schedule/ScheduleHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/schedule/ScheduleHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/ShopHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/shop/ShopHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/BufferListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/BufferListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/ElevatorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/ElevatorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/EndListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/EndListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/EventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/EventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/FastListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/FastListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/GeneralListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/GeneralListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/NetherListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/NetherListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/PreventionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/PreventionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/SpawnListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/SpawnListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/UHCListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/listener/UHCListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/nametag/LegendNametagProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/nametag/LegendNametagProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/nametag/NameTagColorFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/nametag/NameTagColorFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/settings/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/settings/Setting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/settings/SettingsMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/features/settings/SettingsMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/ClaimHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/ClaimHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/MovementHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/MovementHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/TeamHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/TeamHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/ClaimWandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/ClaimWandListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/SubclaimListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/SubclaimListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamClaimListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamClaimListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamDTRListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamDTRListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamLogListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamLogListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamWaypointListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/listener/TeamWaypointListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/Team.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TeamType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TopType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/TopType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/Claim.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/Claim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimBorderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimBorderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/TeamLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/TeamLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/TeamLogType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/TeamLogType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamCreationLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamCreationLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationRevokedLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationRevokedLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberDeathLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberDeathLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/ClaimBorderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/ClaimBorderThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/DTRThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/DTRThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/TeamSaveThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/TeamSaveThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/TeamTopThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/team/thread/TeamTopThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/TimerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/TimerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/ArcherTagTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/ArcherTagTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/CombatTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/CombatTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/CrappleTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/CrappleTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/GappleTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/GappleTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/HomeTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/impl/HomeTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/server/SOTWTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/timer/server/SOTWTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/UserHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/UserHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/listener/UserListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/listener/UserListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/ChatMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/ChatMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/LegendUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/user/model/LegendUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/BukkitUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/BukkitUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/PlaceholderUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/PlaceholderUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/TypeTokens.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/java/dev/lbuddyboy/legend/util/TypeTokens.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/glowstone-mountain.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/glowstone-mountain.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/lang.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/lang.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/limiter.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/limiter.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/scoreboard.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/scoreboard.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/settings.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/settings.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/timers.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/main/resources/timers.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/src/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/src/test/java/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/Legend-Bukkit-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/Legend-Bukkit-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/LegendBukkit.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/LegendBukkit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/LegendConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/LegendConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/actionbar/LegendActionBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/actionbar/LegendActionBar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/PlayerClaimChangeEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/PlayerClaimChangeEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/TeamMemberDeathEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/TeamMemberDeathEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/AuctionHouseProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/AuctionHouseProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/CombatLoggerProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/CombatLoggerProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/CrateProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/CrateProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/DeathProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/DeathProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/EventProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/EventProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/RollbackProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/api/providers/RollbackProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/ClassHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/ClassHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/PvPClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/PvPClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/ArcherClass$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/ArcherClass$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/ArcherClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/ArcherClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/BardClass$ClickableBardEffect.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/BardClass$ClickableBardEffect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/BardClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/BardClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/MinerClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/MinerClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/RogueClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/impl/RogueClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/listener/PvPClassListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/classes/listener/PvPClassListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/CommandHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/CommandHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/PlayTimeGoalCommandsCompletion.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/PlayTimeGoalCommandsCompletion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamCompletion$TeamComparator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamCompletion$TeamComparator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamCompletion.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamCompletion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamInvitationsCompletion.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamInvitationsCompletion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamMemberCompletion.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/completion/TeamMemberCompletion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/AbstractRecipeContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/AbstractRecipeContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/KitContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/KitContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/PlayTimeGoalContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/PlayTimeGoalContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/ScheduleEntryContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/ScheduleEntryContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/ShortPriceContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/ShortPriceContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamMemberContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamMemberContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamRoleContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamRoleContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamTypeContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/context/TeamTypeContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/BuildCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/BuildCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/CobbleCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/CobbleCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/DeathbanCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/DeathbanCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/EconomyCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/EconomyCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/EndCommand$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/EndCommand$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/EndCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/EndCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/GlowstoneCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/GlowstoneCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/KillStreakCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/KillStreakCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/LeaderBoardCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/LeaderBoardCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/LivesCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/LivesCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/LogoutCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/LogoutCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/PayCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/PayCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/PlayTimeCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/PvPCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/PvPCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/RecipeCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/RecipeCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/SOTWCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/SOTWCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/SettingsCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/SettingsCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/ShopCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/ShopCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/SpawnCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/SpawnCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/StatsCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/StatsCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/TeamCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/TeamCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/TrashCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/TrashCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/KitCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/KitCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/LegendCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/LegendCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand$CreatePrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand$CreatePrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/ScheduleCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/SystemTeamCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/SystemTeamCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/TimerCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/impl/admin/TimerCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/topic/LegendCommandIssuer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/topic/LegendCommandIssuer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/topic/LegendHelpTopic$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/topic/LegendHelpTopic$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/topic/LegendHelpTopic.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/command/topic/LegendHelpTopic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/DeathbanHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/DeathbanHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/listener/DeathbanListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/listener/DeathbanListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/model/RespawnBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/model/RespawnBlock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/thread/DeathbanThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/deathban/thread/DeathbanThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/glowstone/GlowstoneHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/glowstone/GlowstoneHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/glowstone/listener/GlowstoneListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/glowstone/listener/GlowstoneListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/KitMapHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/KitMapHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/EditedKit.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/EditedKit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/Kit.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/Kit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$ArmorButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$ArmorButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$DeleteButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$DeleteButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$EditorItemButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$EditorItemButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$FillInventoryButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$FillInventoryButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$LoadDefaultButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu$LoadDefaultButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditInventoryMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$ContentsButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$ContentsButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$CreateButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$CreateButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$NameButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$NameButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$ReNameButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu$ReNameButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/kit/menu/EditKitMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/BlockBoostListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/BlockBoostListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/KillStreakListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/KillStreakListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/KitSignListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/KitSignListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/KitmapGeneralListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/KitmapGeneralListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/TrashSignListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/TrashSignListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/UHCListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/listener/UHCListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/model/ResetBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/model/ResetBlock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/streak/KillStreak.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/kitmap/streak/KillStreak.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/ILeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/ILeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/LeaderBoardHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/DeathLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/DeathLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/HighestKillStreakLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/HighestKillStreakLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/KDRLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/KDRLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/KillLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/KillLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/KillStreakLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/KillStreakLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/MoneyLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/MoneyLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/PlayTimeLeaderBoardStat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/impl/PlayTimeLeaderBoardStat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu$DefaultButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu$DefaultButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu$TypeButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu$TypeButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu$UserButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu$UserButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/menu/LeaderBoardMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/model/LeaderBoardHologram.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/model/LeaderBoardHologram.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/model/RotatingHologram.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/leaderboard/model/RotatingHologram.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/limiter/LimiterHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/limiter/LimiterHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/limiter/listener/EnchantLimitListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/limiter/listener/EnchantLimitListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/limiter/listener/PotionLimitListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/limiter/listener/PotionLimitListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/PlayTimeGoalHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/PlayTimeGoalHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeGoalMenu$PlayTimeGoalButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeGoalMenu$PlayTimeGoalButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeGoalMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/menu/PlayTimeGoalMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/model/PlayTimeGoal.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/playtime/model/PlayTimeGoal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/AbstractRecipe.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/AbstractRecipe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/RecipeHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/RecipeHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailBoots.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailBoots.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailChestplate.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailChestplate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailHelmet.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailHelmet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailLeggings.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/ChainmailLeggings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/GlisteringMelon.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/GlisteringMelon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/GoldenHead.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/GoldenHead.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/PlayerHead.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/impl/PlayerHead.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/menu/RecipeMenu$RecipeButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/menu/RecipeMenu$RecipeButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/menu/RecipeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/menu/RecipeMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/menu/RecipeViewMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/recipe/menu/RecipeViewMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleMenu$DayButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleMenu$DayButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/schedule/ScheduleThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/shop/ShopHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/features/shop/ShopHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/BufferListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/BufferListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/ChatListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/ChatListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/ElevatorListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/ElevatorListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/EndListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/EndListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/EventListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/EventListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/FastListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/FastListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/GeneralListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/GeneralListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/NetherListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/NetherListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/PreventionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/PreventionListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/SpawnListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/SpawnListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/UHCListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/listener/UHCListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/nametag/LegendNametagProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/nametag/LegendNametagProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/nametag/NameTagColorFormat.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/nametag/NameTagColorFormat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/scoreboard/LegendScoreboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/settings/Setting.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/settings/SettingsMenu$SettingButton.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/settings/SettingsMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/tab/LegendTabHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/tab/LegendTabHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/tab/LegendTabProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/tab/LegendTabProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/ClaimHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/ClaimHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/MovementHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/MovementHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/TeamHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/TeamHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/ClaimWandListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/ClaimWandListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/SubclaimListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/SubclaimListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamClaimListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamClaimListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamDTRListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamDTRListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamLogListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamLogListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamWaypointListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/listener/TeamWaypointListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/Team$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/Team$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/Team.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/Team.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamRole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamType$TeamTypeClaimComparator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamType$TeamTypeClaimComparator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamType$TeamTypeComparator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamType$TeamTypeComparator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamType.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TeamType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TopEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TopEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TopType.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/TopType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/WaypointType.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/WaypointType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/Claim.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/Claim.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimBorder.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimBorder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimBorderView.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimBorderView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimMapView.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimMapView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/ClaimProcess.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/GridCoordinate.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/claim/GridCoordinate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/TeamLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/TeamLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/TeamLogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/TeamLogType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamCreationLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamCreationLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog$ChangeCause.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog$ChangeCause.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamDTRChangeLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationRevokedLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamInvitationRevokedLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog$JoinedFrom.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog$JoinedFrom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberAddedLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberDeathLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberDeathLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog$LeftCause.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog$LeftCause.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamMemberRemovedLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog$ChangeCause.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog$ChangeCause.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/model/log/impl/TeamPointsChangeLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/ClaimBorderThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/ClaimBorderThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/DTRThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/DTRThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/TeamSaveThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/TeamSaveThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/TeamTopThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/team/thread/TeamTopThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/PlayerTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/PlayerTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/ServerTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/ServerTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/TimerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/TimerHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/ArcherTagTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/ArcherTagTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/ClassWarmUpTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/ClassWarmUpTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/CombatTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/CombatTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/CrappleTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/CrappleTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/EnderPearlTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/GappleTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/GappleTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/HomeTimer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/HomeTimer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/HomeTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/HomeTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/InvincibilityTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/InvincibilityTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/LogoutTimer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/LogoutTimer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/LogoutTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/LogoutTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/SpawnTimer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/SpawnTimer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/SpawnTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/SpawnTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/StuckTimer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/StuckTimer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/StuckTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/impl/StuckTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/server/SOTWTimer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/server/SOTWTimer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/server/SOTWTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/timer/server/SOTWTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/UserHandler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/UserHandler$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/UserHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/listener/UserListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/listener/UserListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/model/ChatMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/model/ChatMode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/model/LegendUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/model/LegendUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/model/PersistentTimer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/user/model/PersistentTimer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/BukkitUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/BukkitUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/CommandUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/CommandUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cooldown$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cooldown$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cooldown.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cooldown.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Coordinate.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Coordinate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$BorderIterator$BorderDirection.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$BorderIterator$BorderDirection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$BorderIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$BorderIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$CuboidDirection.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$CuboidDirection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$CuboidIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid$CuboidIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/Cuboid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/PlaceholderUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/PlaceholderUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/TypeTokens.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/UUIDUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/dev/lbuddyboy/legend/util/UUIDUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/glowstone-mountain.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/glowstone-mountain.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/lang.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/lang.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/limiter.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/limiter.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/scoreboard.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/scoreboard.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/settings.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/settings.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/classes/timers.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/classes/timers.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/original-Legend-Bukkit-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/original-Legend-Bukkit-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/surefire-reports/2024-11-25T02-48-48_933.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/surefire-reports/ClaimTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/surefire-reports/TEST-ClaimTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/surefire-reports/TEST-Test.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/surefire-reports/Test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Legend-Bukkit/target/test-classes/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/Legend-Bukkit/target/test-classes/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -492,12 +529,13 @@
     &quot;Maven.Legend Bukkit.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Legend Legacy.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Legend [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Legend-Bukkit [ca.bkaw:paper-nms-maven-plugin:1.4.4:init].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;jdk.selected.com.intellij.ui.dsl.builder.impl.RowImpl.sdk&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/ServerFiles/MineChase/AuctionHouse&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/ServerFiles/Azal/Azurite-hcf-leaked-bygooners-main/azurite-hcf-leaked-bygooners&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.46896553&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
@@ -513,22 +551,22 @@
       <recent name="dev.lbuddyboy.legend.command.topic" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\src\main\java\dev\lbuddyboy\legend\features\kitmap\kit\menu" />
-      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\src\main\java\dev\lbuddyboy\legend\features\kitmap\kit" />
-      <recent name="D:\SourceCodes\Legend\Legend-Bukkit" />
-      <recent name="D:\SourceCodes\Legend\Legend-Legacy\libs" />
-      <recent name="D:\SourceCodes\Legend\Legend-Legacy\src\main\java\dev\lbuddyboy\legend\api\providers" />
+      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\src\main\java\dev\lbuddyboy\legend\features\crystals\model" />
+      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\libs" />
+      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\src\main\java\dev\lbuddyboy\legend\features\oremountain" />
+      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\src\main\resources" />
+      <recent name="D:\SourceCodes\Legend\Legend-Bukkit\src\main\java\dev\lbuddyboy\legend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\SourceCodes\Legend\Legend-API\src\main\java\dev\lbuddyboy\legend\team\model" />
       <recent name="D:\SourceCodes\Legend\Legend-Bukkit" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="dev.lbuddyboy.legend.command.context" />
-      <recent name="dev.lbuddyboy.legend.features.schedule" />
-      <recent name="dev.lbuddyboy.legend.features.kitmap.listener" />
-      <recent name="dev.lbuddyboy.legend.timer.impl" />
-      <recent name="dev.lbuddyboy.legend.command.completion" />
+      <recent name="dev.lbuddyboy.legend.api.providers" />
+      <recent name="dev.lbuddyboy.legend.util" />
+      <recent name="dev.lbuddyboy.legend.timer.server" />
+      <recent name="dev.lbuddyboy.legend.command.impl" />
+      <recent name="dev.lbuddyboy.legend.team.listener" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.Legend Bukkit">
@@ -653,11 +691,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Test" />
       <item itemvalue="Application.ClaimTest" />
-      <item itemvalue="Maven.Legend [clean,install]" />
+      <item itemvalue="Application.Test" />
       <item itemvalue="Maven.Legend Bukkit" />
       <item itemvalue="Maven.Legend Legacy" />
+      <item itemvalue="Maven.Legend [clean,install]" />
     </list>
     <recent_temporary>
       <list>

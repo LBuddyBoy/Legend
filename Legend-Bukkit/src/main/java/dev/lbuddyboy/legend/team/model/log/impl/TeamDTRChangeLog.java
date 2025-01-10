@@ -17,8 +17,8 @@ public class TeamDTRChangeLog extends TeamLog {
     private final ChangeCause cause;
     private UUID playerUUID;
 
-    public TeamDTRChangeLog(double previousDTR, double afterDTR, UUID playerUUID, ChangeCause cause) {
-        super((previousDTR > afterDTR ? "&a" : "&c") + APIConstants.formatNumber(previousDTR) + " -> " + APIConstants.formatNumber(afterDTR) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " )"), TeamLogType.DTR_CHANGED);
+    public TeamDTRChangeLog(UUID teamId, double previousDTR, double afterDTR, UUID playerUUID, ChangeCause cause) {
+        super(teamId, (previousDTR > afterDTR ? "&a" : "&c") + APIConstants.formatNumber(previousDTR) + " -> " + APIConstants.formatNumber(afterDTR) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " )"), TeamLogType.DTR_CHANGED);
 
         this.previousDTR = previousDTR;
         this.afterDTR = afterDTR;

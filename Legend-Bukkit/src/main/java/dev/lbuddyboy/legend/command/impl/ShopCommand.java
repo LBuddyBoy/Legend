@@ -6,7 +6,10 @@ import dev.lbuddyboy.commons.api.util.StringUtils;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.commons.util.ItemUtils;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
 import dev.lbuddyboy.legend.features.shop.ShopHandler;
+import dev.lbuddyboy.legend.features.shop.menu.ShopItemMenu;
+import dev.lbuddyboy.legend.features.shop.menu.ShopMainMenu;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,6 +18,13 @@ import org.bukkit.entity.Player;
 public class ShopCommand extends BaseCommand {
 
     private final ShopHandler shopHandler = LegendBukkit.getInstance().getShopHandler();
+
+    @Default
+    public void def(Player sender) {
+        if (SettingsConfig.SETTINGS_DISABLE_MENU_SHOP.getBoolean()) return;
+
+        new ShopMainMenu().openMenu(sender);
+    }
 
     @Subcommand("admin createitem")
     @CommandPermission("legend.command.shop.admin")

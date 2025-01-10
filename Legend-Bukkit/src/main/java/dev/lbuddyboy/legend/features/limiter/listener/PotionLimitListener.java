@@ -3,6 +3,7 @@ package dev.lbuddyboy.legend.features.limiter.listener;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
@@ -10,8 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionType;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PotionLimitListener implements Listener {
 
@@ -22,9 +26,8 @@ public class PotionLimitListener implements Listener {
 
         if (item == null) return;
         if (item.getType() != Material.POTION) return;
-
-        short durability = item.getDurability();
-        if (!getDisallowedPotions().contains((int)durability)) return;
+        if (!(item.getItemMeta() instanceof PotionMeta meta)) return;
+        if (!getDisallowedPotions().contains(meta.getBasePotionType())) return;
 
         event.setCancelled(true);
         player.sendMessage(CC.translate("&cThat potion is currently disabled."));
@@ -32,13 +35,10 @@ public class PotionLimitListener implements Listener {
 
     @EventHandler
     public void onSplash(ProjectileLaunchEvent event) {
-        if (!(event.getEntity() instanceof ThrownPotion)) return;
-        ThrownPotion thrownPotion = (ThrownPotion) event.getEntity();
+        if (!(event.getEntity() instanceof ThrownPotion thrownPotion)) return;
         ItemStack item = thrownPotion.getItem();
-        if (item == null) return;
-
-        short durability = item.getDurability();
-        if (!getDisallowedPotions().contains((int)durability)) return;
+        if (!(item.getItemMeta() instanceof PotionMeta meta)) return;
+        if (!getDisallowedPotions().contains(meta.getBasePotionType())) return;
 
         event.setCancelled(true);
         if (thrownPotion.getShooter() instanceof Player) {
@@ -46,8 +46,8 @@ public class PotionLimitListener implements Listener {
         }
     }
 
-    public List<Integer> getDisallowedPotions() {
-        return LegendBukkit.getInstance().getLimiterHandler().getConfig().getIntegerList("potion-limits");
+    public List<PotionType> getDisallowedPotions() {
+        return LegendBukkit.getInstance().getLimiterHandler().getConfig().getStringList("potion-limits").stream().map(Registry.POTION::match).filter(Objects::nonNull).toList();
     }
 
 }

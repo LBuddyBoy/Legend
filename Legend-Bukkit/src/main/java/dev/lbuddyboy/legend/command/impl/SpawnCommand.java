@@ -5,6 +5,8 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import dev.lbuddyboy.commons.util.CC;
 import dev.lbuddyboy.legend.LegendBukkit;
+import dev.lbuddyboy.legend.SettingsConfig;
+import dev.lbuddyboy.legend.team.model.TeamType;
 import dev.lbuddyboy.legend.timer.impl.CombatTimer;
 import dev.lbuddyboy.legend.timer.impl.SpawnTimer;
 import dev.lbuddyboy.legend.timer.server.SOTWTimer;
@@ -18,7 +20,12 @@ public class SpawnCommand extends BaseCommand {
         boolean permission = sender.hasPermission("legend.command.spawn");
         SOTWTimer sotwTimer = LegendBukkit.getInstance().getTimerHandler().getServerTimer(SOTWTimer.class);
         CombatTimer combatTimer = LegendBukkit.getInstance().getTimerHandler().getTimer(CombatTimer.class);
-        boolean kitMap = LegendBukkit.getInstance().getSettings().getBoolean("kitmap.enabled");
+        boolean kitMap = SettingsConfig.KITMAP_ENABLED.getBoolean();
+
+        if (TeamType.SPAWN.appliesAt(sender.getLocation())) {
+            sender.teleport(LegendBukkit.getInstance().getSpawnLocation());
+            return;
+        }
 
         if (permission) {
             sender.teleport(LegendBukkit.getInstance().getSpawnLocation());

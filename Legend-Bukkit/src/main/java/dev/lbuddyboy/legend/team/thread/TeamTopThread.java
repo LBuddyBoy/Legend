@@ -6,7 +6,7 @@ public class TeamTopThread extends Thread {
 
     @Override
     public void run() {
-        while (LegendBukkit.isENABLED()) {
+        while (true) {
             try {
                 LegendBukkit.getInstance().getTeamHandler().updateTopTeams();
             } catch (Exception e) {

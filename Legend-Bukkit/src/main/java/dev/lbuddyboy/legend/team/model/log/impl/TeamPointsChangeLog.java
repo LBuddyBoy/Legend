@@ -17,8 +17,8 @@ public class TeamPointsChangeLog extends TeamLog {
     private UUID playerUUID;
     private final ChangeCause cause;
 
-    public TeamPointsChangeLog(int previousPoints, int afterPoints, UUID playerUUID, ChangeCause cause) {
-        super((previousPoints > afterPoints ? "&a" : "&c") + APIConstants.formatNumber(previousPoints) + " -> " + APIConstants.formatNumber(afterPoints) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " )"), TeamLogType.POINTS_CHANGED);
+    public TeamPointsChangeLog(UUID teamId, int previousPoints, int afterPoints, UUID playerUUID, ChangeCause cause) {
+        super(teamId, (previousPoints > afterPoints ? "&a" : "&c") + APIConstants.formatNumber(previousPoints) + " -> " + APIConstants.formatNumber(afterPoints) + (playerUUID == null ? "" : " &7(Caused by " + UUIDUtils.name(playerUUID) + " ) - &e" + cause.name()), TeamLogType.POINTS_CHANGED);
 
         this.previousPoints = previousPoints;
         this.afterPoints = afterPoints;
@@ -64,7 +64,7 @@ public class TeamPointsChangeLog extends TeamLog {
 
     public enum ChangeCause {
 
-        NATURAL, FORCED, KILL, DEATH, KOTH, CITADEL, CONQUEST
+        NATURAL, FORCED, LOGGER_KILL, KILL, LOGGER_DEATH, DEATH, KOTH, CITADEL, DTC, CONQUEST, WENT_RAIDABLE, MADE_RAIDABLE
 
     }
 
